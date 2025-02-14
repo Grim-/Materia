@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <Thor.MateriaDef>
+      <defName>IceMateria</defName>
+      <label>Ice materia</label>
+      <description>A blue orb containing the essence of fire. Enhances weapon damage with burning power.</description>
+      <texPath>Materia/Materia_blue_low</texPath>
+      <commonality>1.0</commonality>
+      <SlotType>DamageTypeMateria</SlotType>
+      <effects>
+        <li>ExtraIceDamage</li>
+      </effects>
+    </Thor.MateriaDef>
+
+
+    <Thor.MateriaDef>
+      <defName>HealingMateria</defName>
+      <label>Healing materia</label>
+      <description>A green orb containing the essence of fire. Enhances weapon damage with burning power.</description>
+      <texPath>Materia/Materia_green_low</texPath>
+      <commonality>1.0</commonality>
+      <SlotType>HealingTypeMateria</SlotType>
+      <effects>
+        <li>Grant_AsgardianGene</li>
+      </effects>
+    </Thor.MateriaDef>
+
+
+    <Thor.MateriaEffectDef_GrantGene>
+      <defName>Grant_AsgardianGene</defName>
+      <label>damage boost</label>
+      <description>Increases weapon damage.</description>
+      <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+      <gene>AsgardianGene</gene>
+    </Thor.MateriaEffectDef_GrantGene>
+
+
+    <Thor.MateriaEffectDef_ExtraDamage>
+      <defName>ExtraDamage</defName>
+      <label>damage boost</label>
+      <description>Increases weapon damage.</description>
+      <workerClass>Thor.MateriaEffect_ExtraDamage</workerClass>
+      <damageType>Burn</damageType>
+      <effecter>WeaponFireEnchant</effecter>
+      <onhitEffecter>WeaponFireEnchant_OnHit</onhitEffecter>
+    </Thor.MateriaEffectDef_ExtraDamage>
+
+    <Thor.MateriaEffectDef_ExtraDamage>
+      <defName>ExtraIceDamage</defName>
+      <label>damage boost</label>
+      <description>Increases weapon damage.</description>
+      <workerClass>Thor.MateriaEffect_ExtraDamage</workerClass>
+      <damageType>Bomb</damageType>
+    </Thor.MateriaEffectDef_ExtraDamage>
+
+</Defs>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+      <defName>AsgardianGene</defName>
+      <label>asgardian physiology</label>
+      <description>A complex genetic structure granting superhuman physical capabilities including enhanced strength, durability, regeneration, and an extremely long lifespan.</description>
+      <iconPath>UI/Icons/CursedEnergyIcon</iconPath>
+      <displayCategory>Ability</displayCategory>
+      <displayOrderInCategory>100</displayOrderInCategory>
+      <biostatCpx>12</biostatCpx>
+      <biostatMet>3</biostatMet>
+      <statOffsets>
+          <MaxHitPoints>200</MaxHitPoints>
+          <MoveSpeed>1.5</MoveSpeed>
+          <CarryingCapacity>150</CarryingCapacity>
+          <MeleeDodgeChance>15</MeleeDodgeChance>
+          <MeleeDamageFactor>2.0</MeleeDamageFactor>
+          <PainShockThreshold>0.75</PainShockThreshold>
+          <ToxicResistance>0.8</ToxicResistance>
+          <ArmorRating_Sharp>1.0</ArmorRating_Sharp>
+          <ArmorRating_Blunt>1.0</ArmorRating_Blunt>
+          <MeleeCooldownFactor>-0.3</MeleeCooldownFactor>
+      </statOffsets>
+      <statFactors>
+          <ImmunityGainSpeed>2.5</ImmunityGainSpeed>
+          <LifespanFactor>5.0</LifespanFactor>
+      </statFactors>
+      <modExtensions>
+        <li Class="Thor.GeneExtension_PawnPartMaxHealth">
+        </li>
+  </GeneDef>
+
+  <XenotypeDef>
+      <defName>Asgardian</defName>
+      <label>asgardian</label>
+      <description>A member of the mighty Asgardian race, possessing superhuman strength, durability, and longevity. Their physical capabilities vastly exceed normal human limits.</description>
+      <iconPath>World/WorldObjects/Waypoints/QuestionMark</iconPath>
+      <inheritable>true</inheritable>
+      <genes>
+          <li>AsgardianGene</li>
+          <li>Immunity_Superior</li>
+      </genes>
+  </XenotypeDef>
+</Defs>

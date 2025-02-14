@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_AsgardianThor</defName>
+    <label>Asgardian (Thor)</label>
+    <description>Carriers of this gene should they be worthy shall have the power of Thor.</description>
+    <resourceGizmoThresholds>
+      <li>0.25</li>
+      <li>0.5</li>
+      <li>0.75</li>
+    </resourceGizmoThresholds>
+    <showGizmoOnWorldView>false</showGizmoOnWorldView>
+    <showGizmoWhenDrafted>true</showGizmoWhenDrafted>
+    <iconPath>UI/Icons/CursedEnergyIcon</iconPath>
+    <selectionWeight>0.2</selectionWeight>
+    <displayCategory>Hemogen</displayCategory>
+    <displayOrderInCategory>-2</displayOrderInCategory>
+    <customEffectDescriptions>
+      <li>Carriers of this gene should they be worthy shall have the power of Thor.</li>
+    </customEffectDescriptions>
+    <symbolPack>
+      <prefixSymbols>
+        <li>
+          <symbol>cursed energy</symbol>
+        </li>
+      </prefixSymbols>
+    </symbolPack>
+    <minAgeActive>3</minAgeActive>
+    <resourceLossPerDay>0</resourceLossPerDay>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>1</biostatMet>
+  </GeneDef>
+
+</Defs>

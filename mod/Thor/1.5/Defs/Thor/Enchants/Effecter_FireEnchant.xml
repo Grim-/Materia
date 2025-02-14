@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <EffecterDef>
+    <defName>WeaponFireEnchant</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
+        <scale>1</scale>
+        <moteDef>Fireball</moteDef>
+        <rotation>0</rotation>
+        <ticksBetweenMotes>3</ticksBetweenMotes>
+        <positionRadius>0.03</positionRadius>
+        <spawnLocType>OnSource</spawnLocType>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <EffecterDef>
+    <defName>WeaponFireEnchant_OnHit</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
+        <scale>1</scale>
+        <fleckDef>Fleck_FireRadialSparks</fleckDef>
+        <rotation>0</rotation>
+        <ticksBetweenMotes>3</ticksBetweenMotes>
+        <positionRadius>0.03</positionRadius>
+        <spawnLocType>OnSource</spawnLocType>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <FleckDef ParentName="FleckBase_Thrown">
+    <defName>Fleck_FireRadialSparks</defName>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <fadeInTime>0.1</fadeInTime>
+    <fadeOutTime>0.1</fadeOutTime>
+    <solidTime>0.6</solidTime>
+    <growthRate>0.33</growthRate>
+    <graphicData>
+      <texPath>Things/Mote/Sparks_Radial_A</texPath>
+      <graphicClass>Graphic_FleckPulse</graphicClass>
+      <shaderType>MoteCircularSparks</shaderType>
+      <shaderParameters>
+        <_ExtraTex>/Things/Mote/Sparks_Radial_B</_ExtraTex>
+        <_texScale>0.2</_texScale>
+        <_texAScrollSpeed>-0.75</_texAScrollSpeed>
+        <_texBScrollSpeed>1.25</_texBScrollSpeed>
+        <_Intensity>1</_Intensity>
+      </shaderParameters>
+      <drawSize>(8, 8)</drawSize>
+    </graphicData>
+  </FleckDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>Fireball</defName>
+    <thingClass>MoteAttached</thingClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <graphicData>
+      <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+      <shaderType>GlowAnimated</shaderType>
+      <texPath>Things/Mote/FireSpew_A</texPath>
+      <shaderParameters>
+        <_NumFrames>5</_NumFrames>
+        <_FramesPerSec>7</_FramesPerSec>
+      </shaderParameters>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <mote>
+      <fadeInTime>0.1</fadeInTime>
+      <solidTime>5</solidTime>
+      <fadeOutTime>0.2</fadeOutTime>
+      <rotateTowardsMoveDirection>false</rotateTowardsMoveDirection>
+    </mote>
+  </ThingDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>WeaponFireEnchantMote</defName>
+    <thingClass>MoteAttached</thingClass>
+    <graphicData>
+      <texPath>Things/Mote/FireGlow</texPath>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.08</fadeInTime>
+      <solidTime>0.3</solidTime>
+      <fadeOutTime>0.5</fadeOutTime>
+      <rotateTowardsMoveDirection>true</rotateTowardsMoveDirection>
+      <growthRate>-0.4</growthRate>
+    </mote>
+  </ThingDef>
+</Defs>
