@@ -9,7 +9,7 @@
     <graphicData>
       <texPath>Weapon_Brickhammer</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>1.2</drawSize>
+      <drawSize>1.1</drawSize>
     </graphicData>
     <recipeMaker>
       <recipeUsers>
@@ -46,7 +46,7 @@
       <li>
         <label>hammer head</label>
         <capacities>
-          <li>Crush</li>
+          <li>Blunt</li>
         </capacities>
         <power>14</power>
         <cooldownTime>1.8</cooldownTime>
@@ -64,17 +64,17 @@
       <li Class="Thor.CompProperties_BiocodableBinding">
         <biocodeOnEquip>true</biocodeOnEquip>
         <requiredSkills>
-          <li>
+          <!-- <li>
             <skill>Melee</skill>
             <minLevel>15</minLevel>
-          </li>
+          </li> -->
         </requiredSkills>
         <requiredTraits>
         </requiredTraits>
       </li>
       <li Class="Thor.CompProperties_MateriaComp">
         <materiaSlots>
-          <li>DamageTypeMateria</li>
+          <li>RedMateria</li>
         </materiaSlots>
       </li>
     </comps>

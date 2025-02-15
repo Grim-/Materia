@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+    <defName>MateriaEffect_ToxicResist_I</defName>
+    <label>Toxic Resistance Enhancement I</label>
+    <description>Increases resistance to toxic fallout.</description>
+    <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+    <statToAffect>ToxicResistance</statToAffect>
+    <statFactor>1.2</statFactor>
+    <statOffset>0</statOffset>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

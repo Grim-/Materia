@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <Thor.MateriaEffectDef_PawnStat>
+      <defName>MateriaEffect_Lifespan_I</defName>
+      <label>Lifespan Enhancement I</label>
+      <description>Increases natural lifespan.</description>
+      <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+      <statToAffect>LifespanFactor</statToAffect>
+      <statFactor>1.25</statFactor>
+      <statOffset>0</statOffset>
+    </Thor.MateriaEffectDef_PawnStat>
+
+</Defs>

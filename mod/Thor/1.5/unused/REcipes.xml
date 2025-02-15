@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+</Defs>
+    <!-- <RecipeDef Name="AddMateriaSlotBase" Abstract="True">
+        <jobString>Adding materia slot</jobString>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <workSkill>Crafting</workSkill>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <workAmount>2000</workAmount>
+        <recipeUsers>
+            <li>CraftingSpot</li>
+            <li>TableMachining</li>
+        </recipeUsers>
+        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+    </RecipeDef>
+
+    <!-- Red Dust Recipe -->
+    <RecipeDef ParentName="AddMateriaSlotBase">
+        <defName>AddMateriaSlot_Red</defName>
+        <label>add attack materia slot</label>
+        <description>Add an attack materia slot to a weapon using red materia dust.</description>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>MateriaDust_Red</li>
+                    </thingDefs>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <customFilters>
+                        <allowMateriaWeapons>true</allowMateriaWeapons>
+                    </customFilters>
+                </filter>
+                <count>1</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>MateriaDust_Red</li>
+            </thingDefs>
+            <customFilters>
+                <allowMateriaWeapons>true</allowMateriaWeapons>
+            </customFilters>
+        </fixedIngredientFilter>
+        <products>
+        </products>
+    </RecipeDef> -->

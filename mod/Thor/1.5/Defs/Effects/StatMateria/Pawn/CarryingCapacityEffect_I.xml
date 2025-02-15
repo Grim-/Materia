@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+    <defName>CarryingCapacityEffect_I</defName>
+    <label>carry capacity boost</label>
+    <description>carry capacity.</description>
+    <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+    <statToAffect>CarryingCapacity</statToAffect>
+    <statOffset>10</statOffset>
+    <statFactor>1</statFactor>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

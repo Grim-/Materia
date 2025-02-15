@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Thor_WeaponThrow</defName>
+    <label>Weapon Throw</label>
+    <description>Throw your equipped weapon.</description>
+    <hostile>true</hostile>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25</range>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="Thor.CompProperties_WeaponThrow">
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

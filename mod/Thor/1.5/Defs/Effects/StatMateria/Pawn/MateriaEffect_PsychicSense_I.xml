@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+    <defName>MateriaEffect_PsychicSense_I</defName>
+    <label>Psychic Sensitivity Enhancement I</label>
+    <description>Increases psychic sensitivity.</description>
+    <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+    <statToAffect>PsychicSensitivity</statToAffect>
+    <statFactor>1.15</statFactor>
+    <statOffset>0</statOffset>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaTypeDef>
+    <defName>GreenMateria</defName>
+    <label>Green Materia</label>
+    <description>A slot that accepts materia focused on healing and support. Green materia provides healing effects, protective buffs, and various beneficial enhancements.</description>
+    <materiaTextColor>(3, 252, 98)</materiaTextColor>
+  </Thor.MateriaTypeDef>
+</Defs>

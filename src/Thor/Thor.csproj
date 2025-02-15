@@ -80,6 +80,7 @@
     <Compile Include="Materia\GeneExtension_PawnPartMaxHealth.cs" />
     <Compile Include="Materia\IStatProvider.cs" />
     <Compile Include="Hediff\HediffCompProperties_DamageOverTime.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaBreakdownMaterials.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_EquipmentStat.cs" />
@@ -90,7 +91,9 @@
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_HediffOnHit.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
     <Compile Include="Materia\Materia Effects\MateriaInstance.cs" />
-    <Compile Include="Materia\Materia Effects\PawnOverlayNodeWorker.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaUtil.cs" />
+    <Compile Include="Materia\MateriaDustDef.cs" />
+    <Compile Include="RenderNodes\PawnOverlayNodeWorker.cs" />
     <Compile Include="Materia\Materia Effects\StatMod.cs" />
     <Compile Include="Materia\MateriaLinkBonus.cs" />
     <Compile Include="Comps\MateriaSlot.cs" />

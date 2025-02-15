@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>AccuracyMateria_I</defName>
+    <label>Accuracy Materia I</label>
+    <description>A red crystalline orb pulsing with focused energy. Improves the wielder's combat precision.</description>
+    <texPath>Materia/Materia_yellow_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_yellow_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_MeleeAccuracy_I</li>
+    </effects>
+    <textColor>(0.8, 0, 0)</textColor>
+  </Thor.MateriaDef>
+</Defs>

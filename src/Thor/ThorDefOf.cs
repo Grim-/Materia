@@ -14,6 +14,12 @@ namespace Thor
         public static EffecterDef WeaponFireEnchant;
 
         public static HediffDef BoundWeapon;
+
+
+        public static ThingDef RedMateriaDust;
+        public static ThingDef PurpleMateriaDust;
+        public static ThingDef GreenMateriaDust;
+        public static ThingDef BlueMateriaDust;
     }
 
 

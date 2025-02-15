@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+     <defName>LifespanMateria_I</defName>
+     <label>Lifespan Materia I</label>
+     <description>A green crystalline orb glowing with vital energy. Extends natural lifespan.</description>
+     <texPath>Materia/Materia_green_mid</texPath>
+     <graphicData>
+       <texPath>Materia/Materia_green_mid</texPath>
+       <graphicClass>Graphic_Single</graphicClass>
+     </graphicData>
+     <commonality>1.0</commonality>
+     <SlotType>GreenMateria</SlotType>
+     <effects>
+       <li>MateriaEffect_Lifespan_I</li>
+     </effects>
+     <textColor>(0.8, 0.8, 0)</textColor>
+   </Thor.MateriaDef>
+</Defs>

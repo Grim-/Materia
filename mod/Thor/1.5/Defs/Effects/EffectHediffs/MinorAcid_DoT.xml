@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>MinorAcid_DoT</defName>
+    <label>minor acid burn</label>
+    <description>Corrosive acid slowly eats away at the flesh.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.4, 1, 0)</defaultLabelColor>
+    <initialSeverity>0.3</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="Thor.HediffCompProperties_DamageOverTime">
+        <damagePerInterval>2</damagePerInterval>
+        <intervalTicks>400</intervalTicks>
+        <damageType>Burn</damageType>
+        <severityPerDamage>-0.15</severityPerDamage>
+      </li>
+    </comps>
+  </HediffDef>
+</Defs>

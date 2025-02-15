@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Thor_LightningRing</defName>
+    <label>LightningRing</label>
+    <description>LightningRing.</description>
+    <hostile>true</hostile>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25</range>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="Thor.CompProperties_LightningRing">
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

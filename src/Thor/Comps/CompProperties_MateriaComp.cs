@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Verse;
+using Verse.AI;
 
 namespace Thor
 {
@@ -534,5 +535,39 @@ namespace Thor
     }
 
 
+    //public class RecipeWorker_AddMateriaSlot : RecipeWorker
+    //{
+    //    public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
+    //    {
+    //        base.Notify_IterationCompleted(billDoer, ingredients);
 
+    //        Thing weapon = ingredients.Find(x => !(x.def is MateriaDustDef));
+    //        if (weapon == null) 
+    //            return;
+
+    //        Comp_MateriaComp materiaComp = weapon.TryGetComp<Comp_MateriaComp>();
+    //        if (materiaComp != null)
+    //        {
+    //            Thing dust = ingredients.Find(x => x.def is MateriaDustDef);
+    //            if (dust?.def is MateriaDustDef dustDef)
+    //            {
+    //                materiaComp.AddMateriaSlot(dustDef.createsSlotType);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+    //public class SpecialThingFilterWorker_MateriaWeapons : SpecialThingFilterWorker
+    //{
+    //    public override bool Matches(Thing t)
+    //    {
+    //        return t.TryGetComp<Comp_MateriaComp>() != null;
+    //    }
+
+    //    public override bool AlwaysMatches(ThingDef def)
+    //    {
+    //        return def.HasComp(typeof(Comp_MateriaComp));
+    //    }
+    //}
 }

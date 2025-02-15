@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_ChainLightningOnHit>
+    <defName>ChainLightningMateria_I</defName>
+    <label>Chain Lightning Strike</label>
+    <description>Triggers lightning that chains between targets when successfully damaging an enemy.</description>
+    <workerClass>Thor.MateriaEffect_ChainLightningOnHit</workerClass>
+  </Thor.MateriaEffectDef_ChainLightningOnHit>
+
+
+</Defs>

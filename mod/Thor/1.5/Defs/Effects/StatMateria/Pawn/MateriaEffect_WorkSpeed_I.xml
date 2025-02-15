@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+     <defName>MateriaEffect_WorkSpeed_I</defName>
+     <label>Work Speed Enhancement I</label>
+     <description>Increases general work speed.</description>
+     <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+     <statToAffect>WorkSpeedGlobal</statToAffect>
+     <statFactor>1.1</statFactor>
+     <statOffset>0</statOffset>
+   </Thor.MateriaEffectDef_PawnStat>
+
+</Defs>

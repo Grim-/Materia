@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+    <defName>MateriaEffect_MentalStability_I</defName>
+    <label>Mental Stability Enhancement I</label>
+    <description>Increases resistance to mental breaks.</description>
+    <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+    <statToAffect>MentalBreakThreshold</statToAffect>
+    <statFactor>0.85</statFactor>
+    <statOffset>0</statOffset>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_ChainLightning</defName>
+    <label>Ancient Materia Chain Lightning</label>
+    <description>A purple crystalline orb crackling with electrical energy. Causes lightning to arc between targets when striking enemies.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <effects>
+      <li>ChainLightningMateria_I</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+  </Thor.MateriaDef>
+</Defs>

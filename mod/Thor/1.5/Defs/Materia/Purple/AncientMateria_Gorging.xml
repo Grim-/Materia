@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_Gorging_I</defName>
+    <label>AncientMateria_Gorging_I</label>
+    <description>A purple crystalline orbMateriaEffect_Gorging_I.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_Gorging_I</li>
+    </effects>
+    <textColor>(0, 1, 0)</textColor>
+  </Thor.MateriaDef>
+
+</Defs>

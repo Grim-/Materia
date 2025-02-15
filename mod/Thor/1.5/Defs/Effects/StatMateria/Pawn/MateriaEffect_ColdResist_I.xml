@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+    <defName>MateriaEffect_ColdResist_I</defName>
+    <label>Cold Resistance Enhancement I</label>
+    <description>Increases minimum comfortable temperature.</description>
+    <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+    <statToAffect>ComfyTemperatureMin</statToAffect>
+    <statFactor>1</statFactor>
+    <statOffset>-10</statOffset>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

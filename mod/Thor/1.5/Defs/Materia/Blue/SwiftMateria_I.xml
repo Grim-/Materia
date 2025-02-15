@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+      <defName>SwiftMateria_I</defName>
+      <label>Swift Materia I</label>
+      <description>A shimmering green crystalline orb crackling with kinetic energy. Enhances the wielder's movement speed.</description>
+      <texPath>Materia/Materia_green_low</texPath>
+      <graphicData>
+          <texPath>Materia/Materia_green_low</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+      </graphicData>
+      <commonality>1.0</commonality>
+      <SlotType>GreenMateria</SlotType>
+      <effects>
+          <li>MateriaEffect_Speed_I</li>
+      </effects>
+      <textColor>(0, 0.8, 0)</textColor>
+  </Thor.MateriaDef>
+
+</Defs>

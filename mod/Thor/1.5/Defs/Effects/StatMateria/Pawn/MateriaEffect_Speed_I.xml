@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+      <defName>MateriaEffect_Speed_I</defName>
+      <label>Speed Enhancement I</label>
+      <statToAffect>MoveSpeed</statToAffect>
+      <statFactor>1.2</statFactor>
+  </Thor.MateriaEffectDef_PawnStat>
+</Defs>

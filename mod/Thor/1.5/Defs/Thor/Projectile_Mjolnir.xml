@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BaseBullet">
+    <defName>Thor_MjolnirProjectile</defName>
+    <label>Fire Arrow</label>
+    <thingClass>Thor.Projectile_MjolnirRebound</thingClass>
+    <graphicData>
+      <texPath>Mjolnir</texPath>
+      <graphicClass>Thor.Graphic_SpinningProjectile</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>1</drawSize>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <projectile>
+      <damageDef>Bomb</damageDef>
+      <explosionRadius>10</explosionRadius>
+      <speed>50</speed>
+    </projectile>
+  </ThingDef>
+</Defs>

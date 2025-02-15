@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>ToxicResistMateria_I</defName>
+    <label>Toxic Resistance Materia I</label>
+    <description>A blue crystalline orb that pulses with purifying energy. Protects against toxic environments.</description>
+    <texPath>Materia/Materia_blue_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_blue_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_ToxicResist_I</li>
+    </effects>
+    <textColor>(0, 0.8, 0)</textColor>
+  </Thor.MateriaDef>
+
+</Defs>

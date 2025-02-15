@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_PawnStat>
+      <defName>MateriaEffect_PainResist_I</defName>
+      <label>Pain Resistance Enhancement I</label>
+      <description>Increases pain shock threshold.</description>
+      <workerClass>Thor.MateriaEffect_PawnStat</workerClass>
+      <statToAffect>PainShockThreshold</statToAffect>
+      <statFactor>1.2</statFactor>
+      <statOffset>0</statOffset>
+    </Thor.MateriaEffectDef_PawnStat>
+
+</Defs>

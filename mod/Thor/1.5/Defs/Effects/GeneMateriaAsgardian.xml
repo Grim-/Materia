@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_GrantGene>
+    <defName>GeneMateriaAsgardian</defName>
+    <label>damage boost</label>
+    <description>Increases weapon damage.</description>
+    <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+    <gene>AsgardianGene</gene>
+  </Thor.MateriaEffectDef_GrantGene>
+</Defs>

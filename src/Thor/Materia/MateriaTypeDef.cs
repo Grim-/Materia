@@ -7,5 +7,4 @@ namespace Thor
     {
         public Color materiaTextColor;
     }
-
 }

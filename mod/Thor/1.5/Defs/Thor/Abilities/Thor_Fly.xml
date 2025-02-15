@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Thor_Fly</defName>
+    <label>Thor_Fly</label>
+    <description>Fly to the target location</description>
+    <hostile>true</hostile>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25</range>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="Thor.CompProperties_Fly">
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

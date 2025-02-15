@@ -28,6 +28,7 @@
       <modExtensions>
         <li Class="Thor.GeneExtension_PawnPartMaxHealth">
         </li>
+      </modExtensions>
   </GeneDef>
 
   <XenotypeDef>

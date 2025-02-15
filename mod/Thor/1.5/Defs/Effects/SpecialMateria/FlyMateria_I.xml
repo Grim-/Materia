@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_GrantAbility>
+    <defName>MateriaEffect_GrantFlight_I</defName>
+    <label>Fly Materia I</label>
+    <description>Grants the ability to fly</description>
+    <workerClass>Thor.MateriaEffect_GrantAbility</workerClass>
+    <ability>Thor_Fly</ability>
+  </Thor.MateriaEffectDef_GrantAbility>
+
+</Defs>

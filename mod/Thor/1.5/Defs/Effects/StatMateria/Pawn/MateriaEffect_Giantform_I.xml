@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaEffectDef_GrantGene>
+      <defName>MateriaEffect_Giantform_I</defName>
+      <label>Giant Form I</label>
+      <description>Transforms the wielder into a giant form.</description>
+      <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+      <gene>Body_Hulk</gene>
+      <isXenogene>true</isXenogene>
+  </Thor.MateriaEffectDef_GrantGene>
+
+</Defs>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Thor_ChainLightning</defName>
+    <label>Thor_ChainLightning</label>
+    <description>Thor_ChainLightning.</description>
+    <hostile>true</hostile>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25</range>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="Thor.CompProperties_ChainLightning">
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

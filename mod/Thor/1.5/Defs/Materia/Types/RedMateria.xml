@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaTypeDef>
+      <defName>RedMateria</defName>
+      <label>Red Materia</label>
+      <description>A slot that accepts materia focused on damage and combat effects. Red materia typically enhances weapon damage, adds elemental effects, or modifies how the weapon deals damage.</description>
+      <materiaTextColor>(252, 11, 3)</materiaTextColor>
+    </Thor.MateriaTypeDef>
+</Defs>

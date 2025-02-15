@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <Thor.MateriaDustDef ParentName="BaseMateriaDust">
+      <defName>BlueMateriaDust</defName>
+      <label>BlueMateriaDust</label>
+      <description>A fine powder of blue materia ready to be reconstructed.</description>
+      <graphicData>
+        <texPath>MateriaDust/Materia_dust_blue</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+      </graphicData>
+      <createsSlotType>BlueMateria</createsSlotType>
+    </Thor.MateriaDustDef>
+
+</Defs>
