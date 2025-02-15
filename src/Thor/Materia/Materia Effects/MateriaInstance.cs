@@ -9,6 +9,9 @@ namespace Thor
         public MateriaDef def;
         private List<MateriaWorker> activeEffects = new List<MateriaWorker>();
 
+        public List<MateriaWorker> ActiveEffects => activeEffects.ToList();
+
+
         protected MateriaSlot ParentSlot;
         protected ThingWithComps ParentThing;
 
@@ -39,6 +42,33 @@ namespace Thor
             }
         }
 
+        public List<T> GetEffectsOfType<T>() where T: MateriaWorker
+        {
+            List<T> newList = new List<T>();
+
+            foreach (var effect in activeEffects)
+            {
+                if (effect is T asT)
+                {
+                    newList.Add(asT);
+                }
+            }
+            return newList;
+        }
+        public List<T> GetEffectsOfDef<T>(MateriaEffectDef materiaEffectDef) where T : MateriaWorker
+        {
+            List<T> newList = new List<T>();
+
+            foreach (var effectDef in activeEffects)
+            {
+                if (effectDef.def == materiaEffectDef && effectDef is T asT)
+                {
+                    newList.Add(asT);
+                }
+            }
+            return newList;
+        }
+
         public void ExposeData()
         {
             Scribe_Defs.Look(ref def, "def");
@@ -60,6 +90,35 @@ namespace Thor
                 effect.OnTick(pawn);
             }
         }
+        public virtual void Notify_KilledPawn(Pawn pawn)
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_KilledPawn(pawn);
+            }
+        }
+
+        public virtual void Notify_OwnerKilled(Map prevMap, DamageInfo? dinfo = null)
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_OwnerKilled(prevMap, dinfo);
+            }
+        }
+
+        public virtual void Notify_OwnerMood(Pawn pawn)
+        {
+
+        }
+
+        public virtual void Notify_OwnerThought(Pawn pawn)
+        {
+      
+        }
+        public virtual void Notify_OwnerHediffAdded(Pawn pawn)
+        {
+  
+        }
 
         public void Notify_Equipped(Pawn pawn)
         {
@@ -68,24 +127,22 @@ namespace Thor
                 effect.Notify_Equipped(pawn);
             }
         }
-
-        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, DamageWorker.DamageResult DamageWorkerResult)
-        {
-            DamageWorker.DamageResult damageResult = DamageWorkerResult;
-            foreach (var effect in activeEffects)
-            {
-                damageResult = effect.Notify_ApplyMeleeDamageToTarget(target, DamageWorkerResult);
-            }
-
-            return damageResult;
-        }
-
         public void Notify_Unequipped(Pawn pawn)
         {
             foreach (var effect in activeEffects)
             {
                 effect.Notify_Unequipped(pawn);
             }
+        }
+        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
+        {
+            DamageWorker.DamageResult damageResult = DamageWorkerResult;
+            foreach (var effect in activeEffects)
+            {
+                damageResult = effect.Notify_ApplyMeleeDamageToTarget(target, Attacker, DamageWorkerResult);
+            }
+
+            return damageResult;
         }
 
         public void Notify_MateriaLinked(MateriaDef sourceMateria, MateriaDef linkedMateria)
@@ -101,7 +158,6 @@ namespace Thor
                 }
             }
         }
-
         public void Notify_MateriaUnlinked(MateriaDef sourceMateria, MateriaDef linkedMateria)
         {
             activeEffects.RemoveAll(effect =>

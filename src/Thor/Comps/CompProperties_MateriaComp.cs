@@ -1,6 +1,8 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Verse;
 
 namespace Thor
@@ -15,24 +17,37 @@ namespace Thor
         }
     }
 
-    public class Comp_MateriaComp : CompEquippable
+    public class Comp_MateriaComp : CompEquippable, IStatProvider
     {
         private List<MateriaSlot> materiaSlots = new List<MateriaSlot>();
         public List<MateriaSlot> MateriaSlots => materiaSlots.ToList();
-
+        private bool initializedSlots = false;
         private CompProperties_MateriaComp Props => (CompProperties_MateriaComp)props;
 
         protected Pawn EquippedPawn = null;
 
-        public override void PostSpawnSetup(bool respawningAfterLoad)
+        public override void PostPostMake()
         {
-            base.PostSpawnSetup(respawningAfterLoad);
-            if (!respawningAfterLoad)
+            if (!initializedSlots)
             {
-                CreateMateriaSlots();
-                EquipMateria(DefDatabase<MateriaDef>.GetNamed("FireMateria"));
+                GenerateSlotsForWeapon();
+                initializedSlots = true;
             }
+            base.PostPostMake();
+            CreateMateriaSlots();
         }
+        private void GenerateSlotsForWeapon()
+        {
+            QualityCategory? quality = null;
+            if (parent.TryGetComp<CompQuality>() is CompQuality qualityComp)
+            {
+                quality = qualityComp.Quality;
+            }
+
+            materiaSlots = MateriaSlotGenerator.GenerateSlots(parent, this, quality);
+        }
+
+        #region events
 
         public override void Notify_Equipped(Pawn pawn)
         {
@@ -74,6 +89,45 @@ namespace Thor
         }
 
 
+        public override void Notify_Killed(Map prevMap, DamageInfo? dinfo = null)
+        {
+            base.Notify_Killed(prevMap, dinfo);
+
+
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_OwnerKilled(prevMap, dinfo);
+            });
+        }
+
+        public override void Notify_KilledPawn(Pawn pawn)
+        {
+            base.Notify_KilledPawn(pawn);
+
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_KilledPawn(pawn);
+            });
+        }
+        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
+        {
+            DamageWorker.DamageResult damageResult = new DamageWorker.DamageResult();
+
+            foreach (var item in MateriaSlots)
+            {
+                if (item.SlottedMateria != null)
+                {
+                    damageResult = item.SlottedMateria.Notify_ApplyMeleeDamageToTarget(target, Attacker, DamageWorkerResult);
+                }
+            }
+
+            return damageResult;
+        }
+
+        #endregion
+
+        #region materia
+
         protected void CreateMateriaSlots()
         {
             if (materiaSlots == null || materiaSlots.Count == 0)
@@ -85,39 +139,10 @@ namespace Thor
                 }
             }
         }
-
-
-        protected void AddMateriaSlot(MateriaTypeDef SlotType)
-        {
-            materiaSlots.Add(new MateriaSlot(this.parent, this, SlotType));
-        }
-
-        public bool CanEquipMateria(MateriaDef materia)
-        {
-            return HasFreeValidMateriaSlotFor(materia);
-        }
-
         public bool HasFreeValidMateriaSlotFor(MateriaDef materia)
         {
             return materiaSlots.Any(slot => !slot.IsOccupied && slot.CanAccept(materia));
         }
-
-        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, DamageWorker.DamageResult DamageWorkerResult)
-        {
-            DamageWorker.DamageResult damageResult = new DamageWorker.DamageResult();
-
-            foreach (var item in MateriaSlots)
-            {
-                if (item.SlottedMateria != null)
-                {
-                    damageResult = item.SlottedMateria.Notify_ApplyMeleeDamageToTarget(target, DamageWorkerResult);
-                }
-            }
-
-            return damageResult;
-        }
-
-
         protected virtual void DoForAllMateria(Action<MateriaSlot> actionToDo)
         {
             foreach (var item in MateriaSlots)
@@ -128,7 +153,6 @@ namespace Thor
                 }
             }
         }
-
         public void EquipMateria(MateriaDef materiaDef)
         {
             var slot = materiaSlots.FirstOrDefault(s => !s.IsOccupied && s.CanAccept(materiaDef));
@@ -138,7 +162,6 @@ namespace Thor
             slot.EquipMateria(materiaDef);
             CheckAndCreateMateriaLinks(slot);
         }
-
         public void UnequipMateria(MateriaDef materiaDef)
         {
             var slot = materiaSlots.FirstOrDefault(s => s.IsOccupied && s.SlottedMateria.def == materiaDef);
@@ -148,7 +171,6 @@ namespace Thor
             RemoveMateriaLinks(slot);
             slot.UnequipMateria();
         }
-
         private void CheckAndCreateMateriaLinks(MateriaSlot newSlot)
         {
             if (!newSlot.IsOccupied)
@@ -163,13 +185,11 @@ namespace Thor
                 }
             }
         }
-
         private void CreateMateriaLink(MateriaSlot source, MateriaSlot target)
         {
             source.SlottedMateria.Notify_MateriaLinked(source.SlottedMateria.def, target.SlottedMateria.def);
             target.SlottedMateria.Notify_MateriaLinked(target.SlottedMateria.def, source.SlottedMateria.def);
         }
-
         private void RemoveMateriaLinks(MateriaSlot slot)
         {
             if (!slot.IsOccupied)
@@ -186,6 +206,177 @@ namespace Thor
             }
         }
 
+        public void AddMateriaSlot(MateriaTypeDef SlotType)
+        {
+            materiaSlots.Add(new MateriaSlot(this.parent, this, SlotType));
+        }
+
+        public bool CanEquipMateria(MateriaDef materia)
+        {
+            return HasFreeValidMateriaSlotFor(materia);
+        }
+
+        #endregion
+
+        #region Equipment Stat Modifiers
+        private IEnumerable<MateriaEffectDef_EquipmentStat> FindStatEffects(StatDef stat)
+        {
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_EquipmentStat>())
+                    {
+                        var def = (MateriaEffectDef_EquipmentStat)effect.def;
+                        if (def.statToAffect == stat)
+                        {
+                            yield return def;
+                        }
+                    }
+                }
+            }
+        }
+
+        public override float GetStatFactor(StatDef stat)
+        {
+            float factor = base.GetStatFactor(stat);
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_EquipmentStat>())
+                    {
+                        var def = (MateriaEffectDef_EquipmentStat)effect.def;
+                        if (def.statToAffect == stat)
+                        {
+                            factor += def.StatFactors.GetStatFactorFromList(stat);
+                        }
+
+                    }
+                }
+            }
+            return factor;
+        }
+
+        public override float GetStatOffset(StatDef stat)
+        {          
+            float offset = base.GetStatOffset(stat);
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_EquipmentStat>())
+                    {
+                        var def = (MateriaEffectDef_EquipmentStat)effect.def;
+
+                        if (def.statToAffect == stat)
+                        {
+                            offset += def.StatOffsets.GetStatOffsetFromList(stat);
+                        }
+
+                    }
+                }
+            }
+            return offset;
+        }
+
+        public override void GetStatsExplanation(StatDef stat, StringBuilder sb)
+        {
+            base.GetStatsExplanation(stat, sb);
+
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_EquipmentStat>())
+                    {
+                        var def = (MateriaEffectDef_EquipmentStat)effect.def;
+                        if (def.statToAffect == stat)
+                        {
+                            var offset = def.StatOffsets.GetStatOffsetFromList(stat);
+                            sb.AppendLine($"Materia {effect}: ×{offset:F2}");
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Equip Pawn Stat Modifiers
+
+        public IEnumerable<StatModifier> GetStatOffsets(StatDef stat)
+        {
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_PawnStat>())
+                    {
+                        var def = (MateriaEffectDef_PawnStat)effect.def;
+                        if (def.statToAffect == stat)
+                        {
+                            yield return new StatModifier
+                            {
+                                stat = def.statToAffect,
+                                value = def.statOffset
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        public IEnumerable<StatModifier> GetStatFactors(StatDef stat)
+        {
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_PawnStat>())
+                    {
+                        var def = (MateriaEffectDef_PawnStat)effect.def;
+                        if (def.statToAffect == stat)
+                        {
+                            yield return new StatModifier
+                            {
+                                stat = def.statToAffect,
+                                value = def.statFactor,
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        public string GetExplanation(StatDef stat)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (var slot in materiaSlots)
+            {
+                if (slot.IsOccupied && slot.SlottedMateria != null)
+                {
+                    foreach (var effect in slot.SlottedMateria.ActiveEffects)
+                    {
+                        if (effect is MateriaEffect_PawnStat statEffect)
+                        {
+                            var def = (MateriaEffectDef_PawnStat)effect.def;
+                            if (def.statToAffect == stat)
+                            {
+                                result.AppendLine($"  {slot.SlottedMateria.def.GetColouredLabel()}: ");
+                                if (def.statOffset != 0)
+                                    result.AppendLine($"    {def.statOffset:+#;-#;0}");
+                                if (def.statFactor != 1)
+                                    result.AppendLine($"    x{def.statFactor.ToStringPercent()}%");
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+
+        #endregion
+
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
 
@@ -199,51 +390,41 @@ namespace Thor
                 defaultLabel = "Manage Materia",
                 action = () =>
                 {
-                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, this));
+                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, EquippedPawn, this));
                 }
             };
 
-            yield return new Command_Action()
+
+            if (Prefs.DevMode)
             {
-                defaultLabel = "Add Materia Slot",
-                action = () =>
+                yield return new Command_Action()
                 {
-
-                    List<FloatMenuOption> menuOptions = new List<FloatMenuOption>();
-
-                    foreach (var item in DefDatabase<MateriaTypeDef>.AllDefsListForReading)
+                    defaultLabel = "Add Materia Slot",
+                    action = () =>
                     {
-                        menuOptions.Add(new FloatMenuOption($"Add {item.defName} slot", () =>
+
+                        List<FloatMenuOption> menuOptions = new List<FloatMenuOption>();
+
+                        foreach (var item in DefDatabase<MateriaTypeDef>.AllDefsListForReading)
                         {
-                            AddMateriaSlot(item);
-                        }));
+                            menuOptions.Add(new FloatMenuOption($"Add {item.defName} slot", () =>
+                            {
+                                AddMateriaSlot(item);
+                            }));
+                        }
+
+
+                        Find.WindowStack.Add(new FloatMenu(menuOptions));
                     }
+                };
+            }
 
-
-                    Find.WindowStack.Add(new FloatMenu(menuOptions));
-                }
-            };
         }
-
-
-        public override IEnumerable<Gizmo> CompGetEquippedGizmosExtra()
-        {
-            //return base.CompGetEquippedGizmosExtra();
-
-
-            yield return new Command_Action()
-            {
-                defaultLabel = "Manage Materia",
-                action = () =>
-                {
-                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, this));
-                }
-            };
-        }
-
 
         public override void PostExposeData()
         {
+            Scribe_Values.Look(ref initializedSlots, "initializedSlots", false);
+
             //stupid hack work around because it saves the same verbs twice with the key and load ids
             if (Scribe.mode == LoadSaveMode.Saving)
             {
@@ -278,21 +459,8 @@ namespace Thor
 
             return "Equipped materia: " + materiaSlots
                 .Where(s => s.IsOccupied)
-                .Select(s => s.SlottedMateria.def.label)
+                .Select(s => s.SlottedMateria.def.GetColouredLabel())
                 .ToCommaList();
         }
-    }
-    public class ThingDef_Materia : ThingDef
-    {
-        // Preserved materia-specific properties
-        public float commonality = 1f;
-        public MateriaTypeDef SlotType;
-        public List<MateriaEffectDef> effects;
-        public List<MateriaLinkBonus> links;
-    }
-
-    public class Thing_Materia : ThingWithComps
-    {
-        public ThingDef_Materia MateriaProps => def as ThingDef_Materia;
     }
 }

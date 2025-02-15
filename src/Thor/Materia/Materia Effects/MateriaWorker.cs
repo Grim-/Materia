@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace Thor
 {
@@ -28,6 +29,29 @@ namespace Thor
         {
         
         }
+        public virtual void Notify_KilledPawn(Pawn pawn)
+        {
+
+        }
+
+        public virtual void Notify_OwnerKilled(Map prevMap, DamageInfo? dinfo = null)
+        {
+
+        }
+
+        public virtual void Notify_OwnerMood(Pawn pawn)
+        {
+
+        }
+
+        public virtual void Notify_OwnerThought(Pawn pawn)
+        {
+
+        }
+        public virtual void Notify_OwnerHediffAdded(Pawn pawn)
+        {
+
+        }
 
         public virtual void OnTick(Pawn pawn)
         {
@@ -43,11 +67,19 @@ namespace Thor
         
         }
 
-        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, DamageWorker.DamageResult DamageWorkerResult)
+        public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
         {
             return DamageWorkerResult;
         }
+        public virtual float GetStatFactor(StatDef stat)
+        {
+            return 1f;
+        }
 
+        public virtual float GetStatOffset(StatDef stat)
+        {
+            return 0f;
+        }
         public virtual void ExposeData()
         {
             Scribe_Defs.Look(ref def, "def");

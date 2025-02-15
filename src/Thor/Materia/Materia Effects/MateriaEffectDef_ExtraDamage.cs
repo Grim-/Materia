@@ -30,19 +30,17 @@ namespace Thor
             //}
         }
 
-
-
         public override void OnTick(Pawn pawn)
         {
             base.OnTick(pawn);
 
-            if (effect != null && ParentEquipment != null && Find.TickManager.TicksGame % 10 == 0)
-            {
-                effect.EffectTick(ParentEquipment, ParentEquipment);
-            }
+            //if (effect != null && ParentEquipment != null && Find.TickManager.TicksGame % 10 == 0)
+            //{
+            //    effect.EffectTick(ParentEquipment, ParentEquipment);
+            //}
         }
 
-        public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, DamageWorker.DamageResult damageResult)
+        public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult damageResult)
         {
             if (damageResult?.totalDamageDealt > 0 && target.Thing != null)
             {

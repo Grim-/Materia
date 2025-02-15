@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -9,13 +10,16 @@ namespace Thor
         private Vector2 scrollPosition = Vector2.zero;
         private readonly Thing parentThing;
         private readonly Comp_MateriaComp materiaComp;
+        private readonly Pawn usingPawn;
         private static readonly Vector2 WinSize = new Vector2(600f, 400f);
 
         private const float SLOT_SIZE = 120f;
         private const float SLOT_PADDING = 10f;
         private const float SECTION_PADDING = 20f;
         private const float SLOTS_PER_ROW = 4;
-        private const float TOP_MARGIN = 15f; // Added margin below title
+        private const float TOP_MARGIN = 15f;
+        private const float DEV_BUTTON_HEIGHT = 30f;
+        private const float DEV_BUTTON_WIDTH = 100f;
 
         private const float LABEL_HEIGHT = 40f;
         private const float TITLE_HEIGHT = 35f;
@@ -26,7 +30,7 @@ namespace Thor
 
         public override Vector2 InitialSize => WinSize;
 
-        public Window_MateriaSelection(Thing thing, Comp_MateriaComp comp)
+        public Window_MateriaSelection(Thing thing, Pawn Pawn, Comp_MateriaComp comp)
         {
             this.parentThing = thing;
             this.materiaComp = comp;
@@ -34,6 +38,7 @@ namespace Thor
             this.doCloseButton = true;
             this.absorbInputAroundWindow = true;
             this.forcePause = true;
+            this.usingPawn = Pawn;
         }
 
         private void DrawTitle(Rect inRect)
@@ -46,6 +51,37 @@ namespace Thor
             string titleText = $"Materia Slots - {parentThing.Label}";
             Widgets.Label(titleRect, titleText);
             Text.Anchor = TextAnchor.UpperLeft;
+
+            if (Prefs.DevMode)
+            {
+                Rect buttonRect = new Rect(
+                    inRect.width - DEV_BUTTON_WIDTH - 10f,
+                    5f,
+                    DEV_BUTTON_WIDTH,
+                    DEV_BUTTON_HEIGHT
+                );
+
+                if (Widgets.ButtonText(buttonRect, "Add Materia Slot"))
+                {
+                    List<FloatMenuOption> menuOptions = new List<FloatMenuOption>();
+                    foreach (var item in DefDatabase<MateriaTypeDef>.AllDefsListForReading)
+                    {
+                        menuOptions.Add(new FloatMenuOption($"Add {item.defName} slot", () =>
+                        {
+                            AddMateriaSlot(item);
+                        }));
+                    }
+                    Find.WindowStack.Add(new FloatMenu(menuOptions));
+                }
+            }
+        }
+
+        private void AddMateriaSlot(MateriaTypeDef slotType)
+        {
+            if (materiaComp != null)
+            {
+                materiaComp.AddMateriaSlot(slotType);
+            }
         }
 
         private void TryDrawIcon(Rect iconRect, MateriaInstance materia)
@@ -59,14 +95,25 @@ namespace Thor
                 }
             }
         }
-
         private void DrawMateriaSlot(Rect slotRect, MateriaSlot slot)
         {
+            Color slotTypeColor = slot.SlotType?.materiaTextColor ?? Color.grey;
+
             GUI.color = Color.white;
-            Widgets.DrawBox(slotRect, 1, SolidColorMaterials.NewSolidColorTexture(Color.grey));
+            Widgets.DrawBox(slotRect, 2, SolidColorMaterials.NewSolidColorTexture(slotTypeColor));
+
+            Color bgColor = new Color(
+                slotTypeColor.r * 0.3f,
+                slotTypeColor.g * 0.3f,
+                slotTypeColor.b * 0.3f,
+                0.2f
+            );
+            GUI.DrawTexture(slotRect, SolidColorMaterials.NewSolidColorTexture(bgColor));
+
 
             Rect innerRect = slotRect.ContractedBy(INNER_PADDING);
             float labelHeight = LABEL_HEIGHT;
+
 
             Rect iconRect = new Rect(
                 innerRect.x,
@@ -75,9 +122,13 @@ namespace Thor
                 innerRect.height - labelHeight
             );
 
+            // Draw icon or empty slot
             if (slot.IsOccupied)
             {
                 TryDrawIcon(iconRect, slot.SlottedMateria);
+                GUI.color = new Color(slotTypeColor.r, slotTypeColor.g, slotTypeColor.b, 0.3f);
+                Widgets.DrawBox(iconRect.ExpandedBy(2f), 1);
+                GUI.color = Color.white;
             }
             else
             {
@@ -91,15 +142,32 @@ namespace Thor
                 slotRect.width,
                 labelHeight
             );
-            GUI.DrawTexture(footerRect, SolidColorMaterials.NewSolidColorTexture(FOOTER_COLOR));
 
+      
+            Color footerColor = new Color(
+                slotTypeColor.r * 0.8f,
+                slotTypeColor.g * 0.8f,
+                slotTypeColor.b * 0.8f,
+                0.3f
+            );
+            GUI.DrawTexture(footerRect, SolidColorMaterials.NewSolidColorTexture(footerColor));
+
+            // Draw slot type label
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleCenter;
+            GUI.color = slotTypeColor;
             Widgets.Label(footerRect, slot.SlotType?.label ?? "Any");
+            GUI.color = Color.white;
 
             if (Mouse.IsOver(slotRect))
             {
-                Widgets.DrawHighlight(slotRect);
+                Color highlightColor = new Color(
+                    slotTypeColor.r,
+                    slotTypeColor.g,
+                    slotTypeColor.b,
+                    0.4f
+                );
+                Widgets.DrawBox(slotRect, 3, SolidColorMaterials.NewSolidColorTexture(highlightColor));
 
                 if (slot.IsOccupied)
                 {
@@ -129,18 +197,36 @@ namespace Thor
             GUI.color = Color.white;
         }
 
+
         private List<FloatMenuOption> GenerateMateriaOptions(MateriaSlot slot)
         {
             List<FloatMenuOption> options = new List<FloatMenuOption>();
 
-            foreach (MateriaDef materiaDef in DefDatabase<MateriaDef>.AllDefs)
+            if (Prefs.DevMode)
             {
-                if (slot.CanAccept(materiaDef))
+                foreach (MateriaDef materiaDef in DefDatabase<MateriaDef>.AllDefs)
                 {
-                    options.Add(new FloatMenuOption(materiaDef.label, () =>
+                    if (slot.CanAccept(materiaDef))
                     {
-                        slot.EquipMateria(materiaDef);
-                    }));
+                        options.Add(new FloatMenuOption(materiaDef.label, () =>
+                        {
+                            slot.EquipMateria(materiaDef);
+                        }));
+                    }
+                }
+            }
+            else
+            {
+                foreach (Thing thing in usingPawn.EquippedWornOrInventoryThings)
+                {
+                    if (thing.def is MateriaDef materiaDef && slot.CanAccept(materiaDef))
+                    {
+                        options.Add(new FloatMenuOption(materiaDef.GetColouredLabel(), () =>
+                        {
+                            slot.EquipMateria(materiaDef);
+                            usingPawn.inventory.RemoveCount(thing.def, 1);
+                        }));
+                    }
                 }
             }
 

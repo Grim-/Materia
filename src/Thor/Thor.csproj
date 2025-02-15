@@ -69,15 +69,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abilities\CompProperties_Fly.cs" />
     <Compile Include="BoundWeaponUtil.cs" />
     <Compile Include="Comps\CompProperties_BiocodableBinding.cs" />
     <Compile Include="Comps\CompProperties_MateriaComp.cs" />
     <Compile Include="Comps\CompProperties_SelectiveBiocodable.cs" />
+    <Compile Include="Comps\MateriaSlotGenerator.cs" />
     <Compile Include="HediffCompProperties_BoundWeapon.cs" />
+    <Compile Include="Materia\GeneExtension_PawnPartMaxHealth.cs" />
+    <Compile Include="Materia\IStatProvider.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_EquipmentStat.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ExtraDamage.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantAbility.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantGene.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_HealOnHit.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_HediffOnHit.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
     <Compile Include="Materia\Materia Effects\MateriaInstance.cs" />
+    <Compile Include="Materia\Materia Effects\StatMod.cs" />
     <Compile Include="Materia\MateriaLinkBonus.cs" />
     <Compile Include="Comps\MateriaSlot.cs" />
     <Compile Include="Materia\MateriaTypeDef.cs" />
@@ -91,7 +102,7 @@
     <Compile Include="Graphic_SpinningProjectile.cs" />
     <Compile Include="Util\LightningRingBehavior.cs" />
     <Compile Include="Util\LightningStrike.cs" />
-    <Compile Include="Materia\MateriaDef.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaDef.cs" />
     <Compile Include="Materia\MateriaPatchClass.cs" />
     <Compile Include="PawnFlyerDelegate.cs" />
     <Compile Include="Projectile_Delegate.cs" />

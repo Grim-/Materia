@@ -62,4 +62,6 @@ namespace Thor
             Scribe_Deep.Look(ref lightningBehavior, "lightningTicker");
         }
     }
+
+
 }
