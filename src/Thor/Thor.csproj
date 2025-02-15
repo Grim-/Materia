@@ -72,12 +72,14 @@
     <Compile Include="Abilities\CompProperties_Fly.cs" />
     <Compile Include="BoundWeaponUtil.cs" />
     <Compile Include="Comps\CompProperties_BiocodableBinding.cs" />
+    <Compile Include="Comps\CompProperties_MagicalTome.cs" />
     <Compile Include="Comps\CompProperties_MateriaComp.cs" />
     <Compile Include="Comps\CompProperties_SelectiveBiocodable.cs" />
     <Compile Include="Comps\MateriaSlotGenerator.cs" />
     <Compile Include="HediffCompProperties_BoundWeapon.cs" />
     <Compile Include="Materia\GeneExtension_PawnPartMaxHealth.cs" />
     <Compile Include="Materia\IStatProvider.cs" />
+    <Compile Include="Hediff\HediffCompProperties_DamageOverTime.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_EquipmentStat.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_HediffOnHit.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
     <Compile Include="Materia\Materia Effects\MateriaInstance.cs" />
+    <Compile Include="Materia\Materia Effects\PawnOverlayNodeWorker.cs" />
     <Compile Include="Materia\Materia Effects\StatMod.cs" />
     <Compile Include="Materia\MateriaLinkBonus.cs" />
     <Compile Include="Comps\MateriaSlot.cs" />
@@ -114,8 +117,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hediff\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,8 +19,10 @@ namespace Thor
             if (parent.pawn?.Map == null)
                 return;
 
+
+            Map map = parent.pawn.Map;
             PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(ThorDefOf.Thor_PawnFlyer, parent.pawn, target.Cell, null, null);
-            GenSpawn.Spawn(pawnFlyer, parent.pawn.Position, parent.pawn.Map);
+            GenSpawn.Spawn(pawnFlyer, parent.pawn.Position, map);
         }
     }
 }

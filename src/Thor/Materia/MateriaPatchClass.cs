@@ -180,44 +180,6 @@ namespace Thor
         }
     }
 
-    //[HarmonyPatch(typeof(StatWorker))]
-    //[HarmonyPatch("GetExplanationFinalizePart")]
-    //public class Patch_StatWorker_GetExplanationFinalizePart
-    //{
-    //    public static void Postfix(StatRequest req, StatDef ___stat, ref string __result)
-    //    {
-    //        if (!req.HasThing) return;
-
-    //        StringBuilder explanation = new StringBuilder(__result);
-    //        bool addedHeader = false;
-
-    //        Pawn pawn = req.Thing as Pawn;
-    //        if (pawn?.equipment?.AllEquipmentListForReading != null)
-    //        {
-    //            foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
-    //            {
-    //                foreach (var comp in equipment.GetComps<ThingComp>())
-    //                {
-    //                    if (comp is IStatProvider provider)
-    //                    {
-    //                        string statExplanation = provider.GetExplanation(___stat);
-    //                        if (!statExplanation.NullOrEmpty())
-    //                        {
-    //                            if (!addedHeader)
-    //                            {
-    //                                explanation.AppendLine("\nMateria effects:");
-    //                                addedHeader = true;
-    //                            }
-    //                            explanation.AppendLine(statExplanation);
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-
-    //        __result = explanation.ToString();
-    //    }
-    //}
 
     [HarmonyPatch(typeof(StatWorker))]
     [HarmonyPatch("GetExplanationUnfinalized")]
@@ -292,4 +254,85 @@ namespace Thor
             }
         }
     }
+
+    //[StaticConstructorOnStartup]
+    //public static class GraphicsPatches
+    //{
+    //    static GraphicsPatches()
+    //    {
+    //        var harmony = new Harmony("com.emo.materiagraphicspatches");
+    //        harmony.PatchAll();
+    //    }
+
+    //    [HarmonyPatch(typeof(PawnRenderNode_Hair), "GraphicFor")]
+    //    public static class HideHair_Patch
+    //    {
+    //        public static bool Prefix(Pawn pawn, ref Graphic __result)
+    //        {
+    //            if (pawn.health.hediffSet.HasHediff(ProteanDefOf.Protean_SuitActive))
+    //            {
+    //                __result = null;
+    //                return false;
+    //            }
+    //            return true;
+    //        }
+    //    }
+    //    [HarmonyPatch(typeof(PawnRenderNode_Beard), "GraphicFor")]
+    //    public static class HideHair_Beard
+    //    {
+    //        public static bool Prefix(Pawn pawn, ref Graphic __result)
+    //        {
+    //            if (pawn.health.hediffSet.HasHediff(ProteanDefOf.Protean_SuitActive))
+    //            {
+    //                __result = null;
+    //                return false;
+    //            }
+    //            return true;
+    //        }
+    //    }
+
+    //    [HarmonyPatch(typeof(PawnRenderNodeWorker_Apparel_Head))]
+    //    [HarmonyPatch("CanDrawNow")]
+    //    public class Patch_PawnRenderNodeWorker_Apparel_Head_CanDrawNow
+    //    {
+    //        public static bool Prefix(PawnRenderNode n, PawnDrawParms parms, ref bool __result)
+    //        {
+    //            if (parms.pawn.health.hediffSet.HasHediff(ProteanDefOf.Protean_SuitActive))
+    //            {
+    //                __result = false;
+    //                return false;
+    //            }
+    //            return true;
+    //        }
+    //    }
+    //    [HarmonyPatch(typeof(PawnRenderNodeWorker_Apparel_Body))]
+    //    [HarmonyPatch("CanDrawNow")]
+    //    public class Patch_PawnRenderNodeWorker_Apparel_Body_CanDrawNow
+    //    {
+    //        public static bool Prefix(PawnRenderNode node, PawnDrawParms parms, ref bool __result)
+    //        {
+    //            if (parms.pawn.health.hediffSet.HasHediff(ProteanDefOf.Protean_SuitActive))
+    //            {
+    //                __result = false;
+    //                return false;
+    //            }
+    //            return true;
+    //        }
+    //    }
+
+    //    [HarmonyPatch(typeof(PawnRenderNode_Fur), "GraphicFor")]
+    //    public static class HidePawnRenderNode_Fur
+    //    {
+    //        public static bool Prefix(Pawn pawn, ref Graphic __result)
+    //        {
+    //            if (pawn.health.hediffSet.HasHediff(ProteanDefOf.Protean_SuitActive))
+    //            {
+    //                __result = null;
+    //                return false;
+    //            }
+    //            return true;
+    //        }
+    //    }
+
+    //}
 }

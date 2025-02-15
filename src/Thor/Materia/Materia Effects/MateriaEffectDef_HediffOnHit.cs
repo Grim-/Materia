@@ -1,4 +1,6 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace Thor
@@ -8,21 +10,37 @@ namespace Thor
         public HediffDef hediff;
         public float chance = 1f;
         public bool applyToSelf = false;
+        public bool hostileOnly = true;
+
+
+        public bool aoe = false;
+        public float aoeRadius = 4f;
     }
 
     public class MateriaEffect_HediffOnHit : MateriaWorker
     {
         MateriaEffectDef_HediffOnHit Def => (MateriaEffectDef_HediffOnHit)def;
 
-        public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult damageResult)
+        public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn attacker, DamageWorker.DamageResult damageResult)
         {
-            if (Attacker != null && target.Pawn != null && Def.hediff != null && Rand.Value <= Def.chance)
+            if (attacker != null && target.Pawn != null && Def.hediff != null && Rand.Value <= Def.chance)
             {
-                if (Def.applyToSelf)
+                if (Def.aoe)
                 {
-                    Attacker.health.GetOrAddHediff(Def.hediff);
+                    var targets = GenRadial.RadialDistinctThingsAround(target.Pawn.Position, target.Pawn.Map, Def.aoeRadius, true);
+                    foreach (Thing thing in targets)
+                    {
+                        if (thing is Pawn pawn && (!Def.hostileOnly || pawn.Faction.HostileTo(attacker.Faction)))
+                        {
+                            pawn.health.GetOrAddHediff(Def.hediff);
+                        }
+                    }
                 }
-                else
+                else if (Def.applyToSelf)
+                {
+                    attacker.health.GetOrAddHediff(Def.hediff);
+                }
+                else if (!Def.hostileOnly || target.Pawn.Faction.HostileTo(attacker.Faction))
                 {
                     target.Pawn.health.GetOrAddHediff(Def.hediff);
                 }
@@ -31,66 +49,5 @@ namespace Thor
         }
     }
 
-    public class HediffCompProperties_DamageOverTime : HediffCompProperties
-    {
-        public int damagePerInterval = 1;
-        public int intervalTicks = 300;
-        public DamageDef damageType;
-        public float severityPerDamage = -0.1f;
 
-        public HediffCompProperties_DamageOverTime()
-        {
-            compClass = typeof(HediffComp_DamageOverTime);
-        }
-    }
-
-    public class HediffComp_DamageOverTime : HediffComp
-    {
-        private int ticksUntilDamage;
-
-        public HediffCompProperties_DamageOverTime Props => (HediffCompProperties_DamageOverTime)props;
-
-        public override void CompPostMake()
-        {
-            base.CompPostMake();
-            ResetInterval();
-        }
-
-        private void ResetInterval()
-        {
-            ticksUntilDamage = Props.intervalTicks;
-        }
-
-        public override void CompPostTick(ref float severityAdjustment)
-        {
-            ticksUntilDamage--;
-            if (ticksUntilDamage <= 0)
-            {
-                DealDamage();
-                ResetInterval();
-            }
-        }
-
-        private void DealDamage()
-        {
-            if (parent.pawn.Dead) return;
-
-            DamageInfo damageInfo = new DamageInfo(
-                Props.damageType != null? Props.damageType : DamageDefOf.AcidBurn, 
-                Props.damagePerInterval,
-                0f,
-                -1f,
-                null,
-                parent.Part
-            );
-
-            parent.pawn.TakeDamage(damageInfo);
-            parent.Severity += Props.severityPerDamage;
-        }
-
-        public override void CompExposeData()
-        {
-            Scribe_Values.Look(ref ticksUntilDamage, "ticksUntilDamage");
-        }
-    }
 }

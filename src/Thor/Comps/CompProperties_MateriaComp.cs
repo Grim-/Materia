@@ -62,6 +62,33 @@ namespace Thor
             });
         }
 
+        public override void PostDestroy(DestroyMode mode, Map previousMap)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_ParentDestroyed();
+            });
+            base.PostDestroy(mode, previousMap);
+        }
+        public override void PostDeSpawn(Map map)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_ParentDestroyed();
+            });
+            base.PostDeSpawn(map);
+        }
+
+        public override void PostDraw()
+        {
+            base.PostDraw();
+
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.PostDraw();
+            });
+        }
+
         public override void Notify_Unequipped(Pawn pawn)
         {
             base.Notify_Unequipped(pawn);
@@ -72,6 +99,11 @@ namespace Thor
             });
 
             EquippedPawn = null;
+        }
+
+        public override void CompTick()
+        {
+           // base.CompTick();
         }
 
         public virtual void EquipTick()
@@ -385,6 +417,20 @@ namespace Thor
                 yield return item;
             }
 
+            if (materiaSlots != null)
+            {
+                foreach (var slot in materiaSlots)
+                {
+                    if (slot.SlottedMateria != null)
+                    {
+                        foreach (var item in slot.SlottedMateria.CompGetGizmosExtra())
+                        {
+                            yield return item;
+                        }
+                    }
+                }
+            }
+
             yield return new Command_Action()
             {
                 defaultLabel = "Manage Materia",
@@ -457,10 +503,36 @@ namespace Thor
             if (materiaSlots.NullOrEmpty() || !materiaSlots.Any(s => s.IsOccupied))
                 return "No materia equipped";
 
-            return "Equipped materia: " + materiaSlots
+            var equippedMateria = materiaSlots
                 .Where(s => s.IsOccupied)
-                .Select(s => s.SlottedMateria.def.GetColouredLabel())
-                .ToCommaList();
+                .Select(s => $"  [{s.SlottedMateria.def.GetColouredLabel()}]")
+                .ToList();
+
+            StringBuilder output = new StringBuilder();
+            output.AppendLine("Equipped materia:");
+            output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
+
+            return output.ToString().TrimEnd();
+        }
+
+        public override string GetDescriptionPart()
+        {
+            if (materiaSlots.NullOrEmpty() || !materiaSlots.Any(s => s.IsOccupied))
+                return "No materia equipped";
+
+            var equippedMateria = materiaSlots
+                .Where(s => s.IsOccupied)
+                .Select(s => $"  [{s.SlottedMateria.def.GetColouredLabel()}] \n     {s.SlottedMateria.def.description}")
+                .ToList();
+
+            StringBuilder output = new StringBuilder();
+            output.AppendLine("Equipped materia:");
+            output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
+
+            return output.ToString().TrimEnd();
         }
     }
+
+
+
 }

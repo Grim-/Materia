@@ -69,6 +69,20 @@ namespace Thor
             return newList;
         }
 
+
+        public virtual IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            foreach (var effect in activeEffects)
+            {
+                foreach (var item in effect.CompGetGizmosExtra())
+                {
+                    yield return item;
+
+                }
+            }
+        }
+
+
         public void ExposeData()
         {
             Scribe_Defs.Look(ref def, "def");
@@ -134,6 +148,30 @@ namespace Thor
                 effect.Notify_Unequipped(pawn);
             }
         }
+
+        public void Notify_ParentDestroyed()
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_ParentDestroyed();
+            }
+        }
+        public void Notify_ParentDespawned()
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_ParentDespawned();
+            }
+        }
+
+        public void PostDraw()
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.PostDraw();
+            }
+        }
+
         public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
         {
             DamageWorker.DamageResult damageResult = DamageWorkerResult;

@@ -1,4 +1,6 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace Thor
@@ -27,8 +29,28 @@ namespace Thor
         }
         public virtual void Notify_Unequipped(Pawn pawn)
         {
-        
+
         }
+        public virtual void Notify_ParentDestroyed()
+        {
+ 
+        }
+        public virtual void Notify_ParentDespawned()
+        {
+
+        }
+
+        public virtual void PostDraw()
+        {
+
+        }
+
+        public virtual IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            return Enumerable.Empty<Gizmo>();
+        }
+
+
         public virtual void Notify_KilledPawn(Pawn pawn)
         {
 
