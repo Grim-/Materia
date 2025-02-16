@@ -160,7 +160,7 @@ namespace Thor
                     cumulative += kvp.Value;
                     if (roll <= cumulative)
                     {
-                        slots.Add(new MateriaSlot(parent, comp, kvp.Key));
+                        slots.Add(new MateriaSlot(parent, comp, kvp.Key, slots.Count + 1));
                         break;
                     }
                 }
@@ -170,7 +170,7 @@ namespace Thor
             if (totalSlots >= 2 && !slots.Any(s => s.SlotType == damageType) &&
                 weaponDef.techLevel >= TechLevel.Industrial)
             {
-                slots[slots.Count - 1] = new MateriaSlot(parent, comp, damageType);
+                slots[slots.Count - 1] = new MateriaSlot(parent, comp, damageType, slots.Count - 1);
             }
         }
     }

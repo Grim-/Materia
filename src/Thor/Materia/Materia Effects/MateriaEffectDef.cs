@@ -11,9 +11,11 @@ namespace Thor
         public virtual string EffectDescription { get; private set; } = "";
 
 
-        public MateriaWorker CreateWorker()
+        public MateriaWorker CreateWorker(MateriaEffectDef effectDef, ThingWithComps parentEquipment)
         {
             MateriaWorker newWorker = (MateriaWorker)Activator.CreateInstance(workerClass);
+            newWorker.def = effectDef;
+            newWorker.ParentEquipment = parentEquipment;
             return newWorker;
         }
     }

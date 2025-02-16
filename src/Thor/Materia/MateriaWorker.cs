@@ -49,6 +49,15 @@ namespace Thor
             return Damage;
         }
 
+        public virtual void Notify_OwnerThoughtGained(Thought Thought, Pawn otherPawn)
+        {
+
+        }
+
+        public virtual void Notify_OwnerThoughtLost(Thought Thought)
+        {
+
+        }
         public virtual void PostDraw()
         {
 
@@ -75,11 +84,11 @@ namespace Thor
 
         }
 
-        public virtual void Notify_OwnerThought(Pawn pawn)
+        public virtual void Notify_OwnerHediffGained(Hediff Hediff, BodyPartRecord partRecord, DamageInfo? dinfo, DamageWorker.DamageResult damageResult)
         {
 
         }
-        public virtual void Notify_OwnerHediffAdded(Pawn pawn)
+        public virtual void Notify_OwnerHediffRemoved(Hediff Hediff)
         {
 
         }

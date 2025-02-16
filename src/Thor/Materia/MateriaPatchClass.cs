@@ -340,6 +340,108 @@ namespace Thor
         }
     }
 
+
+    [HarmonyPatch(typeof(MemoryThoughtHandler), new[] { typeof(Thought_Memory), typeof(Pawn) })]
+    [HarmonyPatch("TryGainMemory")]
+    public static class Patch_MemoryThoughtHandler_TryGainMemory
+    {
+        public static void Postfix(MemoryThoughtHandler __instance, Thought_Memory newThought, Pawn otherPawn)
+        {
+            Pawn pawn = __instance.pawn;
+            if (pawn?.equipment?.AllEquipmentListForReading == null) 
+                return;
+
+            foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
+            {
+                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                if (materiaComp != null)
+                {
+                    materiaComp.Notify_OwnerThoughtGained(newThought, otherPawn);
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(MemoryThoughtHandler), new[] { typeof(Thought_Memory)})]
+    [HarmonyPatch("RemoveMemory")]
+    public static class Patch_MemoryThoughtHandler_RemoveMemory
+    {
+        public static void Prefix(MemoryThoughtHandler __instance, Thought_Memory th)
+        {
+            Pawn pawn = __instance.pawn;
+            if (pawn?.equipment?.AllEquipmentListForReading == null) return;
+
+            foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
+            {
+                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                if (materiaComp != null)
+                {
+                    materiaComp.Notify_OwnerThoughtLost(th);
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn_HealthTracker))]
+    [HarmonyPatch("AddHediff", new[] {
+        typeof(Hediff),                    
+        typeof(BodyPartRecord),           
+        typeof(DamageInfo?),               
+        typeof(DamageWorker.DamageResult)  
+    })]
+    public static class Patch_Pawn_HealthTracker_AddHediff
+    {
+        public static void Postfix(
+            Hediff hediff,
+            BodyPartRecord part,
+            DamageInfo? dinfo,
+            DamageWorker.DamageResult result,
+            Pawn_HealthTracker __instance,
+            Pawn ___pawn)
+        {
+            // Get the pawn that owns this health tracker
+            Pawn pawn = ___pawn;
+            if (pawn == null || pawn?.equipment?.AllEquipmentListForReading == null) 
+                return;
+
+
+            foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
+            {
+                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                if (materiaComp != null)
+                {
+                    materiaComp.Notify_OwnerHediffGained(hediff, part, dinfo, result);
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn_HealthTracker))]
+    [HarmonyPatch("RemoveHediff", new[] {
+        typeof(Hediff)
+    })]
+    public static class Patch_Pawn_HealthTracker_RemoveHediff
+    {
+        public static void Postfix(
+            Hediff hediff,
+            Pawn ___pawn)
+        {
+            // Get the pawn that owns this health tracker
+            Pawn pawn = ___pawn;
+            if (pawn == null || pawn?.equipment?.AllEquipmentListForReading == null)
+                return;
+
+            foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
+            {
+                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                if (materiaComp != null)
+                {
+                    materiaComp.Notify_OwnerHediffRemoved(hediff);
+                }
+            }
+        }
+    }
+
     //[StaticConstructorOnStartup]
     //public static class GraphicsPatches
     //{

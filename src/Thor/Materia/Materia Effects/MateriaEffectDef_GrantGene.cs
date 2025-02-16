@@ -25,6 +25,13 @@ namespace Thor
         {
             base.Notify_Equipped(pawn);
 
+
+            if (!ModsConfig.BiotechActive)
+            {
+                return;
+            }
+
+
             if (!pawn.genes.HasActiveGene(Def.gene))
             {
                 geneRef = pawn.genes.AddGene(Def.gene, Def.isXenogene);
@@ -34,6 +41,11 @@ namespace Thor
         public override void Notify_Unequipped(Pawn pawn)
         {
             base.Notify_Unequipped(pawn);
+
+            if (!ModsConfig.BiotechActive)
+            {
+                return;
+            }
 
             if (geneRef != null && pawn.genes.HasActiveGene(Def.gene))
             {

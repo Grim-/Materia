@@ -33,7 +33,7 @@ namespace Thor
 
         public override DamageInfo Notify_ProjectileApplyDamageToTarget(DamageInfo Damage, Pawn Attacker, Thing Target, Projectile Projectile)
         {
-            return base.Notify_ProjectileApplyDamageToTarget(Damage, Attacker, Target, Projectile);
+            DamageInfo damage = base.Notify_ProjectileApplyDamageToTarget(Damage, Attacker, Target, Projectile);
 
             if (Attacker != null && Target != null)
             {
@@ -49,6 +49,8 @@ namespace Thor
                 }
                 MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
             }
+
+            return damage;
         }
     }
 }

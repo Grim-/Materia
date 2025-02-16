@@ -9,7 +9,7 @@ namespace Thor
 {
     public class CompProperties_MateriaComp : CompProperties
     {
-        public List<MateriaTypeDef> materiaSlots;
+        public List<MateriaSlotConfig> materiaSlots;
 
         public CompProperties_MateriaComp()
         {
@@ -21,6 +21,10 @@ namespace Thor
     {
         private List<MateriaSlot> materiaSlots = new List<MateriaSlot>();
         public List<MateriaSlot> MateriaSlots => materiaSlots.ToList();
+
+        private List<MateriaSlotLink> _ActiveLinks = new List<MateriaSlotLink>();
+        private List<MateriaSlotLink> ActiveLinks => _ActiveLinks;
+
         private bool initializedSlots = false;
         private CompProperties_MateriaComp Props => (CompProperties_MateriaComp)props;
 
@@ -48,23 +52,15 @@ namespace Thor
             }
 
             materiaSlots = MateriaSlotGenerator.GenerateSlots(parent, this, quality);
+
+            //if (materiaSlots.Count > 2)
+            //{
+            //    Log.Message("manually paired first with second");
+            //    materiaSlots[0].LinkingRules.Add(ThorDefOf.PairForward.CreateWorker(this, materiaSlots[0]));
+            //}
         }
 
         #region events
-
-        public override void Notify_Equipped(Pawn pawn)
-        {
-            base.Notify_Equipped(pawn);
-            //Log.Message("Materia Comp Notify_Equipped");
-
-            _EquippedPawn = pawn;
-
-            DoForAllMateria((Slot) =>
-            {
-                Slot.SlottedMateria.Notify_Equipped(pawn);
-            });
-        }
-
         public override void PostDestroy(DestroyMode mode, Map previousMap)
         {
             DoForAllMateria((Slot) =>
@@ -81,7 +77,6 @@ namespace Thor
             });
             base.PostDeSpawn(map);
         }
-
         public override void PostDraw()
         {
             base.PostDraw();
@@ -92,23 +87,11 @@ namespace Thor
             });
         }
 
-        public override void Notify_Unequipped(Pawn pawn)
-        {
-            base.Notify_Unequipped(pawn);
-            //Log.Message("Materia Comp Notify_Unequipped");
-            DoForAllMateria((Slot) =>
-            {
-                Slot.SlottedMateria.Notify_Unequipped(pawn);
-            });
-
-            _EquippedPawn = null;
-        }
 
         public override void CompTick()
         {
-           // base.CompTick();
+          //dont call base method, it only calls CompEquippable which tries to tick verbs that arent used or might not even exist (see expose data)
         }
-
         public virtual void EquipTick()
         {
             if (_EquippedPawn != null)
@@ -122,8 +105,29 @@ namespace Thor
                 }
             }
         }
+        public override void Notify_Equipped(Pawn pawn)
+        {
+            base.Notify_Equipped(pawn);
+            //Log.Message("Materia Comp Notify_Equipped");
 
+            _EquippedPawn = pawn;
 
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_Equipped(pawn);
+            });
+        }
+        public override void Notify_Unequipped(Pawn pawn)
+        {
+            base.Notify_Unequipped(pawn);
+            //Log.Message("Materia Comp Notify_Unequipped");
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_Unequipped(pawn);
+            });
+
+            _EquippedPawn = null;
+        }
         public override void Notify_Killed(Map prevMap, DamageInfo? dinfo = null)
         {
             base.Notify_Killed(prevMap, dinfo);
@@ -134,7 +138,6 @@ namespace Thor
                 Slot.SlottedMateria.Notify_OwnerKilled(prevMap, dinfo);
             });
         }
-
         public override void Notify_KilledPawn(Pawn pawn)
         {
             base.Notify_KilledPawn(pawn);
@@ -144,9 +147,6 @@ namespace Thor
                 Slot.SlottedMateria.Notify_KilledPawn(pawn);
             });
         }
-
-
-
         public virtual void Notify_ProjectileImpact(Pawn Attacker, Thing Target, Projectile Projectile)
         {
             DoForAllMateria((Slot) =>
@@ -154,7 +154,6 @@ namespace Thor
                 Slot.SlottedMateria.Notify_ProjectileImpact(Attacker, Target, Projectile);
             });
         }
-
         public virtual DamageInfo Notify_ProjectileApplyDamageToTarget(DamageInfo Damage, Pawn Attacker, Thing Target, Projectile Projectile)
         {
             DamageInfo damageInfo = new DamageInfo(Damage);
@@ -166,7 +165,6 @@ namespace Thor
 
             return damageInfo;
         }
-
         public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
         {
             DamageWorker.DamageResult damageResult = new DamageWorker.DamageResult();
@@ -182,6 +180,37 @@ namespace Thor
             return damageResult;
         }
 
+        public virtual void Notify_OwnerThoughtGained(Thought Thought, Pawn otherPawn)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_OwnerThoughtGained(Thought, otherPawn);
+            });
+
+        }
+
+        public virtual void Notify_OwnerThoughtLost(Thought Thought)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_OwnerThoughtLost(Thought);
+            });
+        }
+
+        public virtual void Notify_OwnerHediffGained(Hediff Hediff, BodyPartRecord partRecord, DamageInfo? dinfo, DamageWorker.DamageResult damageResult)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_OwnerHediffGained(Hediff, partRecord, dinfo, damageResult);
+            });
+        }
+        public virtual void Notify_OwnerHediffRemoved(Hediff Hediff)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_OwnerHediffRemoved(Hediff);
+            });
+        }
         #endregion
 
         #region materia
@@ -193,7 +222,7 @@ namespace Thor
                 materiaSlots = new List<MateriaSlot>();
                 for (int i = 0; i < Props.materiaSlots.Count; i++)
                 {
-                    AddMateriaSlot(Props.materiaSlots[i]);
+                    AddMateriaSlot(Props.materiaSlots[i].slotType, Props.materiaSlots[i].slotLevel);
                 }
             }
         }
@@ -211,62 +240,81 @@ namespace Thor
                 }
             }
         }
+
+        public void EquipMateria(MateriaDef materiaDef, MateriaSlot materiaslot)
+        {
+            if (materiaslot == null || materiaslot.IsOccupied)
+                return;
+
+            materiaslot.EquipMateria(materiaDef);
+            ValidateAndUpdateSlotLinks();
+        }
         public void EquipMateria(MateriaDef materiaDef)
         {
             var slot = materiaSlots.FirstOrDefault(s => !s.IsOccupied && s.CanAccept(materiaDef));
             if (slot == null)
                 return;
-
-            slot.EquipMateria(materiaDef);
-            CheckAndCreateMateriaLinks(slot);
+            EquipMateria(materiaDef, slot);
         }
-        public void UnequipMateria(MateriaDef materiaDef)
+
+        public void UnequipMateria(MateriaSlot materiaslot)
         {
-            var slot = materiaSlots.FirstOrDefault(s => s.IsOccupied && s.SlottedMateria.def == materiaDef);
-            if (slot == null)
+            if (materiaslot == null || !materiaslot.IsOccupied)
                 return;
 
-            RemoveMateriaLinks(slot);
-            slot.UnequipMateria();
+            materiaslot.UnequipMateria();
+            ValidateAndUpdateSlotLinks();
         }
-        private void CheckAndCreateMateriaLinks(MateriaSlot newSlot)
-        {
-            if (!newSlot.IsOccupied)
-                return;
 
-            foreach (var slot in materiaSlots)
+        private void ValidateAndUpdateSlotLinks()
+        {
+            CheckForBrokenMateriaLinks();
+            CheckForValidLinks();
+        }
+
+        private void CheckForValidLinks()
+        {
+            for (int i = 0; i < materiaSlots.Count; i++)
             {
-                if (slot != newSlot && slot.IsOccupied &&
-                    newSlot.SlottedMateria.def.CanLinkWith(slot.SlottedMateria.def))
-                {
-                    CreateMateriaLink(newSlot, slot);
-                }
-            }
-        }
-        private void CreateMateriaLink(MateriaSlot source, MateriaSlot target)
-        {
-            source.SlottedMateria.Notify_MateriaLinked(source.SlottedMateria.def, target.SlottedMateria.def);
-            target.SlottedMateria.Notify_MateriaLinked(target.SlottedMateria.def, source.SlottedMateria.def);
-        }
-        private void RemoveMateriaLinks(MateriaSlot slot)
-        {
-            if (!slot.IsOccupied)
-                return;
 
-            foreach (var otherSlot in materiaSlots)
-            {
-                if (otherSlot != slot && otherSlot.IsOccupied &&
-                    slot.SlottedMateria.def.CanLinkWith(otherSlot.SlottedMateria.def))
+                for (int x = 0; x < materiaSlots[i].LinkingRules.Count; x++)
                 {
-                    slot.SlottedMateria.Notify_MateriaUnlinked(slot.SlottedMateria.def, otherSlot.SlottedMateria.def);
-                    otherSlot.SlottedMateria.Notify_MateriaUnlinked(otherSlot.SlottedMateria.def, slot.SlottedMateria.def);
+                    if (materiaSlots[i].LinkingRules[x].ValidateSlots(materiaSlots, ActiveLinks))
+                    {
+                        materiaSlots[i].LinkingRules[x].CreateLinks(materiaSlots, ActiveLinks);
+                    }
                 }
             }
         }
 
-        public void AddMateriaSlot(MateriaTypeDef SlotType)
+        private void CheckForBrokenMateriaLinks()
         {
-            materiaSlots.Add(new MateriaSlot(this.parent, this, SlotType));
+            foreach (var link in ActiveLinks.ToList())
+            {
+                if (link.Worker != null && !link.Worker.ValidateSlots(materiaSlots, ActiveLinks))
+                {
+                    BreakMateriaLink(link.OriginSlot, link.DestinationSlot);
+                }
+            }
+        }
+
+        public void CreateMateriaLink(MateriaSlot origin, MateriaSlot destination)
+        {
+
+            Log.Message($"Linking {origin.SlottedMateria.def.LabelCap} to {destination.SlottedMateria.def.LabelCap}");
+            ActiveLinks.Add(new MateriaSlotLink { OriginSlot = origin, DestinationSlot = destination });
+        }
+
+        public void BreakMateriaLink(MateriaSlot origin, MateriaSlot destination)
+        {
+            Log.Message($"Breaking Linking {origin.SlottedMateria.def.LabelCap} from {destination.SlottedMateria.def.LabelCap}");
+            ActiveLinks.RemoveAll(l => (l.OriginSlot == origin && l.DestinationSlot == destination) ||
+                                      (l.OriginSlot == destination && l.DestinationSlot == origin));
+        }
+
+        public void AddMateriaSlot(MateriaTypeDef SlotType, int slotLevel = 1)
+        {
+            materiaSlots.Add(new MateriaSlot(this.parent, this, SlotType, this.materiaSlots.Count + 1, slotLevel));
         }
 
         public bool CanEquipMateria(MateriaDef materia)
@@ -533,9 +581,9 @@ namespace Thor
             }
 
             Scribe_Deep.Look<VerbTracker>(ref this.verbTracker, "eefefefefe", new object[]
-             {
-        this
-             });
+            {
+                this
+            });
 
             Scribe_Collections.Look(ref materiaSlots, "materiaSlots", LookMode.Deep);
 

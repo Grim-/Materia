@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -34,9 +35,7 @@ namespace Thor
             {
                 foreach (var effectDef in def.effects)
                 {
-                    var worker = effectDef.CreateWorker();
-                    worker.def = effectDef;
-                    worker.ParentEquipment = ParentThing;
+                    var worker = effectDef.CreateWorker(effectDef, ParentThing);
                     activeEffects.Add(worker);
                 }
             }
@@ -83,20 +82,6 @@ namespace Thor
         }
 
 
-        public void ExposeData()
-        {
-            Scribe_Defs.Look(ref def, "def");
-            Scribe_Collections.Look(ref activeEffects, "activeEffects", LookMode.Deep);
-
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                if (activeEffects == null)
-                {
-                    InitializeEffects();
-                }
-            }
-        }
-
         public void TickMateria(Pawn pawn)
         {
             foreach (var effect in activeEffects)
@@ -142,17 +127,36 @@ namespace Thor
 
         }
 
-        public virtual void Notify_OwnerOnThoughtGained(Pawn pawn)
+        public virtual void Notify_OwnerThoughtGained(Thought Thought, Pawn otherPawn)
         {
-      
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_OwnerThoughtGained(Thought, otherPawn);
+            }
         }
 
-
-        public virtual void Notify_OwnerOnHediffAdded(Pawn pawn)
+        public virtual void Notify_OwnerThoughtLost(Thought Thought)
         {
-  
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_OwnerThoughtLost(Thought);
+            }
         }
 
+        public virtual void Notify_OwnerHediffGained(Hediff Hediff, BodyPartRecord partRecord, DamageInfo? dinfo, DamageWorker.DamageResult damageResult)
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_OwnerHediffGained(Hediff, partRecord, dinfo, damageResult);
+            }
+        }
+        public virtual void Notify_OwnerHediffRemoved(Hediff Hediff)
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_OwnerHediffRemoved(Hediff);
+            }
+        }
         public void Notify_Equipped(Pawn pawn)
         {
             foreach (var effect in activeEffects)
@@ -202,25 +206,20 @@ namespace Thor
             return damageResult;
         }
 
-        public void Notify_MateriaLinked(MateriaDef sourceMateria, MateriaDef linkedMateria)
+
+
+        public void ExposeData()
         {
-            var linkBonus = def.links?.FirstOrDefault(x => x.materia == linkedMateria);
-            if (linkBonus?.effects != null)
+            Scribe_Defs.Look(ref def, "def");
+            Scribe_Collections.Look(ref activeEffects, "activeEffects", LookMode.Deep);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                foreach (var effectDef in linkBonus.effects)
+                if (activeEffects == null)
                 {
-                    var worker = effectDef.CreateWorker();
-                    worker.def = effectDef;
-                    activeEffects.Add(worker);
+                    InitializeEffects();
                 }
             }
-        }
-        public void Notify_MateriaUnlinked(MateriaDef sourceMateria, MateriaDef linkedMateria)
-        {
-            activeEffects.RemoveAll(effect =>
-                def.links?.Any(link =>
-                    link.materia == linkedMateria &&
-                    link.effects?.Any(e => e == effect.def) == true) == true);
         }
     }
 

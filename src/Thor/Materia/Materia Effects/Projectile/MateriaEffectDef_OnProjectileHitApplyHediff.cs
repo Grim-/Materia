@@ -13,6 +13,29 @@ namespace Thor
 
         public bool aoe = false;
         public float aoeRadius = 4f;
+        public override string EffectDescription
+        {
+            get
+            {
+                string targetString = "";
+                if (aoe)
+                {
+                    targetString = applyToSelf ? "yourself and nearby allies" : "enemies within a radius of " + aoeRadius;
+                }
+                else
+                {
+                    targetString = applyToSelf ? "yourself" : "the target";
+                }
+
+                string conditionString = "";
+                if (hostileOnly)
+                {
+                    conditionString = " only on hostile targets";
+                }
+
+                return $"{chance * 100}% chance on successful ranged attack{conditionString} to apply {hediff.LabelCap} to {targetString}";
+            }
+        }
 
         public MateriaEffectDef_OnProjectileHitApplyHediff()
         {

@@ -5,7 +5,19 @@ namespace Thor
 {
     public class MateriaEffectDef_ChainLightningOnHit : MateriaEffectDef
     {
+        public int maxJumps = 6;
+        public float targetRadius = 5f;
+        public int damage = 1;
+        public DamageDef damageType;
 
+        public override string EffectDescription
+        {
+            get
+            {
+                string damageTypestring = damageType != null ? damageType.LabelCap : DamageDefOf.ElectricalBurn.LabelCap;
+                return $"On Successful melee attack you deal {damage} ({damageTypestring}) damage to the target, which will then attempt to jump to upto {maxJumps} other targets in {targetRadius} radius around the target.";
+            }
+        }
     }
 
     public class MateriaEffect_ChainLightningOnHit : MateriaWorker
@@ -24,7 +36,7 @@ namespace Thor
                     chainLightning = null;
                 }
 
-                chainLightning = new StaggeredChainLightning(Attacker.Map, Attacker, 20, 60, 15, DamageDefOf.ElectricalBurn, (Thing) =>
+                chainLightning = new StaggeredChainLightning(Attacker.Map, Attacker, Def.maxJumps, Def.targetRadius, Def.damage, Def.damageType != null ? Def.damageType : DamageDefOf.ElectricalBurn, (Thing) =>
                 {
                     return Thing != Attacker && Thing is Pawn targetPawn && targetPawn.Faction.HostileTo(Attacker.Faction);
                 });

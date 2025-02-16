@@ -20,6 +20,8 @@ namespace Thor
         public static ThingDef PurpleMateriaDust;
         public static ThingDef GreenMateriaDust;
         public static ThingDef BlueMateriaDust;
+
+        public static SlotLinkRuleDef PairForward;
     }
 
 
