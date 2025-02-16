@@ -6,6 +6,8 @@ namespace Thor
     public class MateriaEffectDef_GrantAbility : MateriaEffectDef
     {
         public AbilityDef ability;
+
+        public override string EffectDescription => $"Grants the {ability.LabelCap} ability while equipped";
     }
 
     public class MateriaEffect_GrantAbility : MateriaWorker

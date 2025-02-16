@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Verse;
-using Verse.AI;
 
 namespace Thor
 {
@@ -25,7 +24,10 @@ namespace Thor
         private bool initializedSlots = false;
         private CompProperties_MateriaComp Props => (CompProperties_MateriaComp)props;
 
-        protected Pawn EquippedPawn = null;
+        protected Pawn _EquippedPawn = null;
+        public Pawn EquippedPawn => _EquippedPawn;
+        public bool HasEquipOwner => EquippedPawn != null;
+
 
         public override void PostPostMake()
         {
@@ -55,7 +57,7 @@ namespace Thor
             base.Notify_Equipped(pawn);
             //Log.Message("Materia Comp Notify_Equipped");
 
-            EquippedPawn = pawn;
+            _EquippedPawn = pawn;
 
             DoForAllMateria((Slot) =>
             {
@@ -99,7 +101,7 @@ namespace Thor
                 Slot.SlottedMateria.Notify_Unequipped(pawn);
             });
 
-            EquippedPawn = null;
+            _EquippedPawn = null;
         }
 
         public override void CompTick()
@@ -109,13 +111,13 @@ namespace Thor
 
         public virtual void EquipTick()
         {
-            if (EquippedPawn != null)
+            if (_EquippedPawn != null)
             {
                 foreach (var item in MateriaSlots)
                 {
                     if (item.SlottedMateria != null)
                     {
-                        item.SlottedMateria.TickMateria(EquippedPawn);
+                        item.SlottedMateria.TickMateria(_EquippedPawn);
                     }
                 }
             }
@@ -142,6 +144,29 @@ namespace Thor
                 Slot.SlottedMateria.Notify_KilledPawn(pawn);
             });
         }
+
+
+
+        public virtual void Notify_ProjectileImpact(Pawn Attacker, Thing Target, Projectile Projectile)
+        {
+            DoForAllMateria((Slot) =>
+            {
+                Slot.SlottedMateria.Notify_ProjectileImpact(Attacker, Target, Projectile);
+            });
+        }
+
+        public virtual DamageInfo Notify_ProjectileApplyDamageToTarget(DamageInfo Damage, Pawn Attacker, Thing Target, Projectile Projectile)
+        {
+            DamageInfo damageInfo = new DamageInfo(Damage);
+
+            DoForAllMateria((Slot) =>
+            {
+                damageInfo =  Slot.SlottedMateria.Notify_ProjectileApplyDamageToTarget(damageInfo, Attacker, Target, Projectile);
+            });
+
+            return damageInfo;
+        }
+
         public virtual DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult DamageWorkerResult)
         {
             DamageWorker.DamageResult damageResult = new DamageWorker.DamageResult();
@@ -437,7 +462,7 @@ namespace Thor
                 defaultLabel = "Manage Materia",
                 action = () =>
                 {
-                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, EquippedPawn, this));
+                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, _EquippedPawn, this));
                 }
             };
 
@@ -468,9 +493,38 @@ namespace Thor
 
         }
 
+        private string GetEquippedMateriaInfo(bool includeDescription = false)
+        {
+            if (materiaSlots.NullOrEmpty() || !materiaSlots.Any(s => s.IsOccupied))
+                return "No materia equipped";
+
+            var equippedMateria = materiaSlots
+                .Where(s => s.IsOccupied)
+                .Select(s => includeDescription
+                    ? $"  [{s.SlottedMateria.def.GetColouredLabel()}] \n     {s.EffectDescription}"
+                    : $"  [{s.SlottedMateria.def.GetColouredLabel()}]")
+                .ToList();
+
+            StringBuilder output = new StringBuilder();
+            output.AppendLine("Equipped materia:");
+            output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
+            return output.ToString().TrimEnd();
+        }
+
+        public override string CompInspectStringExtra()
+        {
+            return GetEquippedMateriaInfo();
+        }
+
+        public override string GetDescriptionPart()
+        {
+            return GetEquippedMateriaInfo(includeDescription: true);
+        }
+
         public override void PostExposeData()
         {
             Scribe_Values.Look(ref initializedSlots, "initializedSlots", false);
+            Scribe_References.Look(ref _EquippedPawn, "equippedPawn"); // Save the equipped pawn reference
 
             //stupid hack work around because it saves the same verbs twice with the key and load ids
             if (Scribe.mode == LoadSaveMode.Saving)
@@ -480,10 +534,11 @@ namespace Thor
 
             Scribe_Deep.Look<VerbTracker>(ref this.verbTracker, "eefefefefe", new object[]
              {
-                this
+        this
              });
 
             Scribe_Collections.Look(ref materiaSlots, "materiaSlots", LookMode.Deep);
+
             //stupid hack work around because it saves the same verbs twice with the key and load ids
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
@@ -496,78 +551,16 @@ namespace Thor
                 {
                     CreateMateriaSlots();
                 }
+
+                // If the pawn was equipped when saved, reapply the materia effects
+                if (_EquippedPawn != null)
+                {
+                    DoForAllMateria((Slot) =>
+                    {
+                        Slot.SlottedMateria.Notify_Equipped(_EquippedPawn);
+                    });
+                }
             }
         }
-
-        public override string CompInspectStringExtra()
-        {
-            if (materiaSlots.NullOrEmpty() || !materiaSlots.Any(s => s.IsOccupied))
-                return "No materia equipped";
-
-            var equippedMateria = materiaSlots
-                .Where(s => s.IsOccupied)
-                .Select(s => $"  [{s.SlottedMateria.def.GetColouredLabel()}]")
-                .ToList();
-
-            StringBuilder output = new StringBuilder();
-            output.AppendLine("Equipped materia:");
-            output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
-
-            return output.ToString().TrimEnd();
-        }
-
-        public override string GetDescriptionPart()
-        {
-            if (materiaSlots.NullOrEmpty() || !materiaSlots.Any(s => s.IsOccupied))
-                return "No materia equipped";
-
-            var equippedMateria = materiaSlots
-                .Where(s => s.IsOccupied)
-                .Select(s => $"  [{s.SlottedMateria.def.GetColouredLabel()}] \n     {s.SlottedMateria.def.description}")
-                .ToList();
-
-            StringBuilder output = new StringBuilder();
-            output.AppendLine("Equipped materia:");
-            output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
-
-            return output.ToString().TrimEnd();
-        }
     }
-
-
-    //public class RecipeWorker_AddMateriaSlot : RecipeWorker
-    //{
-    //    public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
-    //    {
-    //        base.Notify_IterationCompleted(billDoer, ingredients);
-
-    //        Thing weapon = ingredients.Find(x => !(x.def is MateriaDustDef));
-    //        if (weapon == null) 
-    //            return;
-
-    //        Comp_MateriaComp materiaComp = weapon.TryGetComp<Comp_MateriaComp>();
-    //        if (materiaComp != null)
-    //        {
-    //            Thing dust = ingredients.Find(x => x.def is MateriaDustDef);
-    //            if (dust?.def is MateriaDustDef dustDef)
-    //            {
-    //                materiaComp.AddMateriaSlot(dustDef.createsSlotType);
-    //            }
-    //        }
-    //    }
-    //}
-
-
-    //public class SpecialThingFilterWorker_MateriaWeapons : SpecialThingFilterWorker
-    //{
-    //    public override bool Matches(Thing t)
-    //    {
-    //        return t.TryGetComp<Comp_MateriaComp>() != null;
-    //    }
-
-    //    public override bool AlwaysMatches(ThingDef def)
-    //    {
-    //        return def.HasComp(typeof(Comp_MateriaComp));
-    //    }
-    //}
 }

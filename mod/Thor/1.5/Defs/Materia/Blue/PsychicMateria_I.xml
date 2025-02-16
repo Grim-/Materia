@@ -15,6 +15,16 @@
       <li>MateriaEffect_PsychicSense_I</li>
     </effects>
     <textColor>(0.5, 0, 0.5)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>BlueMateriaDust</thing>
+    <amount>3~6</amount>
+  </li>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~4</amount>
+  </li>
+</breakdownMaterials>
   </Thor.MateriaDef>
 
 </Defs>

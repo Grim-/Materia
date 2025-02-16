@@ -69,57 +69,75 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abilities\CompProperties_BoundPawn.cs" />
     <Compile Include="Abilities\CompProperties_Fly.cs" />
+    <Compile Include="Abilities\Gizmo_ChargeStatus.cs" />
     <Compile Include="BoundWeaponUtil.cs" />
     <Compile Include="Comps\CompProperties_BiocodableBinding.cs" />
     <Compile Include="Comps\CompProperties_MagicalTome.cs" />
     <Compile Include="Comps\CompProperties_MateriaComp.cs" />
     <Compile Include="Comps\CompProperties_SelectiveBiocodable.cs" />
-    <Compile Include="Comps\MateriaSlotGenerator.cs" />
-    <Compile Include="HediffCompProperties_BoundWeapon.cs" />
+    <Compile Include="Materia\Gizmo_DamageTrackerStatus.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_DamageTracker.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantHediff.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitNeed.cs" />
+    <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitHeal.cs" />
+    <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitApplyHediff.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitBane.cs" />
+    <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitBane.cs" />
+    <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitDamage.cs" />
+    <Compile Include="Materia\MateriaSlotGenerator.cs" />
+    <Compile Include="Recipe\RecipeWorker_AddMateriaSlot.cs" />
+    <Compile Include="Recipe\RecipeWorker_BreakdownMateria.cs" />
+    <Compile Include="Recipe\SpecialThingFilterWorker_Materia.cs" />
+    <Compile Include="Recipe\SpecialThingFilterWorker_MateriaWeapons.cs" />
+    <Compile Include="Hediff\HediffCompProperties_BoundWeapon.cs" />
     <Compile Include="Materia\GeneExtension_PawnPartMaxHealth.cs" />
     <Compile Include="Materia\IStatProvider.cs" />
     <Compile Include="Hediff\HediffCompProperties_DamageOverTime.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaBreakdownMaterials.cs" />
+    <Compile Include="Materia\MateriaBreakdownMaterials.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_EquipmentStat.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_ExtraDamage.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitDamage.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantAbility.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantGene.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_HealOnHit.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_HediffOnHit.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitHeal.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitApplyHediff.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaInstance.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaUtil.cs" />
+    <Compile Include="Materia\MateriaInstance.cs" />
+    <Compile Include="Materia\MateriaUtil.cs" />
     <Compile Include="Materia\MateriaDustDef.cs" />
     <Compile Include="RenderNodes\PawnOverlayNodeWorker.cs" />
-    <Compile Include="Materia\Materia Effects\StatMod.cs" />
+    <Compile Include="Materia\StatMod.cs" />
     <Compile Include="Materia\MateriaLinkBonus.cs" />
-    <Compile Include="Comps\MateriaSlot.cs" />
+    <Compile Include="Materia\MateriaSlot.cs" />
     <Compile Include="Materia\MateriaTypeDef.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaWorker.cs" />
+    <Compile Include="Materia\MateriaWorker.cs" />
     <Compile Include="Materia\Window_MateriaSelection.cs" />
     <Compile Include="Util\ChainLightning.cs" />
     <Compile Include="Abilities\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Abilities\CompProperties_ChainLightning.cs" />
     <Compile Include="Abilities\CompProperties_LightningRing.cs" />
     <Compile Include="Abilities\CompProperties_WeaponThrow.cs" />
-    <Compile Include="Graphic_SpinningProjectile.cs" />
+    <Compile Include="Graphics\Graphic_SpinningProjectile.cs" />
     <Compile Include="Util\LightningRingBehavior.cs" />
     <Compile Include="Util\LightningStrike.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaDef.cs" />
+    <Compile Include="Materia\MateriaDef.cs" />
     <Compile Include="Materia\MateriaPatchClass.cs" />
-    <Compile Include="PawnFlyerDelegate.cs" />
-    <Compile Include="Projectile_Delegate.cs" />
-    <Compile Include="Projectile_MjolnirRebound.cs" />
+    <Compile Include="PawnFlyers\PawnFlyerDelegate.cs" />
+    <Compile Include="PawnFlyers\Projectile_Delegate.cs" />
+    <Compile Include="Projectiles\Projectile_MjolnirRebound.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThorDefOf.cs" />
     <Compile Include="Ticker.cs" />
+    <Compile Include="Util\StaggeredChainLightning.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Gizmo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

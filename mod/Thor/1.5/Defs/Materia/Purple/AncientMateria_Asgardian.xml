@@ -5,6 +5,9 @@
     <label>Ancient Materia Asgardian</label>
     <description>A purple crystalline orb pulsing with restorative energy. Grants healing abilities to the wielder.</description>
     <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>15000</MarketValue>
+    </statBases>
     <graphicData>
       <texPath>Materia/Materia_purple_mid</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -15,6 +18,16 @@
       <li>GeneMateriaAsgardian</li>
     </effects>
     <textColor>(0, 1, 0)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~4</amount>
+  </li>
+  <li>
+    <thing>GreenMateriaDust</thing>
+    <amount>3~6</amount>
+  </li>
+</breakdownMaterials>
   </Thor.MateriaDef>
 
 </Defs>

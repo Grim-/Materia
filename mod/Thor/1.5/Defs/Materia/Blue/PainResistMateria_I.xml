@@ -15,5 +15,11 @@
        <li>MateriaEffect_PainResist_I</li>
      </effects>
      <textColor>(0.8, 0, 0)</textColor>
+     <breakdownMaterials>
+  <li>
+    <thing>BlueMateriaDust</thing>
+    <amount>4~8</amount>
+  </li>
+</breakdownMaterials>
    </Thor.MateriaDef>
 </Defs>

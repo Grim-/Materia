@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <RecipeDef>
+        <defName>AddRedMateriaSlot</defName>
+        <label>add red materia slot</label>
+        <description>Add a red materia slot to a weapon using materia dust.</description>
+        <jobString>Adding materia slot.</jobString>
+        <workAmount>4000</workAmount>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+
+        <ingredients>
+            <li>
+                <filter>
+                    <specialFiltersToAllow>
+                        <li>AllowMateriaWeapons</li>
+                    </specialFiltersToAllow>
+                    <categories>
+                        <li>WeaponsMelee</li>
+                        <li>WeaponsRanged</li>
+                    </categories>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>RedMateriaDust</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+
+        <fixedIngredientFilter>
+            <specialFiltersToAllow>
+                <li>AllowMateriaWeapons</li>
+            </specialFiltersToAllow>
+            <categories>
+                <li>WeaponsMelee</li>
+                <li>WeaponsRanged</li>
+            </categories>
+        </fixedIngredientFilter>
+
+        <skillRequirements>
+            <Crafting>8</Crafting>
+        </skillRequirements>
+        <workSkill>Crafting</workSkill>
+        <recipeUsers>
+            <li>CraftingSpot</li>
+            <li>TableMachining</li>
+        </recipeUsers>
+    </RecipeDef>
+
+    <RecipeDef>
+        <defName>AddGreenMateriaSlot</defName>
+        <label>Add green materia slot</label>
+        <description>Add a green materia slot to a weapon using materia dust.</description>
+        <jobString>Adding materia slot.</jobString>
+        <workAmount>4000</workAmount>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+
+        <ingredients>
+            <li>
+                <filter>
+                    <specialFiltersToAllow>
+                        <li>AllowMateriaWeapons</li>
+                    </specialFiltersToAllow>
+                    <categories>
+                        <li>WeaponsMelee</li>
+                        <li>WeaponsRanged</li>
+                    </categories>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>GreenMateriaDust</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+
+        <fixedIngredientFilter>
+            <specialFiltersToAllow>
+                <li>AllowMateriaWeapons</li>
+            </specialFiltersToAllow>
+            <categories>
+                <li>WeaponsMelee</li>
+                <li>WeaponsRanged</li>
+            </categories>
+        </fixedIngredientFilter>
+
+        <skillRequirements>
+            <Crafting>8</Crafting>
+        </skillRequirements>
+        <workSkill>Crafting</workSkill>
+        <recipeUsers>
+            <li>CraftingSpot</li>
+            <li>TableMachining</li>
+        </recipeUsers>
+    </RecipeDef>
+
+    <RecipeDef>
+        <defName>AddPurpleMateriaSlot</defName>
+        <label>Add purple materia slot</label>
+        <description>Add a purple materia slot to a weapon using materia dust.</description>
+        <jobString>Adding materia slot.</jobString>
+        <workAmount>4000</workAmount>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+
+        <ingredients>
+            <li>
+                <filter>
+                    <specialFiltersToAllow>
+                        <li>AllowMateriaWeapons</li>
+                    </specialFiltersToAllow>
+                    <categories>
+                        <li>WeaponsMelee</li>
+                        <li>WeaponsRanged</li>
+                    </categories>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>PurpleMateriaDust</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+
+        <fixedIngredientFilter>
+            <specialFiltersToAllow>
+                <li>AllowMateriaWeapons</li>
+            </specialFiltersToAllow>
+            <categories>
+                <li>WeaponsMelee</li>
+                <li>WeaponsRanged</li>
+            </categories>
+        </fixedIngredientFilter>
+
+        <skillRequirements>
+            <Crafting>8</Crafting>
+        </skillRequirements>
+        <workSkill>Crafting</workSkill>
+        <recipeUsers>
+            <li>CraftingSpot</li>
+            <li>TableMachining</li>
+        </recipeUsers>
+    </RecipeDef>
+
+    <RecipeDef>
+        <defName>AddBlueMateriaSlot</defName>
+        <label>Add blue materia slot</label>
+        <description>Add a blue materia slot to a weapon using materia dust.</description>
+        <jobString>Adding materia slot.</jobString>
+        <workAmount>4000</workAmount>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+
+        <ingredients>
+            <li>
+                <filter>
+                    <specialFiltersToAllow>
+                        <li>AllowMateriaWeapons</li>
+                    </specialFiltersToAllow>
+                    <categories>
+                        <li>WeaponsMelee</li>
+                        <li>WeaponsRanged</li>
+                    </categories>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>BlueMateriaDust</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+
+        <fixedIngredientFilter>
+            <specialFiltersToAllow>
+                <li>AllowMateriaWeapons</li>
+            </specialFiltersToAllow>
+            <categories>
+                <li>WeaponsMelee</li>
+                <li>WeaponsRanged</li>
+            </categories>
+        </fixedIngredientFilter>
+
+        <skillRequirements>
+            <Crafting>8</Crafting>
+        </skillRequirements>
+        <workSkill>Crafting</workSkill>
+        <recipeUsers>
+            <li>CraftingSpot</li>
+            <li>TableMachining</li>
+        </recipeUsers>
+    </RecipeDef>
+</Defs>

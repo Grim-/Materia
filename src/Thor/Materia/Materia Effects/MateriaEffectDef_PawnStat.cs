@@ -6,7 +6,10 @@ namespace Thor
     {
         public StatDef statToAffect;
         public float statFactor = 1f;
-        public float statOffset = 0f; 
+        public float statOffset = 0f;
+
+
+        public override string EffectDescription => $"(Pawn)Increases {statToAffect.LabelCap} by +{statOffset} or {statFactor}%";
     }
 
 

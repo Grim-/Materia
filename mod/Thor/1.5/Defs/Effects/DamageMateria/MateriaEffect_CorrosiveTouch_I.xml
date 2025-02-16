@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaEffectDef_HediffOnHit>
+  <Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
     <defName>MateriaEffect_CorrosiveTouch_I</defName>
     <label>Corrosive Touch I</label>
     <description>20% chance to inflict acid damage over time.</description>
-    <workerClass>Thor.MateriaEffect_HediffOnHit</workerClass>
+    <workerClass>Thor.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
     <hediff>MinorAcid_DoT</hediff>
     <chance>0.2</chance>
     <applyToSelf>false</applyToSelf>
-  </Thor.MateriaEffectDef_HediffOnHit>
+  </Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
 </Defs>

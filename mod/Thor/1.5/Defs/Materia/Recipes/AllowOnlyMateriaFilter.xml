@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <SpecialThingFilterDef>
+      <defName>AllowOnlyMateria</defName>
+      <label>allow materia weapons</label>
+      <description>Allow weapons that can accept materia.</description>
+      <parentCategory>Weapons</parentCategory>
+      <allowedByDefault>true</allowedByDefault>
+      <workerClass>Thor.SpecialThingFilterWorker_Materia</workerClass>
+  </SpecialThingFilterDef>
+
+
+  <SpecialThingFilterDef>
+      <defName>AllowMateriaWeapons</defName>
+      <label>allow materia weapons</label>
+      <description>Allow weapons that can accept materia.</description>
+      <parentCategory>Weapons</parentCategory>
+      <allowedByDefault>true</allowedByDefault>
+      <workerClass>Thor.SpecialThingFilterWorker_MateriaWeapons</workerClass>
+  </SpecialThingFilterDef>
+
+</Defs>

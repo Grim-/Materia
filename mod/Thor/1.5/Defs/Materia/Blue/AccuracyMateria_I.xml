@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
   <Thor.MateriaDef ParentName="BaseMateria">
     <defName>AccuracyMateria_I</defName>
     <label>Accuracy Materia I</label>
@@ -16,5 +15,11 @@
       <li>MateriaEffect_MeleeAccuracy_I</li>
     </effects>
     <textColor>(0.8, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
 </Defs>

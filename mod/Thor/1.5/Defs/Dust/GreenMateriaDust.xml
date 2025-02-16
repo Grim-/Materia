@@ -8,7 +8,7 @@
       <texPath>MateriaDust/Materia_dust_green</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-        <createsSlotType>GreenMateria</createsSlotType>
+    <createsSlotType>GreenMateria</createsSlotType>
   </Thor.MateriaDustDef>
 
 </Defs>

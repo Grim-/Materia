@@ -17,4 +17,15 @@
       <speed>50</speed>
     </projectile>
   </ThingDef>
+
+  <ThingDef>
+    <defName>ChainLightningVisual</defName>
+    <thingClass>Thor.ChainLightningVisualEffect</thingClass>
+    <label>chain lightning effect</label>
+    <category>Ethereal</category>
+    <tickerType>Normal</tickerType>
+    <drawerType>MapMeshOnly</drawerType>
+    <drawOffscreen>true</drawOffscreen>
+    <seeThroughFog>true</seeThroughFog>
+  </ThingDef>
 </Defs>

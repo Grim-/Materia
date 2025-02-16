@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDustDef ParentName="BaseMateria" Abstract="True" Name="BaseMateriaDust">
+    <stackLimit>50</stackLimit>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>0.1</Mass>
+      <DeteriorationRate>0</DeteriorationRate>
+      <MarketValue>150</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>MateriaDust</li>
+    </thingCategories>
+  </Thor.MateriaDustDef>
+
+  <ThingCategoryDef>
+    <defName>MateriaDust</defName>
+    <label>Materia Dust</label>
+    <parent>ResourcesRaw</parent>
+  </ThingCategoryDef>
+</Defs>

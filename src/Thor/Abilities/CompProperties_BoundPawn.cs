@@ -55,7 +55,7 @@ namespace Thor
 
         private void SummonPawn()
         {
-            if (summonedPawn != null && !summonedPawn.Dead)
+            if (summonedPawn != null && !summonedPawn.Dead || Props.summonedPawnKind == null)
                 return;
 
             PawnGenerationRequest request = new PawnGenerationRequest(

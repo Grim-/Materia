@@ -15,5 +15,15 @@
        <li>MateriaEffect_Lifespan_I</li>
      </effects>
      <textColor>(0.8, 0.8, 0)</textColor>
+     <breakdownMaterials>
+       <li>
+         <thing>GreenMateriaDust</thing>
+         <amount>5~9</amount>
+       </li>
+       <li>
+         <thing>PurpleMateriaDust</thing>
+         <amount>1~3</amount>
+       </li>
+     </breakdownMaterials>
    </Thor.MateriaDef>
 </Defs>

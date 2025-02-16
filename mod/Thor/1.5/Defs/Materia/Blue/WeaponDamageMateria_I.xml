@@ -15,6 +15,16 @@
       <li>WeaponDamageMateria_I</li>
     </effects>
     <textColor>(0.3, 0.3, 0.3)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
 
 </Defs>

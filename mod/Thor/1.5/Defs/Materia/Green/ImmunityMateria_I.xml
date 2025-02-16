@@ -15,5 +15,11 @@
       <li>MateriaEffect_Immunity_I</li>
     </effects>
     <textColor>(0, 0.8, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
 </Defs>

@@ -7,6 +7,12 @@ namespace Thor
     {
         public GeneDef gene;
         public bool isXenogene = true;
+
+        public MateriaEffectDef_GrantGene()
+        {
+            workerClass = typeof(MateriaEffect_GrantGene);
+        }
+        public override string EffectDescription => $"Grants the {gene.LabelCap} gene while equipped";
     }
 
     public class MateriaEffect_GrantGene : MateriaWorker
@@ -43,7 +49,5 @@ namespace Thor
             Scribe_References.Look(ref geneRef, "geneRef");
         }
     }
-
-
 
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaEffectDef_ExtraDamage>
+  <Thor.MateriaEffectDef_OnMeleeHitDamage>
     <defName>IceMateria_I</defName>
     <label>damage boost</label>
     <description>Increases weapon damage.</description>
-    <workerClass>Thor.MateriaEffect_ExtraDamage</workerClass>
+    <workerClass>Thor.MateriaEffect_OnMeleeHitDamage</workerClass>
     <damageType>Burn</damageType>
     <effecter>WeaponFireEnchant</effecter>
     <onhitEffecter>Fire_Burst</onhitEffecter>
-  </Thor.MateriaEffectDef_ExtraDamage>
+  </Thor.MateriaEffectDef_OnMeleeHitDamage>
 
 </Defs>

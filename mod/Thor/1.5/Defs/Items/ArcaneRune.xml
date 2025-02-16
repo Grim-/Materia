@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BuildingBase">
+    <defName>ArcaneRune</defName>
+    <label>arcane rune</label>
+    <description>A mystical rune that can bind itself to a pawn, creating a magical connection.</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>14</pathCost>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Beauty>4</Beauty>
+    </statBases>
+    <size>(1,1)</size>
+    <designationCategory>Misc</designationCategory>
+    <fillPercent>0.15</fillPercent>
+    <rotatable>false</rotatable>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <constructEffect>ConstructMetal</constructEffect>
+    <building>
+      <isEdifice>false</isEdifice>
+      <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <graphicData>
+      <texPath>MagicCircles/MagicCircle51</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="Thor.CompProperties_BoundPawn">
+        <summonedPawnKind>Mercenary_Gunner_Acidifier</summonedPawnKind>
+      </li>
+    </comps>
+    <costList>
+      <Steel>25</Steel>
+      <Silver>15</Silver>
+    </costList>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+  </ThingDef>
+
+</Defs>

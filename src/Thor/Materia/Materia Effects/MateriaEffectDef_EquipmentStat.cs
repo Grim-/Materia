@@ -30,6 +30,8 @@ namespace Thor
             };
             }
         }
+
+        public override string EffectDescription => $"(Equipment)Increases {statToAffect.LabelCap} by +{statOffset} or {statFactor}%";
     }
 
     public class MateriaEffect_EquipmentStat : MateriaWorker

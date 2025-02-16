@@ -18,6 +18,12 @@ namespace Thor
         {
             if (damageResult?.totalDamageDealt >= 0 && Attacker != null && target.Pawn != null)
             {
+                if (chainLightning != null)
+                {
+                    chainLightning.Stop();
+                    chainLightning = null;
+                }
+
                 chainLightning = new StaggeredChainLightning(Attacker.Map, Attacker, 20, 60, 15, DamageDefOf.ElectricalBurn, (Thing) =>
                 {
                     return Thing != Attacker && Thing is Pawn targetPawn && targetPawn.Faction.HostileTo(Attacker.Faction);

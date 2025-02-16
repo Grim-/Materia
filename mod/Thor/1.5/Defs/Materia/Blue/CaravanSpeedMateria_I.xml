@@ -15,5 +15,11 @@
        <li>MateriaEffect_CaravanSpeed_I</li>
      </effects>
      <textColor>(0.5, 0.3, 0)</textColor>
+     <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
    </Thor.MateriaDef>
 </Defs>

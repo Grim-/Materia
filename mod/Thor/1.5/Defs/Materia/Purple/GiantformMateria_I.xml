@@ -9,12 +9,25 @@
           <texPath>Materia/Materia_purple_low</texPath>
           <graphicClass>Graphic_Single</graphicClass>
       </graphicData>
+      <statBases>
+        <MarketValue>1000</MarketValue>
+      </statBases>
       <commonality>1.0</commonality>
       <SlotType>PurpleMateria</SlotType>
       <effects>
           <li>MateriaEffect_Giantform_I</li>
       </effects>
       <textColor>(0.5, 0, 0.5)</textColor>
+      <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
 
 </Defs>

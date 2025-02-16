@@ -5,6 +5,9 @@
     <label>Ancient Materia Chain Lightning</label>
     <description>A purple crystalline orb crackling with electrical energy. Causes lightning to arc between targets when striking enemies.</description>
     <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>15000</MarketValue>
+    </statBases>
     <graphicData>
       <texPath>Materia/Materia_purple_mid</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -15,5 +18,15 @@
       <li>ChainLightningMateria_I</li>
     </effects>
     <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~4</amount>
+  </li>
+  <li>
+    <thing>RedMateriaDust</thing>
+    <amount>4~8</amount>
+  </li>
+</breakdownMaterials>
   </Thor.MateriaDef>
 </Defs>

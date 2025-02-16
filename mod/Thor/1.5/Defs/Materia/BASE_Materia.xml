@@ -14,11 +14,18 @@
     </statBases>
     <orderedTakeGroup>Medicine</orderedTakeGroup>
     <thingCategories>
+      <li>ResourcesRaw</li>
       <li>Medicine</li>
-      <li>FoodMeals</li>
+      <li>Materia</li>
     </thingCategories>
     <tradeTags>
       <li>ExoticMisc</li>
     </tradeTags>
   </ThingDef>
+
+  <ThingCategoryDef>
+    <defName>Materia</defName>
+    <label>Materia</label>
+    <parent>ResourcesRaw</parent>
+  </ThingCategoryDef>
 </Defs>

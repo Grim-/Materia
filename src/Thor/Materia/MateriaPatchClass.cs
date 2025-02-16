@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -89,6 +90,7 @@ namespace Thor
             return null;
         }
     }
+
     public class Patch_EquipmentUtility_CanEquip
     {
         public static bool Prefix(Thing thing, Pawn pawn, ref string cantReason, bool checkBonded, ref bool __result)
@@ -121,6 +123,26 @@ namespace Thor
         }
     }
 
+    [HarmonyPatch(typeof(Pawn_EquipmentTracker), "GetGizmos")]
+    public class EquipmentTracker_GetGizmos_Patch
+    {
+        static void Postfix(Pawn_EquipmentTracker __instance, ref IEnumerable<Gizmo> __result)
+        {
+            var originalGizmos = __result.ToList();
+
+            var additionalGizmos = new List<Gizmo>();
+            foreach (var eq in __instance.AllEquipmentListForReading)
+            {
+                if (eq.TryGetComp<Comp_MateriaComp>(out Comp_MateriaComp materiaComp))
+                {
+                    additionalGizmos.AddRange(materiaComp.CompGetGizmosExtra());
+                }
+            }
+
+            __result = originalGizmos.Concat(additionalGizmos);
+        }
+    }
+
     [HarmonyPatch(typeof(Verb_MeleeAttackDamage))]
     [HarmonyPatch("ApplyMeleeDamageToTarget")]
     public static class Patch_Verb_MeleeAttack_ApplyMeleeDamageToTarget
@@ -144,6 +166,69 @@ namespace Thor
             }
         }
     }
+
+    [HarmonyPatch(typeof(Projectile))]
+    [HarmonyPatch("Impact")]
+    public class Patch_Projectile_Impact
+    {
+        public static void Postfix(Projectile __instance, Thing hitThing)
+        {
+            if (__instance != null && __instance.Launcher != null && __instance.Launcher is Pawn instigator)
+            {
+                var weapon = instigator.equipment?.Primary;
+                if (weapon != null)
+                {
+                    foreach (var item in weapon.GetComps<Comp_MateriaComp>())
+                    {
+                        if (item != null)
+                        {
+                            item.Notify_ProjectileImpact(instigator, hitThing, __instance);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Bullet))]
+    [HarmonyPatch("Impact")]
+    public class Patch_Bullet_Impact
+    {
+        private static DamageInfo ProcessDamageInfo(DamageInfo dinfo, Thing hitThing, Projectile __instance)
+        {
+            if (__instance.Launcher is Pawn attacker)
+            {
+                var weapon = attacker.equipment?.Primary;
+                if (weapon != null)
+                {
+                    var comp = weapon.GetComp<Comp_MateriaComp>();
+                    if (comp != null)
+                    {
+                        return comp.Notify_ProjectileApplyDamageToTarget(dinfo, attacker, hitThing, __instance);
+                    }
+                }
+            }
+            return dinfo;
+        }
+
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var takeDamageMethod = AccessTools.Method(typeof(Thing), nameof(Thing.TakeDamage));
+            var processMethod = AccessTools.Method(typeof(Patch_Bullet_Impact), nameof(ProcessDamageInfo));
+
+            foreach (var instruction in instructions)
+            {
+                if (instruction.Calls(takeDamageMethod))
+                {
+                    yield return new CodeInstruction(OpCodes.Ldarg_1);  // hitThing
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);  // Projectile
+                    yield return new CodeInstruction(OpCodes.Call, processMethod);
+                }
+                yield return instruction;
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(StatWorker))]
     [HarmonyPatch("FinalizeValue")]
     public class Patch_StatWorker_FinalizeValue
