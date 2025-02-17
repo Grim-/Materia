@@ -93,9 +93,9 @@ namespace Thor
 
 
 
-        public void EquipMateria(MateriaDef materiaDef)
+        public void EquipMateria(MateriaDef materiaDef, bool force = false)
         {
-            if (!CanEquipMateria(materiaDef))
+            if (!CanEquipMateria(materiaDef) && !force)
                 return;
 
             _SlottedMateria = new MateriaInstance(materiaDef, this);
@@ -116,6 +116,9 @@ namespace Thor
 
         public bool CanAccept(MateriaDef Materia)
         {
+            if (Materia == null)
+                return false;
+
             bool IsValidSlotType = _SlotType != null ? Materia.SlotType == _SlotType : true;
             bool IsValidLevel = this.SlotLevel >= Materia.slotLevel;
             return IsValidSlotType && IsValidLevel && !IsSlotLocked;

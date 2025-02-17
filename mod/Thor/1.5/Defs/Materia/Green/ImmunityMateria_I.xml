@@ -22,4 +22,13 @@
       </li>
     </breakdownMaterials>
   </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_Immunity_I</defName>
+    <label>Immunity Enhancement I</label>
+    <description>Increases immunity gain speed.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>ImmunityGainSpeed</statToAffect>
+    <statOffset>1.5</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
 </Defs>

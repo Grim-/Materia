@@ -34,6 +34,10 @@ namespace Thor
         {
             if (damageResult?.totalDamageDealt > 0 && target.Thing != null)
             {
+                Thing targetThing = target.Thing;
+                IntVec3 hitPosition = targetThing.Position;
+
+
                 float extraDamage = Def.isMultiplicative
                     ? damageResult.totalDamageDealt * (Def.damageValue - 1f)
                     : Def.damageValue;
@@ -44,7 +48,7 @@ namespace Thor
                 if (Def.onhitEffecter != null)
                 {
                     var effect = Def.onhitEffecter.Spawn(target.Thing, target.Thing.Map);
-                    effect.Trigger(target.Thing, target.Thing);
+                    effect.Trigger(new TargetInfo(hitPosition, Attacker.Map), new TargetInfo(hitPosition, Attacker.Map));
                 }
             }
             return damageResult;

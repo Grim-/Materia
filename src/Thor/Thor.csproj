@@ -69,18 +69,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abilities\CompProperties_BoundPawn.cs" />
+    <Compile Include="Abilities\CompProperties_BindDead.cs" />
+    <Compile Include="Abilities\ITab_UndeadMaster.cs" />
+    <Compile Include="Abilities\RowLayoutManager.cs" />
+    <Compile Include="Hediff\JobGiver_SummonedCreatureFollowMaster.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_BoundPawn.cs" />
     <Compile Include="Abilities\CompProperties_Fly.cs" />
     <Compile Include="Abilities\Gizmo_ChargeStatus.cs" />
     <Compile Include="BoundWeaponUtil.cs" />
-    <Compile Include="Comps\CompProperties_BiocodableBinding.cs" />
-    <Compile Include="Comps\CompProperties_MagicalTome.cs" />
-    <Compile Include="Comps\CompProperties_MateriaComp.cs" />
-    <Compile Include="Comps\CompProperties_SelectiveBiocodable.cs" />
-    <Compile Include="Comps\MateriaSlotConfig.cs" />
-    <Compile Include="Comps\MateriaSlotLink.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_BiocodableBinding.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_MagicalTome.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_MateriaComp.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_SelectiveBiocodable.cs" />
+    <Compile Include="Hediff\JobGiver_SummonedCreatureFightEnemy.cs" />
+    <Compile Include="Hediff\ThinkNode_ConditionalHasMaster.cs" />
+    <Compile Include="Hediff\ThinkNode_ConditionalHasNoMaster.cs" />
+    <Compile Include="Hediff\ThinkNode_ConditionalNearMaster.cs" />
+    <Compile Include="Hediff\ThinkNode_ConditionalSelfOrMasterHasTarget.cs" />
+    <Compile Include="Materia\MateriaSlotConfig.cs" />
+    <Compile Include="Materia\MateriaSlotLink.cs" />
     <Compile Include="Gene\Gene_DeathKnight.cs" />
     <Compile Include="Hediff\Hediff_Undead.cs" />
+    <Compile Include="Hediff\Hediff_UndeadMaster.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatFactor.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatOffset.cs" />
     <Compile Include="Patches\SummonPatches.cs" />
     <Compile Include="Materia\Gizmo_DamageTrackerStatus.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_DamageTracker.cs" />
@@ -122,7 +134,7 @@
     <Compile Include="Materia\MateriaSlot.cs" />
     <Compile Include="Materia\MateriaTypeDef.cs" />
     <Compile Include="Materia\MateriaWorker.cs" />
-    <Compile Include="Materia\Window_MateriaSelection.cs" />
+    <Compile Include="Materia\UI\Window_MateriaSelection.cs" />
     <Compile Include="Util\ChainLightning.cs" />
     <Compile Include="Abilities\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Abilities\CompProperties_ChainLightning.cs" />
@@ -134,7 +146,7 @@
     <Compile Include="Util\LightningRingBehavior.cs" />
     <Compile Include="Util\LightningStrike.cs" />
     <Compile Include="Materia\MateriaDef.cs" />
-    <Compile Include="Materia\MateriaPatchClass.cs" />
+    <Compile Include="Patches\MateriaPatchClass.cs" />
     <Compile Include="PawnFlyers\PawnFlyerDelegate.cs" />
     <Compile Include="PawnFlyers\Projectile_Delegate.cs" />
     <Compile Include="Projectiles\Projectile_MjolnirRebound.cs" />

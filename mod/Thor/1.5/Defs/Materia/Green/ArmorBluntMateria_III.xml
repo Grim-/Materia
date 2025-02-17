@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>ArmorBluntMateria_III</defName>
+    <label>Blunt Armor Materia III</label>
+    <description>An exceptionally rare red crystalline orb radiating overwhelming protective power. Dramatically enhances defense against blunt damage.</description>
+    <texPath>Materia/Materia_red_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_red_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>0.2</commonality>
+    <SlotType>RedMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_ArmorBlunt_III</li>
+    </effects>
+    <textColor>(0.8, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>25~35</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>8~12</amount>
+      </li>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>3~5</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_ArmorBlunt_III</defName>
+    <label>Blunt Armor Enhancement III</label>
+    <description>Massively increases blunt damage armor rating.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>ArmorRating_Blunt</statToAffect>
+    <statOffset>0.7</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+</Defs>

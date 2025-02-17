@@ -16,11 +16,18 @@
     </effects>
     <textColor>(0.2, 0.2, 0.2)</textColor>
     <breakdownMaterials>
-  <li>
-    <thing>BlueMateriaDust</thing>
-    <amount>4~8</amount>
-  </li>
-</breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
 
+  <Thor.MateriaEffectDef_PawnStatFactor>
+    <defName>CarryingCapacityEffect_I</defName>
+    <label>carry capacity boost</label>
+    <description>carry capacity.</description>
+    <statToAffect>CarryingCapacity</statToAffect>
+    <statFactor>1.2</statFactor>
+  </Thor.MateriaEffectDef_PawnStatFactor>
 </Defs>

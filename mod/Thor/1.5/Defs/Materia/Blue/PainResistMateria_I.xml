@@ -22,4 +22,13 @@
   </li>
 </breakdownMaterials>
    </Thor.MateriaDef>
+
+   <Thor.MateriaEffectDef_PawnStatOffset>
+       <defName>MateriaEffect_PainResist_I</defName>
+       <label>Pain Resistance Enhancement I</label>
+       <description>Increases pain shock threshold.</description>
+       <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+       <statToAffect>PainShockThreshold</statToAffect>
+       <statOffset>1.2</statOffset>
+     </Thor.MateriaEffectDef_PawnStatOffset>
 </Defs>

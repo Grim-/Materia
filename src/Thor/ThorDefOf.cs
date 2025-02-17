@@ -22,6 +22,11 @@ namespace Thor
         public static ThingDef BlueMateriaDust;
 
         public static SlotLinkRuleDef PairForward;
+
+
+        public static HediffDef DeathKnight_UndeadMaster;
+        public static HediffDef DeathKnight_Undead;
+        public static ThinkTreeDef DeathKnight_SummonedCreature;
     }
 
 

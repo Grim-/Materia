@@ -17,4 +17,25 @@
       </li>
     </comps>
   </AbilityDef>
+
+  <AbilityDef>
+  <defName>BindDead</defName>
+  <label>Bind Dead</label>
+  <description>Resurrect a corpse as an undead minion</description>
+  <hostile>false</hostile>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <range>25</range>
+    <targetParams>
+      <canTargetLocations>false</canTargetLocations>
+      <canTargetPawns>false</canTargetPawns>
+      <canTargetBuildings>false</canTargetBuildings>
+      <canTargetCorpses>true</canTargetCorpses>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="Thor.CompProperties_BindDead">
+    </li>
+  </comps>
+</AbilityDef>
 </Defs>

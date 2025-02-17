@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>CarryCapacityMateria_II</defName>
+    <label>CarryCapacity materia II</label>
+    <description>A blue crystalline orb radiating protective energy. Enhances the wielder's natural resilience.</description>
+    <texPath>Materia/Materia_cyan_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_cyan_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <effects>
+      <li>CarryingCapacityEffect_II</li>
+    </effects>
+    <textColor>(0.2, 0.2, 0.2)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>6~12</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatFactor>
+    <defName>CarryingCapacityEffect_II</defName>
+    <label>carry capacity boost</label>
+    <description>carry capacity.</description>
+    <statToAffect>CarryingCapacity</statToAffect>
+    <statFactor>1.35</statFactor>
+  </Thor.MateriaEffectDef_PawnStatFactor>
+</Defs>

@@ -14,7 +14,7 @@ namespace Thor
         public MateriaWorker CreateWorker(MateriaEffectDef effectDef, ThingWithComps parentEquipment)
         {
             MateriaWorker newWorker = (MateriaWorker)Activator.CreateInstance(workerClass);
-            newWorker.def = effectDef;
+            newWorker.def = this;
             newWorker.ParentEquipment = parentEquipment;
             return newWorker;
         }

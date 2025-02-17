@@ -22,4 +22,14 @@
     </li>
   </breakdownMaterials>
   </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+    <defName>MateriaEffect_BurningTouch_I</defName>
+    <label>Burning Touch I</label>
+    <description>25% chance to inflict burning damage over time.</description>
+    <workerClass>Thor.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
+    <hediff>Burn_I</hediff>
+    <chance>0.25</chance>
+    <applyToSelf>false</applyToSelf>
+  </Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
 </Defs>

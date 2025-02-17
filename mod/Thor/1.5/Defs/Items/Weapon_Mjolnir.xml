@@ -74,7 +74,28 @@
       </li>
       <li Class="Thor.CompProperties_MateriaComp">
         <materiaSlots>
-          <li>RedMateria</li>
+          <li>
+            <slotType>PurpleMateria</slotType>
+            <slotLevel>2</slotLevel>
+            <slotIsLocked>true</slotIsLocked>
+            <materiaToAutoSlot>AncientMateria_BindDead</materiaToAutoSlot>
+          </li>
+          <li>
+            <slotType>PurpleMateria</slotType>
+            <slotLevel>2</slotLevel>
+            <slotIsLocked>true</slotIsLocked>
+            <materiaToAutoSlot>AncientMateria_Asgardian</materiaToAutoSlot>
+          </li>
+          <li>
+            <slotType>RedMateria</slotType>
+            <slotLevel>1</slotLevel>
+            <slotIsLocked>false</slotIsLocked>
+          </li>
+          <li>
+            <slotType>GreenMateria</slotType>
+            <slotLevel>1</slotLevel>
+            <slotIsLocked>false</slotIsLocked>
+          </li>
         </materiaSlots>
       </li>
     </comps>

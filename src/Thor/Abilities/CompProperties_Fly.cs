@@ -26,4 +26,6 @@ namespace Thor
             GenSpawn.Spawn(pawnFlyer, parent.pawn.Position, map);
         }
     }
+
+
 }

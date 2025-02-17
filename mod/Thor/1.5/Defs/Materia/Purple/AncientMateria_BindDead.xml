@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_BindDead</defName>
+    <label>Ancient Materia BindDead</label>
+    <description>A purple crystalline orb crackling with electrical energy. Grants you the ability to BindDead..</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>5000</MarketValue>
+    </statBases>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_GrantBindDead</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~4</amount>
+  </li>
+  <li>
+    <thing>BlueMateriaDust</thing>
+    <amount>4~8</amount>
+  </li>
+</breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_GrantAbility>
+    <defName>MateriaEffect_GrantBindDead</defName>
+    <label>BindDead Materia</label>
+    <description>Grants the ability to BindDead</description>
+    <workerClass>Thor.MateriaEffect_GrantAbility</workerClass>
+    <ability>BindDead</ability>
+  </Thor.MateriaEffectDef_GrantAbility>
+</Defs>

@@ -21,6 +21,7 @@ namespace Thor
             }
         }
 
+
         public static void RegisterDraftableCreature(Pawn pawn)
         {
             if (DraftManager != null)

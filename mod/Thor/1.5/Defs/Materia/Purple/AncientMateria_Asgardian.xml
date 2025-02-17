@@ -19,15 +19,22 @@
     </effects>
     <textColor>(0, 1, 0)</textColor>
     <breakdownMaterials>
-  <li>
-    <thing>PurpleMateriaDust</thing>
-    <amount>2~4</amount>
-  </li>
-  <li>
-    <thing>GreenMateriaDust</thing>
-    <amount>3~6</amount>
-  </li>
-</breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
-
+  
+  <Thor.MateriaEffectDef_GrantGene>
+    <defName>GeneMateriaAsgardian</defName>
+    <label>damage boost</label>
+    <description>Increases weapon damage.</description>
+    <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+    <gene>AsgardianGene</gene>
+  </Thor.MateriaEffectDef_GrantGene>
 </Defs>

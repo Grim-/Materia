@@ -27,4 +27,13 @@
 </breakdownMaterials>
   </Thor.MateriaDef>
 
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_MentalStability_I</defName>
+    <label>Mental Stability Enhancement I</label>
+    <description>Increases resistance to mental breaks.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>MentalBreakThreshold</statToAffect>
+    <statOffset>-1</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+
 </Defs>

@@ -26,4 +26,12 @@
        </li>
      </breakdownMaterials>
    </Thor.MateriaDef>
+
+   <Thor.MateriaEffectDef_PawnStatFactor>
+     <defName>MateriaEffect_Lifespan_I</defName>
+     <label>Lifespan Enhancement I</label>
+     <description>Increases natural lifespan.</description>
+     <statToAffect>LifespanFactor</statToAffect>
+     <statFactor>2</statFactor>
+   </Thor.MateriaEffectDef_PawnStatFactor>
 </Defs>

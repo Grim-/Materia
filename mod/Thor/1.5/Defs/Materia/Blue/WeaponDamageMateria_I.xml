@@ -26,5 +26,14 @@
       </li>
     </breakdownMaterials>
   </Thor.MateriaDef>
-
+  
+  <Thor.MateriaEffectDef_EquipmentStat>
+    <defName>WeaponDamageMateria_I</defName>
+    <label>Weapon Damage Materia I</label>
+    <description>Increases weapon damage.</description>
+    <workerClass>Thor.MateriaEffect_EquipmentStat</workerClass>
+    <statToAffect>BluntDamageMultiplier</statToAffect>
+    <statOffset>0.1</statOffset>
+    <statFactor>1</statFactor>
+  </Thor.MateriaEffectDef_EquipmentStat>
 </Defs>

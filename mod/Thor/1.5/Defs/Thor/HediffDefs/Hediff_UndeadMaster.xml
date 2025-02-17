@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>DeathKnight_UndeadMaster</defName>
+    <label>undead master</label>
+    <description>This pawn is a master of the undead.</description>
+    <hediffClass>Thor.Hediff_UndeadMaster</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <duplicationAllowed>false</duplicationAllowed>
+  </HediffDef>
+</Defs>

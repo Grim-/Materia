@@ -23,4 +23,11 @@
     </breakdownMaterials>
   </Thor.MateriaDef>
 
+  <Thor.MateriaEffectDef_PawnStatFactor>
+     <defName>MateriaEffect_WorkSpeed_I</defName>
+     <label>Work Speed Enhancement I</label>
+     <description>Increases general work speed.</description>
+     <statToAffect>WorkSpeedGlobal</statToAffect>
+     <statFactor>1.1</statFactor>
+   </Thor.MateriaEffectDef_PawnStatFactor>
 </Defs>

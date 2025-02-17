@@ -19,15 +19,20 @@
     </effects>
     <textColor>(0, 1, 0)</textColor>
     <breakdownMaterials>
-  <li>
-    <thing>PurpleMateriaDust</thing>
-    <amount>2~4</amount>
-  </li>
-  <li>
-    <thing>GreenMateriaDust</thing>
-    <amount>3~6</amount>
-  </li>
-</breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
-
+  <Thor.MateriaEffectDef_DamageTracker>
+    <defName>MateriaEffect_Gorging_I</defName>
+    <label>Gorging Materia I</label>
+    <description>Max Health increases for damage dealt.</description>
+    <workerClass>Thor.MateriaEffect_DamageTracker</workerClass>
+  </Thor.MateriaEffectDef_DamageTracker>
 </Defs>

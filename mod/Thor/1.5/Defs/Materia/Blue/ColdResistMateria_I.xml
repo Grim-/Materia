@@ -16,11 +16,19 @@
     </effects>
     <textColor>(0, 0, 0.8)</textColor>
     <breakdownMaterials>
-  <li>
-    <thing>BlueMateriaDust</thing>
-    <amount>3~7</amount>
-  </li>
-</breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>3~7</amount>
+      </li>
+    </breakdownMaterials>
   </Thor.MateriaDef>
-
+  
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_ColdResist_I</defName>
+    <label>Cold Resistance Enhancement I</label>
+    <description>Increases minimum comfortable temperature.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>ComfyTemperatureMin</statToAffect>
+    <statOffset>-10</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
 </Defs>

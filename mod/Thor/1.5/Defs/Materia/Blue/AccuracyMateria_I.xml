@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <Thor.MateriaDef ParentName="BaseMateria">
-    <defName>AccuracyMateria_I</defName>
-    <label>Accuracy Materia I</label>
+    <defName>AccuracyMateriaMelee_I</defName>
+    <label>Accuracy Materia I (Melee)</label>
     <description>A red crystalline orb pulsing with focused energy. Improves the wielder's combat precision.</description>
     <texPath>Materia/Materia_yellow_low</texPath>
     <graphicData>
@@ -22,4 +22,14 @@
       </li>
     </breakdownMaterials>
   </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_MeleeAccuracy_I</defName>
+    <label>Melee Accuracy Enhancement I</label>
+    <description>Increases melee hit chance.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>MeleeHitChance</statToAffect>
+    <statOffset>0.1</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+
 </Defs>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>AccuracyMateriaRanged_III</defName>
+    <label>Accuracy Materia III (Ranged)</label>
+    <description>An exceptionally rare red crystalline orb radiating overwhelming marksman's mastery. Dramatically improves the wielder's shooting precision.</description>
+    <texPath>Materia/Materia_yellow_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_yellow_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>0.2</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_RangedAccuracy_III</li>
+    </effects>
+    <textColor>(0.8, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>25~35</amount>
+      </li>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>8~12</amount>
+      </li>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>3~5</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_RangedAccuracy_III</defName>
+    <label>Ranged Accuracy Enhancement III</label>
+    <description>Massively increases ranged hit chance.</description>
+    <statToAffect>ShootingAccuracyPawn</statToAffect>
+    <statOffset>0.35</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+</Defs>
