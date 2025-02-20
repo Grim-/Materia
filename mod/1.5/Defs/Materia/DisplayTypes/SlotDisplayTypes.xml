@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDisplayDef>
+    <defName>GridDisplay</defName>
+    <label>Grid Layout</label>
+    <displayClass>Thor.GridMateriaDisplay</displayClass>
+  </Thor.MateriaDisplayDef>
+
+  <Thor.MateriaDisplayDef>
+    <defName>CircularDisplay</defName>
+    <label>Circular Layout</label>
+    <displayClass>Thor.CircularMateriaDisplay</displayClass>
+  </Thor.MateriaDisplayDef>
+
+
+  <Thor.MateriaDisplayDef>
+    <defName>StarDisplay</defName>
+    <label>Grid Layout</label>
+    <displayClass>Thor.StarMateriaDisplay</displayClass>
+  </Thor.MateriaDisplayDef>
+
+  <!-- <Thor.MateriaDisplayDef>
+    <defName>ChainDisplay</defName>
+    <label>Grid Layout</label>
+    <displayClass>Thor.ChainMateriaDisplay</displayClass>
+  </Thor.MateriaDisplayDef> -->
+</Defs>

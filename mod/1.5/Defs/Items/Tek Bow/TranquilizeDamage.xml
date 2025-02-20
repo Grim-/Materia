@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.DamageDef_Tranquilizer>
+    <defName>TranquilizerDamage</defName>
+    <label>tranquilize</label>
+    <workerClass>Thor.DamageWorker_Tranquilizer</workerClass>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been tranquilized to death.</deathMessage>
+    <hediff>Cut</hediff>
+    <hediffSolid>Crack</hediffSolid>
+    <tranqHediff>TranquilizerEffect</tranqHediff>
+    <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+    <impactSoundType>Bullet</impactSoundType>
+    <armorCategory>Sharp</armorCategory>
+    <minDamageToFragment>5</minDamageToFragment>
+    <defaultDamage>8</defaultDamage>
+    <buildingDamageFactor>0.3</buildingDamageFactor>
+    <isRanged>true</isRanged>
+    <makesBlood>true</makesBlood>
+  </Thor.DamageDef_Tranquilizer>
+</Defs>

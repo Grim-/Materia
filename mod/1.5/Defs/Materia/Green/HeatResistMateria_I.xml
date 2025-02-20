@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>HeatResistMateria_I</defName>
+    <label>Heat Resistance Materia I</label>
+    <description>A red crystalline orb radiating cooling energy. Protects against hot temperatures.</description>
+    <texPath>Materia/Materia_red_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_red_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>GreenMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_HeatResist_I</li>
+    </effects>
+    <textColor>(0.8, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>3~7</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_HeatResist_I</defName>
+    <label>Heat Resistance Enhancement I</label>
+    <description>Increases maximum comfortable temperature.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>ComfyTemperatureMax</statToAffect>
+    <statOffset>10</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+</Defs>

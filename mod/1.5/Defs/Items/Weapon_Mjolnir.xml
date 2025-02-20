@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BaseMeleeWeapon_Blunt_Quality">
+    <defName>Thor_Mjolnir</defName>
+    <label>Mjolnir</label>
+    <description>Mjolnir</description>
+    <possessionCount>1</possessionCount>
+    <tickerType>Normal</tickerType>
+    <graphicData>
+      <texPath>Mjolnir</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.1</drawSize>
+    </graphicData>
+    <recipeMaker>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>10</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <equipmentType>Primary</equipmentType>
+    <costList>
+      <Steel>100</Steel>
+      <Plasteel>50</Plasteel>
+      <ComponentSpacer>2</ComponentSpacer>
+    </costList>
+    <techLevel>Spacer</techLevel>
+    <weaponTags>
+      <li>CursedTool</li>
+      <li>LightningWeapon</li>
+    </weaponTags>
+    <costStuffCount>120</costStuffCount>
+    <thingSetMakerTags><li>RewardStandardQualitySuper</li></thingSetMakerTags>
+    <statBases>
+      <WorkToMake>25000</WorkToMake>
+      <Mass>1.5</Mass>
+    </statBases>
+    <equippedAngleOffset>-130</equippedAngleOffset>
+    <stuffCategories>
+    </stuffCategories>
+    <tools>
+      <li>
+        <label>hammer head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>14</power>
+        <cooldownTime>1.8</cooldownTime>
+      </li>
+      <li>
+        <label>hammer head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>40</power>
+        <cooldownTime>1.1</cooldownTime>
+      </li>
+    </tools>
+    <comps>
+      <li Class="Thor.CompProperties_BiocodableBinding">
+        <biocodeOnEquip>true</biocodeOnEquip>
+        <requiredSkills>
+          <!-- <li>
+            <skill>Melee</skill>
+            <minLevel>15</minLevel>
+          </li> -->
+        </requiredSkills>
+        <requiredTraits>
+        </requiredTraits>
+      </li>
+      <li Class="Thor.CompProperties_MateriaComp">
+        <materiaSlots>
+          <li>
+            <slotType>PurpleMateria</slotType>
+            <slotLevel>2</slotLevel>
+            <slotIsLocked>true</slotIsLocked>
+            <materiaToAutoSlot>AncientMateria_BindDead</materiaToAutoSlot>
+          </li>
+          <li>
+            <slotType>PurpleMateria</slotType>
+            <slotLevel>2</slotLevel>
+            <slotIsLocked>true</slotIsLocked>
+            <materiaToAutoSlot>AncientMateria_Asgardian</materiaToAutoSlot>
+          </li>
+          <li>
+            <slotType>RedMateria</slotType>
+            <slotLevel>1</slotLevel>
+            <slotIsLocked>false</slotIsLocked>
+          </li>
+          <li>
+            <slotType>GreenMateria</slotType>
+            <slotLevel>1</slotLevel>
+            <slotIsLocked>false</slotIsLocked>
+          </li>
+        </materiaSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

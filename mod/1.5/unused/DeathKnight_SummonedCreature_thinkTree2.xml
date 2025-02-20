@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThinkTreeDef>
+    <defName>DeathKnight_SummonedCreature</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Despawned</treeDef>
+        </li>
+
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+
+        <li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+          <subNodes>
+            <li Class="JobGiver_FleePotentialExplosion" />
+          </subNodes>
+        </li>
+
+        <!-- Do a queued job -->
+        <li Class="ThinkNode_QueuedJob" />
+
+        <li Class="ThinkNode_ConditionalDrafted">
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>DraftedOrder</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_MoveToStandable" />
+                <li Class="JobGiver_Orders" />
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+
+        <li Class="Thor.ThinkNode_ConditionalSelfOrMasterHasTarget">
+          <subNodes>
+            <li Class="Thor.JobGiver_SummonedCreatureFightEnemy" />
+          </subNodes>
+        </li>
+
+        <li Class="Thor.ThinkNode_ConditionalNearMaster">
+          <MaxDistanceToMaster>5</MaxDistanceToMaster>
+          <subNodes>
+            <li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+              <subNodes>
+                <li Class="JobGiver_Idle" />
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+
+        <li Class="Thor.ThinkNode_ConditionalHasNoMaster">
+          <subNodes>
+            <li Class="JobGiver_WanderAnywhere">
+            </li>
+          </subNodes>
+        </li>
+
+        <li Class="Thor.ThinkNode_ConditionalHasMaster">
+          <subNodes>
+            <li Class="Thor.ThinkNode_ConditionalShouldFollowFormation">
+              <subNodes>
+                <li Class="Thor.JobGiver_SummonedCreatureFormationFollow">
+                </li>
+              </subNodes>
+            </li>
+            <li Class="Thor.ThinkNode_ConditionalShouldFollowFormation">
+              <invert>true</invert>
+              <subNodes>
+                <li Class="Thor.JobGiver_SummonedCreatureFollowMaster">
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+</Defs>

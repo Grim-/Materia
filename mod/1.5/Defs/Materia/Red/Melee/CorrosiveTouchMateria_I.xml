@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>CorrosiveTouchMateria_I</defName>
+    <label>Corrosive Touch Materia I</label>
+    <description>A sickly green crystalline orb dripping with acid. Chance to corrode enemies on hit.</description>
+    <texPath>Materia/Materia_green_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_green_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>RedMateria</SlotType>
+    <materiaCategories>
+        <li>MateriaCategory_Melee</li>
+    </materiaCategories>
+    <effects>
+      <li>MateriaEffect_CorrosiveTouch_I</li>
+    </effects>
+    <textColor>(0.4, 0.8, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+    <defName>MateriaEffect_CorrosiveTouch_I</defName>
+    <label>Corrosive Touch I</label>
+    <description>20% chance to inflict acid damage over time.</description>
+    <workerClass>Thor.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
+    <hediff>AcidBurn_I</hediff>
+    <chance>0.2</chance>
+    <applyToSelf>false</applyToSelf>
+  </Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+</Defs>

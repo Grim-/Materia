@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.BowModeDef>
+    <defName>EMPArrow</defName>
+    <label>EMP arrows</label>
+    <description>Arrows that release an electromagnetic pulse on impact, disrupting electronic systems and mechanoids.</description>
+    <projectileDef>Arrow_HighTech_EMP</projectileDef>
+    <verbClass>Verb_Shoot</verbClass>
+    <warmupTime>1.3</warmupTime>
+    <range>33</range>
+    <requireLineOfSight>true</requireLineOfSight>
+  </Thor.BowModeDef>
+
+  <!-- EMP Arrow -->
+  <ThingDef ParentName="BaseGrenadeProjectile">
+    <defName>Arrow_HighTech_EMP</defName>
+    <label>high-tech EMP arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <damageAmountBase>8</damageAmountBase>
+      <armorPenetrationBase>0.4</armorPenetrationBase>
+      <stoppingPower>0.8</stoppingPower>
+      <speed>45</speed>
+      <explosionRadius>1.2</explosionRadius>
+    </projectile>
+  </ThingDef>
+
+</Defs>

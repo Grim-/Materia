@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.MateriaDef ParentName="BaseMateria">
+    <defName>PsychicMateria_III</defName>
+    <label>Psychic Materia III</label>
+    <description>A blue crystalline orb resonating with psychic energies. Enhances psychic sensitivity.</description>
+    <texPath>Materia/Materia_blue_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_blue_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <effects>
+      <li>MateriaEffect_PsychicSense_I</li>
+    </effects>
+    <textColor>(0.5, 0, 0.5)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+    </breakdownMaterials>
+  </Thor.MateriaDef>
+
+  <Thor.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_PsychicSense_III</defName>
+    <label>Psychic Sensitivity Enhancement III</label>
+    <description>Increases psychic sensitivity.</description>
+    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>PsychicSensitivity</statToAffect>
+    <statOffset>3</statOffset>
+  </Thor.MateriaEffectDef_PawnStatOffset>
+
+</Defs>

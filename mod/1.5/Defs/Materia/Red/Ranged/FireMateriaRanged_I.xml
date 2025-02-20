@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <Thor.MateriaDef ParentName="BaseMateria">
+      <defName>FireMateriaRanged_I</defName>
+      <label>Fire materia I (Ranged)</label>
+      <description>A red orb containing the essence of fire. Enhances ranged weapon damage with burning power.</description>
+      <texPath>Materia/Materia_yellow_low</texPath>
+      <graphicData>
+        <texPath>Materia/Materia_yellow_low</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+      </graphicData>
+      <commonality>1.0</commonality>
+      <SlotType>RedMateria</SlotType>
+      <materiaCategories>
+          <li>MateriaCategory_Ranged</li>
+      </materiaCategories>
+      <effects>
+        <li>FireMateriaRanged_I</li>
+      </effects>
+      <breakdownMaterials>
+        <li>
+          <thing>RedMateriaDust</thing>
+          <amount>4~8</amount>
+        </li>
+      </breakdownMaterials>
+    </Thor.MateriaDef>
+
+    <Thor.MateriaEffectDef_OnProjectileHitDamage>
+      <defName>FireMateriaRanged_I</defName>
+      <label>damage boost</label>
+      <description>Increases weapon damage.</description>
+      <workerClass>Thor.MateriaEffect_OnProjectileHitDamage</workerClass>
+      <damageType>Burn</damageType>
+      <effecter>WeaponFireEnchant</effecter>
+      <onhitEffecter>Fire_Burst</onhitEffecter>
+    </Thor.MateriaEffectDef_OnProjectileHitDamage>
+</Defs>

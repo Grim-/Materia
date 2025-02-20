@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Thor.BowModeDef>
+    <defName>FireArrow</defName>
+    <label>fire arrows</label>
+    <description>Specialized arrows that ignite on impact, setting targets ablaze.</description>
+    <projectileDef>Arrow_HighTech_Fire</projectileDef>
+    <verbClass>Verb_Shoot</verbClass>
+    <warmupTime>1.3</warmupTime>
+    <range>33</range>
+    <requireLineOfSight>true</requireLineOfSight>
+  </Thor.BowModeDef>
+
+  <!-- Fire Arrow -->
+  <ThingDef ParentName="BaseIncendiaryProjectile">
+    <defName>Arrow_HighTech_Fire</defName>
+    <label>high-tech fire arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>12</damageAmountBase>
+      <armorPenetrationBase>0.15</armorPenetrationBase>
+      <stoppingPower>1.0</stoppingPower>
+      <speed>50</speed>
+      <explosionRadius>0.5</explosionRadius>
+      <preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+      <preExplosionSpawnChance>0.6</preExplosionSpawnChance>
+    </projectile>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.66</explosiveRadius>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <requiredDamageTypeToExplode>Flame</requiredDamageTypeToExplode>
+      </li>
+    </comps>
+  </ThingDef>
+
+
+</Defs>
