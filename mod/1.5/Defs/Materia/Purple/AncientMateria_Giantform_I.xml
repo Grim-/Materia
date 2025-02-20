@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
       <defName>AncientMateria_Giantform_I</defName>
       <label>Giantform Materia I</label>
       <description>A massive purple crystalline orb that pulses with transformative energy. Increases the wielder's physical size dramatically.</description>
@@ -28,13 +28,13 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
-  <Thor.MateriaEffectDef_GrantGene>
+  </Materia.MateriaDef>
+  <Materia.MateriaEffectDef_GrantGene>
       <defName>MateriaEffect_Giantform_I</defName>
       <label>Giant Form I</label>
       <description>Transforms the wielder into a giant form.</description>
-      <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+      <workerClass>Materia.MateriaEffect_GrantGene</workerClass>
       <gene>Body_Hulk</gene>
       <isXenogene>true</isXenogene>
-  </Thor.MateriaEffectDef_GrantGene>
+  </Materia.MateriaEffectDef_GrantGene>
 </Defs>

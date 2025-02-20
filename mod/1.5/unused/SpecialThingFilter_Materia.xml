@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Defs>
-    <SpecialThingFilterDef>
-        <defName>AllowMateriaWeapons</defName>
-        <label>allow weapons with materia slots</label>
-        <description>Allow weapons that can have materia slots added.</description>
-        <workerClass>Thor.SpecialThingFilterWorker_MateriaWeapons</workerClass>
-    </SpecialThingFilterDef>
-</Defs>

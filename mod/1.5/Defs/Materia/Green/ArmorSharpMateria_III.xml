@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>ArmorSharpMateria_III</defName>
     <label>Sharp Armor Materia III</label>
     <description>An exceptionally rare red crystalline orb radiating overwhelming protective power. Dramatically enhances defense against sharp damage.</description>
@@ -29,14 +29,14 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_ArmorSharp_III</defName>
     <label>Sharp Armor Enhancement III</label>
     <description>Massively increases sharp damage armor rating.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>ArmorRating_Sharp</statToAffect>
     <statOffset>0.7</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

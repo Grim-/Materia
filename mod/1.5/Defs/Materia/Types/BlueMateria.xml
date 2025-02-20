@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaTypeDef>
+  <Materia.MateriaTypeDef>
     <defName>BlueMateria</defName>
     <label>Blue Materia</label>
     <description>A slot that accepts materia that enhances base attributes and stats. Blue materia provides passive improvements to speed, accuracy, and other core attributes.</description>
     <materiaTextColor>(3, 198, 252)</materiaTextColor>
-  </Thor.MateriaTypeDef>
+  </Materia.MateriaTypeDef>
 </Defs>

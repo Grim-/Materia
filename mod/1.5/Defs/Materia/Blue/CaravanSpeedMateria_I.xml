@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
      <defName>CaravanSpeedMateria_I</defName>
      <label>Caravan Speed Materia I</label>
      <description>A blue crystalline orb humming with kinetic energy. Increases mount riding speed.</description>
@@ -21,14 +21,14 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-   </Thor.MateriaDef>
+   </Materia.MateriaDef>
 
-   <Thor.MateriaEffectDef_PawnStatOffset>
+   <Materia.MateriaEffectDef_PawnStatOffset>
      <defName>MateriaEffect_CaravanSpeed_I</defName>
      <label>Caravan Speed Enhancement I</label>
      <description>Increases riding speed in caravans.</description>
-     <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+     <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
      <statToAffect>CaravanRidingSpeedFactor</statToAffect>
     <statOffset>1</statOffset>
-   </Thor.MateriaEffectDef_PawnStatOffset>
+   </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

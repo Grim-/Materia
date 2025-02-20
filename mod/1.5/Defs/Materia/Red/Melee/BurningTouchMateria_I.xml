@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>BurningTouchMateria_I</defName>
     <label>Burning Touch Materia I</label>
     <description>A deep red crystalline orb crackling with flames. Chance to inflict burning damage on hit.</description>
@@ -24,15 +24,15 @@
       <amount>4~8</amount>
     </li>
   </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+  <Materia.MateriaEffectDef_OnMeleeHitApplyHediff>
     <defName>MateriaEffect_BurningTouch_I</defName>
     <label>Burning Touch I</label>
     <description>25% chance to inflict burning damage over time.</description>
-    <workerClass>Thor.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
+    <workerClass>Materia.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
     <hediff>Burn_I</hediff>
     <chance>0.25</chance>
     <applyToSelf>false</applyToSelf>
-  </Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+  </Materia.MateriaEffectDef_OnMeleeHitApplyHediff>
 </Defs>

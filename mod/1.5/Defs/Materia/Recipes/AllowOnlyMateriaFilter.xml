@@ -6,7 +6,7 @@
       <description>Allow weapons that can accept materia.</description>
       <parentCategory>Weapons</parentCategory>
       <allowedByDefault>true</allowedByDefault>
-      <workerClass>Thor.SpecialThingFilterWorker_Materia</workerClass>
+      <workerClass>Materia.SpecialThingFilterWorker_Materia</workerClass>
   </SpecialThingFilterDef>
 
 
@@ -16,7 +16,7 @@
       <description>Allow weapons that can accept materia.</description>
       <parentCategory>Weapons</parentCategory>
       <allowedByDefault>true</allowedByDefault>
-      <workerClass>Thor.SpecialThingFilterWorker_MateriaWeapons</workerClass>
+      <workerClass>Materia.SpecialThingFilterWorker_MateriaWeapons</workerClass>
   </SpecialThingFilterDef>
 
 </Defs>

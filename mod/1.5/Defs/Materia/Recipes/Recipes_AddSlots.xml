@@ -9,7 +9,7 @@
         <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
-        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+        <workerClass>Materia.RecipeWorker_AddMateriaSlot</workerClass>
 
         <ingredients>
             <li>
@@ -63,7 +63,7 @@
         <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
-        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+        <workerClass>Materia.RecipeWorker_AddMateriaSlot</workerClass>
 
         <ingredients>
             <li>
@@ -117,7 +117,7 @@
         <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
-        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+        <workerClass>Materia.RecipeWorker_AddMateriaSlot</workerClass>
 
         <ingredients>
             <li>
@@ -171,7 +171,7 @@
         <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
-        <workerClass>Thor.RecipeWorker_AddMateriaSlot</workerClass>
+        <workerClass>Materia.RecipeWorker_AddMateriaSlot</workerClass>
 
         <ingredients>
             <li>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AncientMateria_Asgardian</defName>
     <label>Ancient Materia Asgardian</label>
     <description>A purple crystalline orb pulsing with restorative energy. Grants healing abilities to the wielder.</description>
@@ -28,13 +28,13 @@
         <amount>3~6</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
   
-  <Thor.MateriaEffectDef_GrantGene>
+  <Materia.MateriaEffectDef_GrantGene>
     <defName>GeneMateriaAsgardian</defName>
     <label>damage boost</label>
     <description>Increases weapon damage.</description>
-    <workerClass>Thor.MateriaEffect_GrantGene</workerClass>
+    <workerClass>Materia.MateriaEffect_GrantGene</workerClass>
     <gene>AsgardianGene</gene>
-  </Thor.MateriaEffectDef_GrantGene>
+  </Materia.MateriaEffectDef_GrantGene>
 </Defs>

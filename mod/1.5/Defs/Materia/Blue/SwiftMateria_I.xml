@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
       <defName>SwiftMateria_I</defName>
       <label>Swift Materia I</label>
       <description>A shimmering green crystalline orb crackling with kinetic energy. Enhances the wielder's movement speed.</description>
@@ -21,13 +21,13 @@
     <amount>4~8</amount>
   </li>
 </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatFactor>
+  <Materia.MateriaEffectDef_PawnStatFactor>
       <defName>MateriaEffect_Speed_I</defName>
       <label>Speed Enhancement I</label>
       <statToAffect>MoveSpeed</statToAffect>
       <statFactor>1.1</statFactor>
-  </Thor.MateriaEffectDef_PawnStatFactor>
+  </Materia.MateriaEffectDef_PawnStatFactor>
 
 </Defs>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDustDef ParentName="BaseMateriaDust">
+  <Materia.MateriaDustDef ParentName="BaseMateriaDust">
     <defName>RedMateriaDust</defName>
     <label>RedMateriaDust</label>
     <description>A fine powder of red materia ready to be reconstructed.</description>
@@ -9,6 +9,6 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <createsSlotType>RedMateria</createsSlotType>
-  </Thor.MateriaDustDef>
+  </Materia.MateriaDustDef>
 
 </Defs>

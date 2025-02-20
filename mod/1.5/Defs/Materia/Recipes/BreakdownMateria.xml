@@ -9,7 +9,7 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <effectWorking>Smith</effectWorking>
       <soundWorking>Recipe_Smith</soundWorking>
-      <workerClass>Thor.RecipeWorker_BreakdownMateria</workerClass>
+      <workerClass>Materia.RecipeWorker_BreakdownMateria</workerClass>
       <ingredients>
           <li>
               <filter>

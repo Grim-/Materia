@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>MentalStabilityMateria_I</defName>
     <label>Mental Stability Materia I</label>
     <description>A calming blue crystalline orb that radiates tranquility. Strengthens mental resilience.</description>
@@ -25,15 +25,15 @@
     <amount>1~3</amount>
   </li>
 </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_MentalStability_I</defName>
     <label>Mental Stability Enhancement I</label>
     <description>Increases resistance to mental breaks.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>MentalBreakThreshold</statToAffect>
     <statOffset>-1</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 
 </Defs>

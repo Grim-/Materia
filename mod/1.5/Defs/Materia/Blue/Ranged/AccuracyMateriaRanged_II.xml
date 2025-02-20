@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AccuracyMateriaRanged_II</defName>
     <label>Accuracy Materia II (Ranged)</label>
     <description>A vibrant red crystalline orb emanating concentrated marksman's prowess. Significantly improves the wielder's shooting precision.</description>
@@ -29,13 +29,13 @@
         <amount>3~6</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_RangedAccuracy_II</defName>
     <label>Ranged Accuracy Enhancement II</label>
     <description>Greatly increases ranged hit chance.</description>
     <statToAffect>ShootingAccuracyPawn</statToAffect>
     <statOffset>0.2</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

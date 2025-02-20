@@ -9,7 +9,7 @@
     <initialSeverity>0.2</initialSeverity>
     <maxSeverity>1.0</maxSeverity>
     <comps>
-      <li Class="Thor.HediffCompProperties_DamageOverTime">
+      <li Class="Materia.HediffCompProperties_DamageOverTime">
         <damagePerInterval>1</damagePerInterval>
         <intervalTicks>300</intervalTicks>
         <damageType>Burn</damageType>

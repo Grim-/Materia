@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>CorrosiveTouchMateria_I</defName>
     <label>Corrosive Touch Materia I</label>
     <description>A sickly green crystalline orb dripping with acid. Chance to corrode enemies on hit.</description>
@@ -28,15 +28,15 @@
         <amount>2~4</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+  <Materia.MateriaEffectDef_OnMeleeHitApplyHediff>
     <defName>MateriaEffect_CorrosiveTouch_I</defName>
     <label>Corrosive Touch I</label>
     <description>20% chance to inflict acid damage over time.</description>
-    <workerClass>Thor.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
+    <workerClass>Materia.MateriaEffect_OnMeleeHitApplyHediff</workerClass>
     <hediff>AcidBurn_I</hediff>
     <chance>0.2</chance>
     <applyToSelf>false</applyToSelf>
-  </Thor.MateriaEffectDef_OnMeleeHitApplyHediff>
+  </Materia.MateriaEffectDef_OnMeleeHitApplyHediff>
 </Defs>

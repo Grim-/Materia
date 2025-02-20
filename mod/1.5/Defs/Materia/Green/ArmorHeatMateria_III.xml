@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>ArmorHeatMateria_III</defName>
     <label>Heat Armor Materia III</label>
     <description>An exceptionally rare red crystalline orb radiating overwhelming thermal-resistant power. Dramatically enhances defense against heat damage.</description>
@@ -29,14 +29,14 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_ArmorHeat_III</defName>
     <label>Heat Armor Enhancement III</label>
     <description>Massively increases heat damage armor rating.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>ArmorRating_Heat</statToAffect>
     <statOffset>0.7</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

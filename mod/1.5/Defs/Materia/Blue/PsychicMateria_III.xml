@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>PsychicMateria_III</defName>
     <label>Psychic Materia III</label>
     <description>A blue crystalline orb resonating with psychic energies. Enhances psychic sensitivity.</description>
@@ -25,15 +25,15 @@
         <amount>2~4</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_PsychicSense_III</defName>
     <label>Psychic Sensitivity Enhancement III</label>
     <description>Increases psychic sensitivity.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>PsychicSensitivity</statToAffect>
     <statOffset>3</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 
 </Defs>

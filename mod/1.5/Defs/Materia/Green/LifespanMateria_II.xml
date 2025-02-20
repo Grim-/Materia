@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>LifespanMateria_II</defName>
     <label>Lifespan Materia II</label>
     <description>A vibrant green crystalline orb pulsing with concentrated vital energy. Significantly extends natural lifespan.</description>
@@ -25,12 +25,12 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
-  <Thor.MateriaEffectDef_PawnStatFactor>
+  </Materia.MateriaDef>
+  <Materia.MateriaEffectDef_PawnStatFactor>
     <defName>MateriaEffect_Lifespan_II</defName>
     <label>Lifespan Enhancement II</label>
     <description>Greatly increases natural lifespan.</description>
     <statToAffect>LifespanFactor</statToAffect>
     <statFactor>3.5</statFactor>
-  </Thor.MateriaEffectDef_PawnStatFactor>
+  </Materia.MateriaEffectDef_PawnStatFactor>
 </Defs>

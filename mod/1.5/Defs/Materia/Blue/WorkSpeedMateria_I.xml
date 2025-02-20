@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>WorkSpeedMateria_I</defName>
     <label>Work Speed Materia I</label>
     <description>A blue crystalline orb humming with productive energy. Increases general work speed.</description>
@@ -21,13 +21,13 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatFactor>
+  <Materia.MateriaEffectDef_PawnStatFactor>
      <defName>MateriaEffect_WorkSpeed_I</defName>
      <label>Work Speed Enhancement I</label>
      <description>Increases general work speed.</description>
      <statToAffect>WorkSpeedGlobal</statToAffect>
      <statFactor>1.1</statFactor>
-   </Thor.MateriaEffectDef_PawnStatFactor>
+   </Materia.MateriaEffectDef_PawnStatFactor>
 </Defs>

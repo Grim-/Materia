@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>ImmunityMateria_II</defName>
     <label>Immunity Materia II</label>
     <description>A green crystalline orb pulsing with vitality. Strengthens the immune system.</description>
@@ -21,14 +21,14 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_Immunity_II</defName>
     <label>Immunity Enhancement II</label>
     <description>Increases immunity gain speed.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>ImmunityGainSpeed</statToAffect>
     <statOffset>2</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

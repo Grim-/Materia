@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>ColdResistMateria_III</defName>
     <label>Cold Resistance Materia III</label>
     <description>An exceptionally rare blue crystalline orb radiating overwhelming thermal force. Dramatically protects against cold temperatures.</description>
@@ -25,14 +25,14 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_ColdResist_III</defName>
     <label>Cold Resistance Enhancement III</label>
     <description>Massively increases minimum comfortable temperature.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>ComfyTemperatureMin</statToAffect>
     <statOffset>-35</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

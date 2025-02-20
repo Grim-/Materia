@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AncientMateria_LifeStealing_I</defName>
     <label>Ancient Materia Life Stealing I</label>
     <description>A purple crystalline orb it allows you to steal the life force of those you damage with melee attacks.</description>
@@ -28,17 +28,17 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_OnHitHeal>
+  <Materia.MateriaEffectDef_OnHitHeal>
     <defName>MateriaEffect_VampiricMateria_I</defName>
     <label>life drain</label>
     <description>Converts damage dealt into healing.</description>
-    <workerClass>Thor.MateriaEffect_OnHitHeal</workerClass>
+    <workerClass>Materia.MateriaEffect_OnHitHeal</workerClass>
     <healAmount>0.2</healAmount>
     <minimumDamageToHeal>5.0</minimumDamageToHeal>
     <isPercentage>true</isPercentage>
     <healMode>ON_MELEE</healMode>
-  </Thor.MateriaEffectDef_OnHitHeal>
+  </Materia.MateriaEffectDef_OnHitHeal>
 
 </Defs>

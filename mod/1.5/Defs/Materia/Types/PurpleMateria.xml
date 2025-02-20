@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaTypeDef>
+  <Materia.MateriaTypeDef>
     <defName>PurpleMateria</defName>
     <label>Purple Materia</label>
     <description>A slot that accepts materia granting special abilities and powers. Purple materia provides active skills that can be used in combat or for utility purposes.</description>
     <materiaTextColor>(136, 3, 252)</materiaTextColor>
-  </Thor.MateriaTypeDef>
+  </Materia.MateriaTypeDef>
 </Defs>

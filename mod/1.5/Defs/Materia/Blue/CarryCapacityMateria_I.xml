@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>CarryCapacityMateria_I</defName>
     <label>CarryCapacity materia I</label>
     <description>A blue crystalline orb radiating protective energy. Enhances the wielder's natural resilience.</description>
@@ -21,13 +21,13 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatFactor>
+  <Materia.MateriaEffectDef_PawnStatFactor>
     <defName>CarryingCapacityEffect_I</defName>
     <label>carry capacity boost</label>
     <description>carry capacity.</description>
     <statToAffect>CarryingCapacity</statToAffect>
     <statFactor>1.2</statFactor>
-  </Thor.MateriaEffectDef_PawnStatFactor>
+  </Materia.MateriaEffectDef_PawnStatFactor>
 </Defs>

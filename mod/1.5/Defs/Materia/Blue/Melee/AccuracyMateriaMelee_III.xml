@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AccuracyMateriaMelee_III</defName>
     <label>Accuracy Materia III (Melee)</label>
     <description>An exceptionally rare red crystalline orb radiating overwhelming martial mastery. Dramatically improves the wielder's combat precision.</description>
@@ -33,14 +33,14 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_PawnStatOffset>
+  <Materia.MateriaEffectDef_PawnStatOffset>
     <defName>MateriaEffect_MeleeAccuracy_III</defName>
     <label>Melee Accuracy Enhancement III</label>
     <description>Massively increases melee hit chance.</description>
-    <workerClass>Thor.MateriaEffect_PawnStatOffset</workerClass>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>MeleeHitChance</statToAffect>
     <statOffset>0.35</statOffset>
-  </Thor.MateriaEffectDef_PawnStatOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

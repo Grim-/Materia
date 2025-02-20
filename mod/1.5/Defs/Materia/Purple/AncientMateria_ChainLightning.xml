@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AncientMateria_ChainLightning</defName>
     <label>Ancient Materia Chain Lightning</label>
     <description>A purple crystalline orb crackling with electrical energy. Causes lightning to arc between targets when striking enemies.</description>
@@ -31,12 +31,12 @@
     <amount>4~8</amount>
   </li>
 </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_ChainLightningOnHit>
+  <Materia.MateriaEffectDef_ChainLightningOnHit>
     <defName>ChainLightningMateria_I</defName>
     <label>Chain Lightning Strike</label>
     <description>Triggers lightning that chains between targets when successfully damaging an enemy.</description>
-    <workerClass>Thor.MateriaEffect_ChainLightningOnHit</workerClass>
-  </Thor.MateriaEffectDef_ChainLightningOnHit>
+    <workerClass>Materia.MateriaEffect_ChainLightningOnHit</workerClass>
+  </Materia.MateriaEffectDef_ChainLightningOnHit>
 </Defs>

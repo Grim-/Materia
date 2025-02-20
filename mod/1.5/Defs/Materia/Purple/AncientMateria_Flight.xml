@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>AncientMateria_Fly</defName>
     <label>Ancient Materia Fly</label>
     <description>A purple crystalline orb crackling with electrical energy. Grants you the ability to fly at will..</description>
@@ -28,13 +28,13 @@
     <amount>4~8</amount>
   </li>
 </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_GrantAbility>
+  <Materia.MateriaEffectDef_GrantAbility>
     <defName>MateriaEffect_GrantFlight_I</defName>
     <label>Fly Materia I</label>
     <description>Grants the ability to fly</description>
-    <workerClass>Thor.MateriaEffect_GrantAbility</workerClass>
+    <workerClass>Materia.MateriaEffect_GrantAbility</workerClass>
     <ability>Thor_Fly</ability>
-  </Thor.MateriaEffectDef_GrantAbility>
+  </Materia.MateriaEffectDef_GrantAbility>
 </Defs>

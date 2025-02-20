@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria" MayRequire="com.emo.magicandmyths">
     <defName>AncientMateria_BindDead</defName>
     <label>Ancient Materia BindDead</label>
     <description>A purple crystalline orb crackling with electrical energy. Grants you the ability to BindDead..</description>
@@ -28,13 +28,13 @@
     <amount>4~8</amount>
   </li>
 </breakdownMaterials>
-  </Thor.MateriaDef>
+  </Materia.MateriaDef>
 
-  <Thor.MateriaEffectDef_GrantAbility>
+  <Materia.MateriaEffectDef_GrantAbility MayRequire="com.emo.magicandmyths">
     <defName>MateriaEffect_GrantBindDead</defName>
     <label>BindDead Materia</label>
     <description>Grants the ability to BindDead</description>
-    <workerClass>Thor.MateriaEffect_GrantAbility</workerClass>
+    <workerClass>Materia.MateriaEffect_GrantAbility</workerClass>
     <ability>BindDead</ability>
-  </Thor.MateriaEffectDef_GrantAbility>
+  </Materia.MateriaEffectDef_GrantAbility>
 </Defs>

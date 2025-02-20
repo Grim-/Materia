@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Thor.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="BaseMateria">
     <defName>IceMateriaRanged_I</defName>
     <label>Ice materia I (Ranged)</label>
     <description>A blue crystalline orb containing the essence of frost. Imbues ranged weapons with freezing power, dealing ice damage to targets.</description>
@@ -28,14 +28,14 @@
         <amount>2~4</amount>
       </li>
     </breakdownMaterials>
-  </Thor.MateriaDef>
-  <Thor.MateriaEffectDef_OnMeleeHitDamage>
+  </Materia.MateriaDef>
+  <Materia.MateriaEffectDef_OnMeleeHitDamage>
     <defName>IceMateriaRanged_I</defName>
     <label>damage boost</label>
     <description>Increases ranged weapon damage.</description>
-    <workerClass>Thor.MateriaEffect_OnMeleeHitDamage</workerClass>
+    <workerClass>Materia.MateriaEffect_OnMeleeHitDamage</workerClass>
     <damageType>Burn</damageType>
     <effecter>WeaponFireEnchant</effecter>
     <onhitEffecter>Fire_Burst</onhitEffecter>
-  </Thor.MateriaEffectDef_OnMeleeHitDamage>
+  </Materia.MateriaEffectDef_OnMeleeHitDamage>
 </Defs>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Thor</name>
-  <author>Emo</author>
+  <name>MateriaMod</name>
+  <author>Emo,CelestialCloudWalker</author>
   <supportedVersions>
     <li>1.5</li>
   </supportedVersions>
-	<packageId>emo.com.thor</packageId>
-        <description>Thor</description>
+	<packageId>emo.com.materia</packageId>
+  <description>Adds Materia slots to weapon and equipment, find or create a variety of materia, that affect stats, grant abilities or more unique behaviours.</description>
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Ludeon.RimWorld.Biotech</li>
