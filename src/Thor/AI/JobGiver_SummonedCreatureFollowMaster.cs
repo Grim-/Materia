@@ -12,7 +12,7 @@ namespace Thor
         {
             if (pawn.IsControlledSummon())
             {
-                //Log.Error($"pawn is summon master is {pawn.GetMaster()}");
+               // Log.Error($"pawn is summon master is {pawn.GetMaster()}");
                 return pawn.GetMaster();
             }
             return null;
@@ -49,7 +49,6 @@ namespace Thor
             job.followRadius = GetRadius(pawn);
             job.SetTarget(TargetIndex.A, GetFollowee(pawn));
             job.reportStringOverride = "Following Summoner";
-
 
             return job;
         }

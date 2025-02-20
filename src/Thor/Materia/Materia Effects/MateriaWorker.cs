@@ -11,6 +11,9 @@ namespace Thor
         public Pawn EquippingPawn;
         public ThingWithComps ParentEquipment;
 
+        private int CooldownTicks = 0;
+        public int CooldownDurationTicks = 0;
+
         public MateriaWorker()
         {
 
@@ -21,6 +24,21 @@ namespace Thor
             this.def = def;
             EquippingPawn = equippingPawn;
             ParentEquipment = parentEquipment;
+        }
+
+        public virtual bool HasCooldown()
+        {
+            return CooldownDurationTicks > 0;
+        }
+
+        public virtual bool IsOnCooldown()
+        {
+            if (!HasCooldown())
+            {
+                return false;
+            }
+
+            return CooldownTicks > 0;
         }
 
         public virtual void Notify_Equipped(Pawn pawn)
@@ -123,6 +141,7 @@ namespace Thor
         public virtual void ExposeData()
         {
             Scribe_Defs.Look(ref def, "def");
+            Scribe_Values.Look(ref CooldownTicks, "cooldownTicks");
         }
 
     }

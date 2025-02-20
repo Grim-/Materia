@@ -12,14 +12,19 @@ namespace Thor
     public class MateriaDef : ThingDef
     {
         public float commonality = 1f;
+
         public string texPath;
+
         public int slotLevel = 1;
-        //the slot type
+
         public MateriaTypeDef SlotType;
-        //effects that equipping this materia to a weapon applies
+
         public List<MateriaEffectDef> effects;
-        //list of valid materia that can be linked to this one
+
         public List<MateriaLinkData> links;
+
+
+        public List<MateriaCategoryDef> materiaCategories;
 
         public Color textColor = Color.white;
         public List<MateriaBreakdownMaterials> breakdownMaterials;
@@ -66,12 +71,14 @@ namespace Thor
                                       x.type == other.SlotType);
         }
     }
+    public class MateriaCategoryDef : Def
+    {
+      
+    }
 
     public class MateriaLinkData
     {
         public MateriaTypeDef type;
         public MateriaDef specificMateria;
     }
-
-
 }

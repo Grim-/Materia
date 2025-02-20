@@ -77,6 +77,7 @@ namespace Thor
                     return true;
 
 
+                //only override main think tree
                 if (!isConstant)
                 {
                     foreach (var item in ThinkTreeMap)
@@ -92,7 +93,6 @@ namespace Thor
                             return false;
                         }
                     }
-
                 }
 
                 return true;
@@ -110,6 +110,12 @@ namespace Thor
                     {
                         PawnToTrain.training.SetWantedRecursive(item, true);
                         PawnToTrain.training.Train(item, Trainer, true);
+
+                        if (PawnToTrain.playerSettings != null)
+                        {
+                            PawnToTrain.playerSettings.followFieldwork = true;
+                            PawnToTrain.playerSettings.followFieldwork = true;
+                        }
                     }
 
                 }
@@ -133,6 +139,26 @@ namespace Thor
 
                 undeadSummon.SetMaster(Master);
                 master.AbsorbCreature(undeadSummon.pawn);
+
+
+
+
+                if (pawn.RaceProps.Humanlike)
+                {
+                    pawn.guest.SetGuestStatus(Faction.OfPlayer, GuestStatus.Slave);
+                    pawn.needs.AddOrRemoveNeedsAsAppropriate();
+                }
+
+                if (!pawn.RaceProps.Humanlike)
+                {
+                    TrainPawn(pawn, Master);
+                }
+
+                if (pawn.playerSettings != null)
+                {
+                    pawn.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
+                }
+
                 return true;
             }
 
@@ -151,7 +177,11 @@ namespace Thor
 
             return null;
         }
-
+        public static Hediff_UndeadMaster GetUndeadMaster(this Pawn pawn)
+        {
+            Hediff_UndeadMaster undeadMaster = (Hediff_UndeadMaster)pawn.health.hediffSet.GetFirstHediffOfDef(ThorDefOf.DeathKnight_UndeadMaster);
+            return undeadMaster;
+        }
         public static bool IsMasterOf(this Pawn master, Pawn pawn)
         {
             Hediff_Undead undeadSummon = (Hediff_Undead)pawn.health.GetOrAddHediff(ThorDefOf.DeathKnight_Undead);
@@ -173,4 +203,7 @@ namespace Thor
             return pawn.health.hediffSet.HasHediff<Hediff_Undead>();
         }
     }
+
+
+
 }

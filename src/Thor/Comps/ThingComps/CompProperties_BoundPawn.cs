@@ -130,4 +130,8 @@ namespace Thor
         public float CurrentCharge => currentCharge;
         public float MaxCharge => Props.maxCharge;
     }
+
+
+
+
 }

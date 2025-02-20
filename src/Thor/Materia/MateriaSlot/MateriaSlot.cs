@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LudeonTK;
+using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -121,7 +123,12 @@ namespace Thor
 
             bool IsValidSlotType = _SlotType != null ? Materia.SlotType == _SlotType : true;
             bool IsValidLevel = this.SlotLevel >= Materia.slotLevel;
-            return IsValidSlotType && IsValidLevel && !IsSlotLocked;
+            bool IsValidEquipmentType = Materia.materiaCategories == null ||
+                                      (this.ParentThing.def.IsMeleeWeapon && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Melee)) ||
+                                      (this.ParentThing.def.IsRangedWeapon && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Ranged)) ||
+                                      (this.ParentThing.def.IsApparel && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Armor));
+
+            return IsValidSlotType && IsValidLevel && IsValidEquipmentType && !IsSlotLocked;
         }
 
         public void AddLevel(int levelsToAdd)
@@ -178,6 +185,4 @@ namespace Thor
             Scribe_Values.Look(ref _IsSlotLocked, "SlotLocked");
         }
     }
-
-
 }

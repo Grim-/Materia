@@ -52,10 +52,7 @@ namespace Thor
 
                 healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
 
-                if (HealthUtility.TryGetWorstHealthCondition(Attacker, out Hediff hediff, out BodyPartRecord part, null))
-                {
-                    HealthUtility.AdjustSeverity(Attacker, hediff.def, healAmount);
-                }
+                Attacker.QuickHeal(healAmount);
                 MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
             }
             return damageResult;
@@ -75,10 +72,7 @@ namespace Thor
 
                 healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
 
-                if (HealthUtility.TryGetWorstHealthCondition(Attacker, out Hediff hediff, out BodyPartRecord part, null))
-                {
-                    HealthUtility.AdjustSeverity(Attacker, hediff.def, healAmount);
-                }
+                Attacker.QuickHeal(healAmount);
                 MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
             }
 

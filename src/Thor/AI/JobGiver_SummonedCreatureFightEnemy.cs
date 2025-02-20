@@ -47,7 +47,7 @@ namespace Thor
 
         protected override float GetFlagRadius(Pawn pawn)
         {
-            return 20f;
+            return 10f;
         }
 
         protected override IntVec3 GetFlagPosition(Pawn pawn)

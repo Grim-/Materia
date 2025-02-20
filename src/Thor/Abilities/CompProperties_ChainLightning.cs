@@ -26,12 +26,13 @@ namespace Thor
             if (parent.pawn?.Map == null)
                 return;
 
-            ChainLightning chainLightning = new ChainLightning(parent.pawn?.Map, parent.pawn, 20, 30, 15, DamageDefOf.ElectricalBurn, (Thing) =>
-            {
-                return Thing != this.parent.pawn;
-            });
+            //StaggeredChainLightning chainLightning = new StaggeredChainLightning(parent.pawn?.Map, parent.pawn, 500, 30, 30, 15, DamageDefOf.ElectricalBurn, (Thing) =>
+            //{
+            //    return Thing != this.parent.pawn;
+            //});
 
-            chainLightning.StartChain(target.Pawn);
+
+            //chainLightning.StartChain(target.Pawn);
         }
 
         public override void CompTick()

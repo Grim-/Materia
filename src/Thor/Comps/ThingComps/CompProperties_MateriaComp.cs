@@ -17,7 +17,7 @@ namespace Thor
         }
     }
 
-    public class Comp_MateriaComp : CompEquippable, IStatProvider
+    public class Comp_MateriaComp : CompEquippable, IStatProvider, IDrawEquippedGizmos
     {
         private List<MateriaSlot> materiaSlots = new List<MateriaSlot>();
         public List<MateriaSlot> MateriaSlots => materiaSlots.ToList();
@@ -33,6 +33,9 @@ namespace Thor
         public bool HasEquipOwner => EquippedPawn != null;
 
 
+
+        public bool ParentIsMelee => this.parent.def.IsMeleeWeapon;
+        public bool ParentIsRanged => this.parent.def.IsRangedWeapon;
         public override void PostPostMake()
         {
             if (!initializedSlots)
@@ -72,6 +75,7 @@ namespace Thor
                 }
             }
         }
+
         #region events
         public override void PostDestroy(DestroyMode mode, Map previousMap)
         {
@@ -506,14 +510,8 @@ namespace Thor
 
         #endregion
 
-        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        public IEnumerable<Gizmo> GetEquippedGizmos()
         {
-
-            foreach (var item in base.CompGetGizmosExtra())
-            {
-                yield return item;
-            }
-
             if (materiaSlots != null)
             {
                 foreach (var slot in materiaSlots)
@@ -533,7 +531,7 @@ namespace Thor
                 defaultLabel = "Manage Materia",
                 action = () =>
                 {
-                    Find.WindowStack.Add(new Window_MateriaSelection(this.parent, _EquippedPawn, this));
+                    OpenMateriaWindow(this.parent, this.EquippedPawn, this);
                 }
             };
         }
@@ -606,6 +604,12 @@ namespace Thor
                     });
                 }
             }
+        }
+
+
+        public static void OpenMateriaWindow(Thing Thing, Pawn EquippedPawn, Comp_MateriaComp MateriaComp, Type displayType = null)
+        {
+            Find.WindowStack.Add(new Window_MateriaSelection(Thing, EquippedPawn, MateriaComp, displayType));
         }
     }
 }

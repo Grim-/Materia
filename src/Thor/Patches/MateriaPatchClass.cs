@@ -110,7 +110,17 @@ namespace Thor
             return true;
         }
     }
-
+    [HarmonyPatch(typeof(Pawn_EquipmentTracker), "EquipmentTrackerTick")]
+    public class CompEquippable_BowModeSwitcher_Tick_Patch
+    {
+        static void Postfix(Pawn_EquipmentTracker __instance)
+        {
+            foreach (var eq in __instance.AllEquipmentListForReading)
+            {
+                eq.GetComp<CompEquippable_BowModeSwitcher>()?.EquipTick();
+            }
+        }
+    }
     [HarmonyPatch(typeof(Pawn_EquipmentTracker), "EquipmentTrackerTick")]
     public class EquipmentTracker_Tick_Patch
     {
@@ -133,10 +143,19 @@ namespace Thor
             var additionalGizmos = new List<Gizmo>();
             foreach (var eq in __instance.AllEquipmentListForReading)
             {
-                if (eq.TryGetComp<Comp_MateriaComp>(out Comp_MateriaComp materiaComp))
+                if (eq is IDrawEquippedGizmos equippedGizmos)
                 {
-                    additionalGizmos.AddRange(materiaComp.CompGetGizmosExtra());
+                    additionalGizmos.AddRange(equippedGizmos.GetEquippedGizmos());
                 }
+
+                foreach (var item in eq.AllComps)
+                {
+                    if (item is IDrawEquippedGizmos compEquippedGizmos)
+                    {
+                        additionalGizmos.AddRange(compEquippedGizmos.GetEquippedGizmos());
+                    }
+                }
+    
             }
 
             __result = originalGizmos.Concat(additionalGizmos);
@@ -189,6 +208,61 @@ namespace Thor
             }
         }
     }
+
+    //[HarmonyPatch(typeof(CompEquippable))]
+    //[HarmonyPatch("VerbProperties", MethodType.Getter)]
+    //public static class Patch_CompEquippable_VerbProperties
+    //{
+    //    [HarmonyPostfix]
+    //    public static void Postfix(CompEquippable __instance, ref List<VerbProperties> __result)
+    //    {
+    //        var compsWithExtraVerbs = __instance.parent.AllComps
+    //            .OfType<ICompEquippableExtraVerbProps>();
+
+    //        foreach (var item in __instance.parent.AllComps)
+    //        {
+    //            if (item is ICompEquippableExtraVerbProps comp)
+    //            {
+    //                List<VerbProperties> verbProperties = comp.GetExtraVerbProperties();
+
+    //                if (verbProperties != null && verbProperties.Count > 0)
+    //                {
+    //                    __result= verbProperties;
+    //                }
+                   
+    //            }
+    //        }
+    //    }
+    //}
+    //[HarmonyPatch(typeof(Pawn))]
+    //[HarmonyPatch("TryGetAttackVerb")]
+    //public static class Patch_Pawn_TryGetAttackVerb
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(Pawn __instance, Thing target, ref Verb __result)
+    //    {
+    //        // Check for primary equipment
+    //        if (__instance.equipment?.Primary != null)
+    //        {
+    //            // Try to get ammo switcher comp
+    //            CompEquippable_AmmoSwitcher ammoSwitcher = __instance.equipment.Primary.GetComp<CompEquippable_AmmoSwitcher>();
+    //            if (ammoSwitcher != null)
+    //            {
+    //                Verb overriddenVerb = ammoSwitcher.GetOverridenVerb();
+    //                if (overriddenVerb != null && overriddenVerb.Available())
+    //                {
+    //                    overriddenVerb.verbProps = ammoSwitcher.CurrentAmmoDef.verbProperties;
+    //                    overriddenVerb.caster = __instance;
+    //                    overriddenVerb.verbTracker = ammoSwitcher.VerbTracker;
+    //                    //overriddenVerb.caster = __instance;
+    //                    __result = overriddenVerb;
+    //                    return false; // Skip original method
+    //                }
+    //            }
+    //        }
+    //        return true; // Run original method
+    //    }
+    //}
 
     [HarmonyPatch(typeof(Bullet))]
     [HarmonyPatch("Impact")]
@@ -330,7 +404,8 @@ namespace Thor
             {
                 var selPawnForGearProp = AccessTools.Property(typeof(ITab_Pawn_Gear), "SelPawnForGear");
                 Pawn pawn = (Pawn)selPawnForGearProp.GetValue(__instance);
-                Find.WindowStack.Add(new Window_MateriaSelection(thing, pawn, materiaComp));
+
+                Comp_MateriaComp.OpenMateriaWindow(thing, pawn, materiaComp);
             }
 
             if (Mouse.IsOver(buttonRect))
@@ -391,13 +466,7 @@ namespace Thor
     })]
     public static class Patch_Pawn_HealthTracker_AddHediff
     {
-        public static void Postfix(
-            Hediff hediff,
-            BodyPartRecord part,
-            DamageInfo? dinfo,
-            DamageWorker.DamageResult result,
-            Pawn_HealthTracker __instance,
-            Pawn ___pawn)
+        public static void Postfix(Hediff hediff, BodyPartRecord part, DamageInfo? dinfo, DamageWorker.DamageResult result, Pawn_HealthTracker __instance, Pawn ___pawn)
         {
             Pawn pawn = ___pawn;
             if (pawn == null || pawn?.equipment?.AllEquipmentListForReading == null) 

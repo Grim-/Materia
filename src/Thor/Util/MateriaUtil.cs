@@ -25,6 +25,20 @@ namespace Thor
             return newThings;
         }
 
+
+        public static void QuickHeal(this Pawn pawn, float healAmount)
+        {
+            if (HealthUtility.TryGetWorstHealthCondition(pawn, out Hediff hediff, out BodyPartRecord part, null))
+            {
+                if (hediff == null || hediff.def == null)
+                {
+                    return;
+                }
+                 
+                HealthUtility.AdjustSeverity(pawn, hediff.def, healAmount);
+            }
+        }
+
         public static void DropAndEquip(this Pawn_EquipmentTracker equipment, ThingWithComps newEquipment)
         {
             if (equipment?.pawn == null || newEquipment == null) return;

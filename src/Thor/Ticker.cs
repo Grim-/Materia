@@ -30,7 +30,7 @@ namespace Thor
             if (startAutomatically) Start();
         }
 
-        public void Tick()
+        public virtual void Tick()
         {
             CurrentTick++;
 
@@ -50,20 +50,20 @@ namespace Thor
             }
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             CurrentTick = 0;
             IsRunning = true;
             IsFinished = false;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             IsRunning = true;
             IsFinished = false;
         }
 
-        public void Stop(bool reset = false)
+        public virtual void Stop(bool reset = false)
         {
             IsRunning = false;
             IsFinished = true;

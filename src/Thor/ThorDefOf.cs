@@ -27,6 +27,18 @@ namespace Thor
         public static HediffDef DeathKnight_UndeadMaster;
         public static HediffDef DeathKnight_Undead;
         public static ThinkTreeDef DeathKnight_SummonedCreature;
+
+
+
+        public static HediffDef TranquilizerEffect;
+
+        public static JobDef Thor_FormationFollow;
+        public static JobDef Thor_BoidFormationFollow;
+
+        public static MateriaCategoryDef MateriaCategory_Universal;
+        public static MateriaCategoryDef MateriaCategory_Melee;
+        public static MateriaCategoryDef MateriaCategory_Ranged;
+        public static MateriaCategoryDef MateriaCategory_Armor;
     }
 
 

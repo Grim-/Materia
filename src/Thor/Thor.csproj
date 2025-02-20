@@ -70,31 +70,56 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\CompProperties_BindDead.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalIsCalledToArms.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalIsHuman.cs" />
+    <Compile Include="Comps\ThingComps\BowModes\BowModeDef.cs" />
+    <Compile Include="Comps\ThingComps\BowModes\BowModeWorker.cs" />
+    <Compile Include="Comps\ThingComps\BowModes\BowModeWorker_Beam.cs" />
+    <Compile Include="Comps\ThingComps\BowModes\BowModeWorker_Smoke.cs" />
+    <Compile Include="Comps\ThingComps\Gizmo_BowModeSelector.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_BowModeSwitcher.cs" />
+    <Compile Include="Comps\ThingComps\DamageDef_Tranquilizer.cs" />
+    <Compile Include="Comps\ThingComps\DamageWorker_Tranquilizer.cs" />
+    <Compile Include="Gizmo\Gizmo_FormationControl.cs" />
     <Compile Include="Abilities\ITab_UndeadMaster.cs" />
     <Compile Include="Abilities\RowLayoutManager.cs" />
-    <Compile Include="Hediff\JobGiver_SummonedCreatureFollowMaster.cs" />
+    <Compile Include="AI\JobGiver_BoidFormationFollow.cs" />
+    <Compile Include="AI\JobGiver_SummonedCreatureFormationFollow.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalShouldFollowFormation.cs" />
+    <Compile Include="Interfaces\IDrawEquippedGizmos.cs" />
+    <Compile Include="Materia\Display\ChainMateriaDisplay.cs" />
+    <Compile Include="Materia\Display\CircularMateriaDisplay.cs" />
+    <Compile Include="Materia\Display\GridMateriaDisplay.cs" />
+    <Compile Include="Materia\Display\HorizontalMateriaDisplay.cs" />
+    <Compile Include="Materia\Display\MateriaDisplayDef.cs" />
+    <Compile Include="Materia\Display\MateriaDisplayFactory.cs" />
+    <Compile Include="Materia\Display\MateriaDisplayWorker.cs" />
+    <Compile Include="Materia\Display\StarMateriaDisplay.cs" />
+    <Compile Include="Materia\UI\Window_DisplaySettings.cs" />
+    <Compile Include="Util\FormationUtils.cs" />
+    <Compile Include="AI\JobGiver_SummonedCreatureFollowMaster.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_BoundPawn.cs" />
     <Compile Include="Abilities\CompProperties_Fly.cs" />
-    <Compile Include="Abilities\Gizmo_ChargeStatus.cs" />
-    <Compile Include="BoundWeaponUtil.cs" />
+    <Compile Include="Gizmo\Gizmo_ChargeStatus.cs" />
+    <Compile Include="Util\BoundWeaponUtil.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_BiocodableBinding.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_MagicalTome.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_MateriaComp.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_SelectiveBiocodable.cs" />
-    <Compile Include="Hediff\JobGiver_SummonedCreatureFightEnemy.cs" />
-    <Compile Include="Hediff\ThinkNode_ConditionalHasMaster.cs" />
-    <Compile Include="Hediff\ThinkNode_ConditionalHasNoMaster.cs" />
-    <Compile Include="Hediff\ThinkNode_ConditionalNearMaster.cs" />
-    <Compile Include="Hediff\ThinkNode_ConditionalSelfOrMasterHasTarget.cs" />
-    <Compile Include="Materia\MateriaSlotConfig.cs" />
-    <Compile Include="Materia\MateriaSlotLink.cs" />
+    <Compile Include="AI\JobGiver_SummonedCreatureFightEnemy.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalHasMaster.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalHasNoMaster.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalSelfOrMasterHasTarget.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaSlotConfig.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaSlotLink.cs" />
     <Compile Include="Gene\Gene_DeathKnight.cs" />
     <Compile Include="Hediff\Hediff_Undead.cs" />
     <Compile Include="Hediff\Hediff_UndeadMaster.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatFactor.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatOffset.cs" />
     <Compile Include="Patches\SummonPatches.cs" />
-    <Compile Include="Materia\Gizmo_DamageTrackerStatus.cs" />
+    <Compile Include="Gizmo\Gizmo_DamageTrackerStatus.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_DamageTracker.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantHediff.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantTrait.cs" />
@@ -105,16 +130,16 @@
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitBane.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitBane.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitDamage.cs" />
-    <Compile Include="Materia\MateriaSlotGenerator.cs" />
-    <Compile Include="Materia\SlotLinkRuleDef.cs" />
-    <Compile Include="Materia\SlotLinkRuleWorker.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaSlotGenerator.cs" />
+    <Compile Include="Materia\MateriaSlot\SlotLinkRuleDef.cs" />
+    <Compile Include="Materia\MateriaSlot\SlotLinkRuleWorker.cs" />
     <Compile Include="Recipe\RecipeWorker_AddMateriaSlot.cs" />
     <Compile Include="Recipe\RecipeWorker_BreakdownMateria.cs" />
     <Compile Include="Recipe\SpecialThingFilterWorker_Materia.cs" />
     <Compile Include="Recipe\SpecialThingFilterWorker_MateriaWeapons.cs" />
     <Compile Include="Hediff\comps\HediffCompProperties_BoundWeapon.cs" />
-    <Compile Include="Materia\GeneExtension_PawnPartMaxHealth.cs" />
-    <Compile Include="Materia\IStatProvider.cs" />
+    <Compile Include="Def Extensions\GeneExtension_PawnPartMaxHealth.cs" />
+    <Compile Include="Interfaces\IStatProvider.cs" />
     <Compile Include="Hediff\comps\HediffCompProperties_DamageOverTime.cs" />
     <Compile Include="Materia\MateriaBreakdownMaterials.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
@@ -126,16 +151,16 @@
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitHeal.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitApplyHediff.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
-    <Compile Include="Materia\MateriaInstance.cs" />
-    <Compile Include="Materia\MateriaUtil.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaInstance.cs" />
+    <Compile Include="Util\Graphic_MoteWithAgeSecsCustom.cs" />
+    <Compile Include="Util\MateriaUtil.cs" />
     <Compile Include="Materia\MateriaDustDef.cs" />
     <Compile Include="RenderNodes\PawnOverlayNodeWorker.cs" />
     <Compile Include="Materia\StatMod.cs" />
-    <Compile Include="Materia\MateriaSlot.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaSlot.cs" />
     <Compile Include="Materia\MateriaTypeDef.cs" />
-    <Compile Include="Materia\MateriaWorker.cs" />
+    <Compile Include="Materia\Materia Effects\MateriaWorker.cs" />
     <Compile Include="Materia\UI\Window_MateriaSelection.cs" />
-    <Compile Include="Util\ChainLightning.cs" />
     <Compile Include="Abilities\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Abilities\CompProperties_ChainLightning.cs" />
     <Compile Include="Abilities\CompProperties_LightningRing.cs" />
@@ -154,12 +179,12 @@
     <Compile Include="ThorDefOf.cs" />
     <Compile Include="Ticker.cs" />
     <Compile Include="Util\StaggeredChainLightning.cs" />
+    <Compile Include="Util\TrackedMote.cs" />
+    <Compile Include="Util\WorldComponent_DraftableCreatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gizmo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

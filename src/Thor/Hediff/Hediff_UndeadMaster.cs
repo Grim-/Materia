@@ -6,10 +6,19 @@ namespace Thor
 {
     public class Hediff_UndeadMaster : HediffWithComps
     {
-        private const int undeadLimit = 5;
+        private const int undeadLimit = 500;
         private List<Pawn> storedUndead = new List<Pawn>();
         private List<Pawn> activeUndead = new List<Pawn>();
 
+
+        private float _FollowDistance = 5f;
+
+        public float FollowDistance => _FollowDistance;
+
+        public bool InFormation = true;
+
+        private FormationUtils.FormationType _FormationType = FormationUtils.FormationType.Column;
+        public FormationUtils.FormationType FormationType => _FormationType;
         public override string Description => base.Description + $"\r\nThis pawn has absorbed {storedUndead.Count} spirits.";
 
 
@@ -20,6 +29,16 @@ namespace Thor
         public List<Pawn> GetActiveCreatures()
         {
             return new List<Pawn>(activeUndead);
+        }
+
+
+        public void SetFormation(FormationUtils.FormationType formationType)
+        {
+            _FormationType = formationType;
+        }
+        public void SetFollowDistance(float distance)
+        {
+            _FollowDistance = distance;
         }
         public bool IsCreatureActive(Pawn absorbedPawn)
         {
@@ -84,7 +103,7 @@ namespace Thor
                 }
 
                 activeUndead.Add(summonedPawn);
-                DraftingUtility.MakeDraftable(summonedPawn);
+                //DraftingUtility.MakeDraftable(summonedPawn);
                 return true;
             }
             return false;
@@ -116,6 +135,7 @@ namespace Thor
         {
             if (CanAbsorbNewCreature())
             {
+                targetPawn.TryMakeUndeadSummon(this.pawn);
                 storedUndead.Add(targetPawn);
 
                 if (targetPawn.Spawned)
@@ -126,11 +146,15 @@ namespace Thor
         }
 
 
-        public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
+        public override IEnumerable<Gizmo> GetGizmos()
         {
-            base.Notify_PawnDied(dinfo, culprit);
-        }
+            foreach (Gizmo gizmo in base.GetGizmos())
+            {
+                yield return gizmo;
+            }
 
+            yield return new Gizmo_FormationControl(this);
+        }
 
         private void ReleaseUndead(Pawn undead)
         {
@@ -158,4 +182,5 @@ namespace Thor
             Scribe_Collections.Look(ref activeUndead, "activeCursedSpirits", LookMode.Reference);
         }
     }
+
 }

@@ -13,6 +13,13 @@ namespace Thor
 
     public class CompAbilityEffect_BindDead : CompAbilityEffect
     {
+
+        public override void Initialize(AbilityCompProperties props)
+        {
+            base.Initialize(props);
+            Hediff_UndeadMaster master = (Hediff_UndeadMaster)this.parent.pawn.health.GetOrAddHediff(ThorDefOf.DeathKnight_UndeadMaster);
+        }
+
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             base.Apply(target, dest);
