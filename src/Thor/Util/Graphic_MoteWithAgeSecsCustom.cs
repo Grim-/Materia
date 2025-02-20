@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class Graphic_MoteWithAgeSecsCustom : Graphic_MoteWithAgeSecs
     {

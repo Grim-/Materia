@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class MateriaEffectDef_OnProjectileHitApplyHediff : MateriaEffectDef
     {

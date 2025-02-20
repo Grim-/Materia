@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public static class MateriaSlotGenerator
     {

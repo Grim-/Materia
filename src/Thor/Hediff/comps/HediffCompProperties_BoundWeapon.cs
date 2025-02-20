@@ -2,7 +2,7 @@
 using System.Linq;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class HediffCompProperties_BoundWeapon : HediffCompProperties
     {
@@ -151,7 +151,7 @@ namespace Thor
 
         private void LaunchRecallProjectile()
         {
-            var projectile = (Projectile_Delegate)ThingMaker.MakeThing(ThorDefOf.Thor_MjolnirProjectile);
+            var projectile = (Projectile_Delegate)ThingMaker.MakeThing(MateriaDefOf.Thor_MjolnirProjectile);
             GenSpawn.Spawn(projectile, BoundRef.Position, Pawn.Map);
             projectile.Launch(Pawn, Pawn, Pawn, ProjectileHitFlags.IntendedTarget);
             BoundRef.DeSpawn();

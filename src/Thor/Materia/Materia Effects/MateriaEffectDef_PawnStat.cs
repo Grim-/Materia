@@ -1,6 +1,6 @@
 ﻿using RimWorld;
 
-namespace Thor
+namespace Materia
 {
     public abstract class MateriaEffectDef_PawnStat : MateriaEffectDef
     {

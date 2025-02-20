@@ -1,4 +1,4 @@
-﻿namespace Thor
+﻿namespace Materia
 {
     public class MateriaSlotConfig
     {

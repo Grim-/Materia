@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public static class BoundWeaponUtil
     {
@@ -18,7 +18,7 @@ namespace Thor
 
         public static bool BindWeaponTo(this Pawn pawn, Thing thingToBind)
         {
-            Hediff boundHediff = pawn.health.GetOrAddHediff(ThorDefOf.BoundWeapon);         
+            Hediff boundHediff = pawn.health.GetOrAddHediff(MateriaDefOf.BoundWeapon);         
             HediffComp_BoundWeapon boundWeapon = boundHediff.TryGetComp<HediffComp_BoundWeapon>();
 
             if (boundWeapon != null)

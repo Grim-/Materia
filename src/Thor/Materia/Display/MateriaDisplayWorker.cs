@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Thor
+namespace Materia
 {
     public abstract class MateriaDisplayWorker
     {

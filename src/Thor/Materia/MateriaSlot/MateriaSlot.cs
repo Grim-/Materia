@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class MateriaSlot : IExposable
     {
@@ -124,9 +124,9 @@ namespace Thor
             bool IsValidSlotType = _SlotType != null ? Materia.SlotType == _SlotType : true;
             bool IsValidLevel = this.SlotLevel >= Materia.slotLevel;
             bool IsValidEquipmentType = Materia.materiaCategories == null ||
-                                      (this.ParentThing.def.IsMeleeWeapon && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Melee)) ||
-                                      (this.ParentThing.def.IsRangedWeapon && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Ranged)) ||
-                                      (this.ParentThing.def.IsApparel && Materia.materiaCategories.Contains(ThorDefOf.MateriaCategory_Armor));
+                                      (this.ParentThing.def.IsMeleeWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Melee)) ||
+                                      (this.ParentThing.def.IsRangedWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Ranged)) ||
+                                      (this.ParentThing.def.IsApparel && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Armor));
 
             return IsValidSlotType && IsValidLevel && IsValidEquipmentType && !IsSlotLocked;
         }

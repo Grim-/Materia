@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class CompProperties_Fly : CompProperties_AbilityEffect
     {
@@ -22,7 +22,7 @@ namespace Thor
 
 
             Map map = parent.pawn.Map;
-            PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(ThorDefOf.Thor_PawnFlyer, parent.pawn, target.Cell, null, null);
+            PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(ThingDefOf.PawnFlyer, parent.pawn, target.Cell, null, null);
             GenSpawn.Spawn(pawnFlyer, parent.pawn.Position, map);
         }
     }

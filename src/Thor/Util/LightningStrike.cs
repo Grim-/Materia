@@ -3,7 +3,7 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace Thor
+namespace Materia
 {
     public static class LightningStrike
     {

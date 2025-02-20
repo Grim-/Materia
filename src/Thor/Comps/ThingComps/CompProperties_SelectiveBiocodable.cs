@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class CompProperties_SelectiveBiocodable : CompProperties_Biocodable
     {

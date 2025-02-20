@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class RecipeWorker_BreakdownMateria : RecipeWorker
     {

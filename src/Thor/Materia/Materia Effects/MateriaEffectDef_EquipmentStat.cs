@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 
-namespace Thor
+namespace Materia
 {
     public class MateriaEffectDef_EquipmentStat : MateriaEffectDef
     {

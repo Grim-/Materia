@@ -1,7 +1,7 @@
 ﻿using System;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class SlotLinkRuleDef : Def
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     [StaticConstructorOnStartup]
     public class StaggeredChainLightning : Ticker

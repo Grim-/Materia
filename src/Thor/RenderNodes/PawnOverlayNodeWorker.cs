@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class PawnOverlayNodeProperties : PawnRenderNodeProperties
     {

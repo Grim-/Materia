@@ -2,7 +2,7 @@
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     [StaticConstructorOnStartup]
     public class ChainLightningVisualEffect : Thing

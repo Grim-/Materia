@@ -4,7 +4,7 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace Thor
+namespace Materia
 {
     [StaticConstructorOnStartup]
     public class LightningRingBehavior : Ticker

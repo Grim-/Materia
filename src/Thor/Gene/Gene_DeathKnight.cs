@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class Gene_DeathKnight : Gene
     {

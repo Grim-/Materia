@@ -2,7 +2,7 @@
 using System.Linq;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class MateriaEffectDef_GrantTrait : MateriaEffectDef
     {

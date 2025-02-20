@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public class MateriaEffectDef_DamageTracker : MateriaEffectDef
     {

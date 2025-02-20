@@ -2,7 +2,7 @@
 using System.Linq;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     //handles verifying a valid link and creating that link in Comp_Materia
     public abstract class SlotLinkRuleWorker

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     public interface IStatProvider
     {

@@ -8,7 +8,7 @@ using System.Text;
 using UnityEngine;
 using Verse;
 
-namespace Thor
+namespace Materia
 {
     [StaticConstructorOnStartup]
     public static class MateriaPatchClass
