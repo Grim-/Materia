@@ -110,17 +110,7 @@ namespace Materia
             return true;
         }
     }
-    [HarmonyPatch(typeof(Pawn_EquipmentTracker), "EquipmentTrackerTick")]
-    public class CompEquippable_BowModeSwitcher_Tick_Patch
-    {
-        static void Postfix(Pawn_EquipmentTracker __instance)
-        {
-            foreach (var eq in __instance.AllEquipmentListForReading)
-            {
-                eq.GetComp<CompEquippable_BowModeSwitcher>()?.EquipTick();
-            }
-        }
-    }
+
     [HarmonyPatch(typeof(Pawn_EquipmentTracker), "EquipmentTrackerTick")]
     public class EquipmentTracker_Tick_Patch
     {
