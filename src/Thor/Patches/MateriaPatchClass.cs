@@ -13,6 +13,7 @@ namespace Materia
     [StaticConstructorOnStartup]
     public static class MateriaPatchClass
     {
+        public static readonly Texture2D MateriaIcon = ContentFinder<Texture2D>.Get("UI/MateriaIcon");
         static MateriaPatchClass()
         {
             var harmony = new Harmony("com.emo.materiapatches");
@@ -29,12 +30,12 @@ namespace Materia
                 prefix: new HarmonyMethod(typeof(Patch_EquipmentUtility_CanEquip), nameof(Patch_EquipmentUtility_CanEquip.Prefix))
             );
 
-            foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(d => d.IsWeapon || d.IsRangedWeapon))
+            foreach (var def in DefDatabase<ThingDef>.AllDefs.Where(d => d.IsWeapon || d.IsRangedWeapon || d.IsApparel))
             {
                 if (def.comps == null)
                     def.comps = new List<CompProperties>();
 
-                if (def.comps?.OfType<CompProperties_MateriaComp>().Any() == true)
+                if (def.comps?.OfType<CompProperties_MateriaComp>().Any() == true || def.HasModExtension<NoMateriaExt>())
                     continue;
                 
                 def.comps.Add(new CompProperties_MateriaComp());
@@ -199,60 +200,6 @@ namespace Materia
         }
     }
 
-    //[HarmonyPatch(typeof(CompEquippable))]
-    //[HarmonyPatch("VerbProperties", MethodType.Getter)]
-    //public static class Patch_CompEquippable_VerbProperties
-    //{
-    //    [HarmonyPostfix]
-    //    public static void Postfix(CompEquippable __instance, ref List<VerbProperties> __result)
-    //    {
-    //        var compsWithExtraVerbs = __instance.parent.AllComps
-    //            .OfType<ICompEquippableExtraVerbProps>();
-
-    //        foreach (var item in __instance.parent.AllComps)
-    //        {
-    //            if (item is ICompEquippableExtraVerbProps comp)
-    //            {
-    //                List<VerbProperties> verbProperties = comp.GetExtraVerbProperties();
-
-    //                if (verbProperties != null && verbProperties.Count > 0)
-    //                {
-    //                    __result= verbProperties;
-    //                }
-                   
-    //            }
-    //        }
-    //    }
-    //}
-    //[HarmonyPatch(typeof(Pawn))]
-    //[HarmonyPatch("TryGetAttackVerb")]
-    //public static class Patch_Pawn_TryGetAttackVerb
-    //{
-    //    [HarmonyPrefix]
-    //    public static bool Prefix(Pawn __instance, Thing target, ref Verb __result)
-    //    {
-    //        // Check for primary equipment
-    //        if (__instance.equipment?.Primary != null)
-    //        {
-    //            // Try to get ammo switcher comp
-    //            CompEquippable_AmmoSwitcher ammoSwitcher = __instance.equipment.Primary.GetComp<CompEquippable_AmmoSwitcher>();
-    //            if (ammoSwitcher != null)
-    //            {
-    //                Verb overriddenVerb = ammoSwitcher.GetOverridenVerb();
-    //                if (overriddenVerb != null && overriddenVerb.Available())
-    //                {
-    //                    overriddenVerb.verbProps = ammoSwitcher.CurrentAmmoDef.verbProperties;
-    //                    overriddenVerb.caster = __instance;
-    //                    overriddenVerb.verbTracker = ammoSwitcher.VerbTracker;
-    //                    //overriddenVerb.caster = __instance;
-    //                    __result = overriddenVerb;
-    //                    return false; // Skip original method
-    //                }
-    //            }
-    //        }
-    //        return true; // Run original method
-    //    }
-    //}
 
     [HarmonyPatch(typeof(Bullet))]
     [HarmonyPatch("Impact")]
@@ -370,9 +317,12 @@ namespace Materia
     }
 
 
+
+
     [HarmonyPatch(typeof(ITab_Pawn_Gear), "DrawThingRow")]
     public static class ITab_Pawn_Gear_DrawThingRow_Patch
     {
+
         public static void Prefix(ref float y, float width, Thing thing, ref Rect __state)
         {
             if (thing == null) return;
@@ -386,21 +336,25 @@ namespace Materia
             if (__state == default) return;
 
             var materiaComp = thing.TryGetComp<Comp_MateriaComp>();
-            if (materiaComp == null) return;
+            if (materiaComp == null) 
+                return;
 
             Rect buttonRect = new Rect(__state.width - 76f, __state.y, 24f, 24f);
 
-            if (Widgets.ButtonImage(buttonRect, TexButton.ToggleTweak))
+            if (materiaComp.MateriaSlots != null && materiaComp.MateriaSlots.Count > 0)
             {
-                var selPawnForGearProp = AccessTools.Property(typeof(ITab_Pawn_Gear), "SelPawnForGear");
-                Pawn pawn = (Pawn)selPawnForGearProp.GetValue(__instance);
+                if (Widgets.ButtonImage(buttonRect, MateriaPatchClass.MateriaIcon))
+                {
+                    var selPawnForGearProp = AccessTools.Property(typeof(ITab_Pawn_Gear), "SelPawnForGear");
+                    Pawn pawn = (Pawn)selPawnForGearProp.GetValue(__instance);
 
-                Comp_MateriaComp.OpenMateriaWindow(thing, pawn, materiaComp);
-            }
+                    Comp_MateriaComp.OpenMateriaWindow(thing, pawn, materiaComp);
+                }
 
-            if (Mouse.IsOver(buttonRect))
-            {
-                TooltipHandler.TipRegion(buttonRect, "Manage Materia");
+                if (Mouse.IsOver(buttonRect))
+                {
+                    TooltipHandler.TipRegion(buttonRect, "Manage Materia");
+                }
             }
         }
     }

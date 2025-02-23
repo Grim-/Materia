@@ -1,177 +1,336 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Random = UnityEngine.Random;
 
 namespace Materia
 {
     public static class MateriaSlotGenerator
     {
-        private const float TECH_LEVEL_MULTIPLIER = 0.5f;
-        private const float MARKET_VALUE_MULTIPLIER = 0.0008f;
-        private const float QUALITY_MULTIPLIER = 0.3f;
-
-        private const int MIN_SLOTS = 1;
-        private const int MAX_SLOTS = 6;
-
-        private static readonly Dictionary<TechLevel, int> BASE_TECH_SLOTS = new Dictionary<TechLevel, int>
-        {
-            { TechLevel.Animal, 0 },
-            { TechLevel.Neolithic, 1 },
-            { TechLevel.Medieval, 2 },
-            { TechLevel.Industrial, 2 },
-            { TechLevel.Spacer, 3 },
-            { TechLevel.Ultra, 3 },
-            { TechLevel.Archotech, 4 }
-        };
-
-        private static readonly Dictionary<string, float> WEAPON_TAG_MODIFIERS = new Dictionary<string, float>
-        {
-            { "Bladelink", 2.0f },
-            { "Noble", 1.5f },
-            { "ExoticMiitary", 1.3f },
-            { "IndustrialGunAdvanced", 1.2f },
-            { "SpacerGun", 1.4f },
-            { "UltratechMelee", 1.5f },
-            { "SimpleGun", 0.8f },
-            { "NeolithicMelee", 0.7f },
-            { "MedievalMelee", 0.9f }
-        };
-
         public static List<MateriaSlot> GenerateSlots(ThingWithComps parent, Comp_MateriaComp comp, QualityCategory? quality = null)
         {
-            if (!parent.def.IsWeapon)
-                return new List<MateriaSlot>();
+            if (parent == null)
+                return null;
+            if (comp == null)
+                return null;
 
-            float baseScore = CalculateBaseScore(parent.def);
+            //Log.Message($"Gen Materia Slots for {parent.Label}");
+            var baseScore = CalculateBaseScore(parent, parent.def, quality);
+            //Log.Message($"  BaseScore: {baseScore}");
+            var maxSlots = GetMaxSlotsForCategory(parent.def, quality, baseScore);
+            //Log.Message($"  MaximumSlots: {maxSlots}");
+            List<MateriaSlot> generatedSlots = GenerateSlotDistribution(maxSlots, parent, comp);
+            return generatedSlots;
+        }
 
-            if (quality.HasValue)
+        public static int GetMaxSlotsForCategory(ThingDef thingDef, QualityCategory? quality, float score)
+        {
+            if (thingDef == null)
+                return 0;
+
+            int slotCap = GetSlotCap(thingDef);
+
+            int maxSlots = 0;
+
+            if (score >= 90)
             {
-                baseScore *= 1f + (((int)quality.Value - 2) * QUALITY_MULTIPLIER);
+                maxSlots = slotCap;
+            }
+            else if (score >= 70)
+            {
+                maxSlots = Random.Range(slotCap - 1, slotCap);
+            }
+            else if (score >= 50)
+            {
+                maxSlots = Random.Range(0, 2);
+            }
+            else
+            {
+                maxSlots = Random.Range(0, 1);
+            }
+            return maxSlots;
+        }
+
+        public static int GetSlotCap(ThingDef def)
+        {
+            var config = MateriaDefOf.MateriaGenerationConfig;
+            if (def.IsApparel && def.apparel != null)
+            {
+                if (def.apparel.bodyPartGroups != null && def.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Torso) || def.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs))
+                {
+                    return config.maxArmourSlots;
+                }
+            }
+            else if (def.IsApparel && def.apparel != null && def.apparel.layers.Contains(ApparelLayerDefOf.Belt))
+            {
+                return config.maxUtilityArmourSlots;
+            }
+            else if (def.IsWeapon)
+            {
+                return config.maxWeaponSlots;
             }
 
-            int totalSlots = DetermineSlotCount(baseScore);
+            return 0;
+        }
+
+
+        public static float GetTechLevelScore(ThingDef def)
+        {
+            if ((int)def.techLevel > (int)TechLevel.Industrial)
+            {
+                return (int)def.techLevel * 10;
+            }
+
+
+            return 0;
+        }
+
+        public static float GetMarketValueScore(float baseMarketValue, float valueMulti = 0)
+        {
+            return Mathf.Clamp(baseMarketValue * (valueMulti != 0 ? valueMulti : MateriaDefOf.MateriaGenerationConfig.marketValueMultiplier), 0, 20f);
+        }
+
+        public static float GetStuffScore(Thing thing)
+        {
+            if (!thing.def.MadeFromStuff || thing.Stuff == null || thing.Stuff.stuffProps == null)
+                return 0;
+            return GetMarketValueScore(thing.Stuff.BaseMarketValue, 0.09f);
+        }
+
+
+        //Every category level above normal +5
+
+        public static float GetQualityScore(QualityCategory? quality)
+        {
+            if (quality.HasValue && quality.Value > QualityCategory.Excellent)
+            {
+                return (int)quality.Value * 10f;
+            }
+            else if (quality.HasValue && quality.Value >= QualityCategory.Normal)
+            {
+                return (int)quality.Value * 5f;
+            }
+
+            return 0;
+        }
+
+        public static float GetResearchScore(ThingDef def, float clampedMax = 15)
+        {
+            if (def.recipeMaker?.researchPrerequisite != null && def.recipeMaker.researchPrerequisite.techLevel >= TechLevel.Industrial)
+            {
+                return Mathf.Clamp((int)def.recipeMaker.researchPrerequisite.techLevel * 3, 0, clampedMax);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static float GetArmorScore(ThingDef def)
+        {
+            if (!def.IsApparel || def.apparel == null) return 0;
+            return (def.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Torso) ||
+                    def.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)) ? 10f : -20f;
+        }
+
+        public static float CalculateBaseScore(Thing thing, ThingDef def, QualityCategory? quality)
+        {
+            if (def == null) return 1f;
+
+            float score = GetTechLevelScore(def) +
+                         GetMarketValueScore(def.BaseMarketValue) +
+                         GetStuffScore(thing) +
+                         GetQualityScore(quality) +
+                         GetResearchScore(def) +
+                         GetArmorScore(def);
+
+            float finalScore = Mathf.Clamp(score, 0, 100f);
+            return finalScore;
+        }
+
+
+        public static int GetGeneratedSlotLevel(ThingDef def, QualityCategory? quality, MateriaTypeDef materiaType)
+        {
+            int maxPossibleSlotLevel = GetMaximumPossibleSlotLevel(def, quality);
+            int minimumLevel = 1;
+
+            float SlotLevelScore = GetSlotLevelScore(def, quality);
+
+            if (SlotLevelScore >= 90) minimumLevel = 4;
+            else if (SlotLevelScore >= 70) minimumLevel = 3;
+            else if (SlotLevelScore >= 40) minimumLevel = 2;
+
+            minimumLevel = Mathf.Clamp(minimumLevel, 1, maxPossibleSlotLevel);
+            int chosenLevel = Random.Range(minimumLevel, maxPossibleSlotLevel + 1);
+
+            Log.Message($"SlotLevel: {def.LabelCap} Chosen Level:{chosenLevel} (min:{minimumLevel}, max:{maxPossibleSlotLevel})");
+
+            return chosenLevel;
+        }
+
+        public static float GetSlotLevelScore(ThingDef def, QualityCategory? quality)
+        {
+            float score = 0f;
+            float techLevelScore = 0;
+            if (def.techLevel != TechLevel.Animal && def.techLevel != TechLevel.Undefined)
+            {
+                techLevelScore = (int)def.techLevel * 15;
+            }
+            score += techLevelScore;
+
+            float qualityScore = 0;
+            if (quality.HasValue)
+            {
+                qualityScore = (int)quality.Value * 3f;
+            }
+            score += qualityScore;
+
+            score = Mathf.Clamp(score, 0, 100);
+
+            Log.Message($"SlotLevel: {def.LabelCap} Score  \nTech:{def.techLevel}({techLevelScore}) \nQuality:{quality}({qualityScore}) \nScore:{score}");
+            return score;
+        }
+
+        public static int GetMaximumPossibleSlotLevel(ThingDef def, QualityCategory? quality)
+        {
+
+
+            return def.techLevel != TechLevel.Archotech && def.techLevel != TechLevel.Ultra ? 3 : 4;
+        }
+
+
+        private static List<MateriaSlot> GenerateSlotDistribution(int totalSlots, ThingWithComps parent, Comp_MateriaComp comp)
+        {
             var slots = new List<MateriaSlot>();
-            DistributeSlotTypes(slots, totalSlots, parent.def, parent, comp);
+            if (totalSlots <= 0)
+                return slots;
+
+            var materiaTypes = DefDatabase<MateriaTypeDef>.AllDefs.Where(x => IsValidForSlotCreation(parent, comp, x)).ToList();
+            var weightedTypes = CalculateTypeWeights(materiaTypes, parent.def);
+
+            for (int i = 0; i < totalSlots; i++)
+            {
+                var selectedType = SelectMateriaType(weightedTypes);
+                if (selectedType != null)
+                {
+                    int newSlotLevel = GetGeneratedSlotLevel(parent.def, parent.TryGetComp<CompQuality>()?.Quality, selectedType);
+                    var slot = CreateMateriaSlot(parent, comp, selectedType, newSlotLevel);
+                    if (slot != null)
+                    {
+                        slots.Add(slot);
+                        Log.Message($"Slot {slot.SlotType.LabelCap} {slot.SlotLevel} added to {parent.Label}");
+                    }
+                }
+            }
 
             return slots;
         }
 
-        private static float CalculateBaseScore(ThingDef weaponDef)
+        private static Dictionary<MateriaTypeDef, float> CalculateTypeWeights(List<MateriaTypeDef> types, ThingDef def, List<MateriaTypeDef> disallowedTypes = null)
         {
-            float score = BASE_TECH_SLOTS[weaponDef.techLevel];
-            score += weaponDef.BaseMarketValue * MARKET_VALUE_MULTIPLIER;
+            var weights = new Dictionary<MateriaTypeDef, float>();
+            float totalWeight = 0f;
 
-            if (weaponDef.weaponTags != null)
+            foreach (var type in types)
             {
-                foreach (string tag in weaponDef.weaponTags)
+                float weight = CalculateIndividualTypeWeight(type, def);
+                weights[type] = weight;
+                totalWeight += weight;
+            }
+
+            // Normalize weights
+            if (totalWeight > 0)
+            {
+                foreach (var key in weights.Keys.ToList())
                 {
-                    if (WEAPON_TAG_MODIFIERS.TryGetValue(tag, out float modifier))
+                    weights[key] /= totalWeight;
+                }
+            }
+
+            return weights;
+        }
+
+        private static float CalculateIndividualTypeWeight(MateriaTypeDef type, ThingDef def)
+        {
+            float weight = type.baseWeight;
+
+            // Apply weapon type multiplier
+            weight *= def.IsRangedWeapon ? type.rangedWeaponMultiplier : type.meleeWeaponMultiplier;
+
+            // Apply tech level modifier
+            var techWeight = type.techLevelWeights?.FirstOrDefault(w => w.techLevel == def.techLevel);
+            if (techWeight != null)
+            {
+                weight *= techWeight.weight;
+            }
+
+            // Apply weapon tag modifiers
+            if (def.weaponTags != null)
+            {
+                foreach (string tag in def.weaponTags)
+                {
+                    var tagWeight = type.weaponTagWeights?.FirstOrDefault(w => w.tag == tag);
+                    if (tagWeight != null)
                     {
-                        score *= modifier;
+                        weight *= tagWeight.weight;
                     }
                 }
             }
 
-            if (weaponDef.IsRangedWeapon)
-            {
-                score *= 1.1f;
-                if (weaponDef.Verbs?.Any(v => v.warmupTime >= 1f) == true)
-                {
-                    score *= 0.9f;
-                }
-            }
-            else
-            {
-                var meleeDamageAmount = weaponDef.tools?.Average(t => t.power) ?? 1f;
-                if (meleeDamageAmount > 20f)
-                {
-                    score *= 1.2f;
-                }
-            }
-
-            if (weaponDef.techHediffsTags != null)
-            {
-                score *= 1.5f;
-            }
-
-            if (weaponDef.recipeMaker?.researchPrerequisite != null)
-            {
-                score *= 1.2f;
-            }
-
-            return score;
+            return weight;
         }
 
-        private static int DetermineSlotCount(float baseScore)
+        private static MateriaTypeDef SelectMateriaType(Dictionary<MateriaTypeDef, float> weightedTypes, List<MateriaTypeDef> disallowedTypes = null)
         {
-            float slotCount = Mathf.Log(baseScore + 1, 2) + MIN_SLOTS;
-            return Mathf.Clamp(Mathf.RoundToInt(slotCount), MIN_SLOTS, MAX_SLOTS);
+            float roll = Rand.Value;
+            float cumulative = 0f;
+
+            foreach (var kvp in weightedTypes)
+            {
+                cumulative += kvp.Value;
+                if (roll <= cumulative)
+                {
+                    return kvp.Key;
+                }
+            }
+
+            return weightedTypes.Keys.FirstOrDefault();
         }
 
-        private static void DistributeSlotTypes(List<MateriaSlot> slots, int totalSlots, ThingDef weaponDef, ThingWithComps parent, Comp_MateriaComp comp)
+        private static MateriaSlot CreateMateriaSlot(ThingWithComps parent, Comp_MateriaComp comp, MateriaTypeDef type, int index)
         {
-            var damageType = DefDatabase<MateriaTypeDef>.GetNamed("RedMateria");
-            var specialType = DefDatabase<MateriaTypeDef>.GetNamed("PurpleMateria");
-            var statType = DefDatabase<MateriaTypeDef>.GetNamed("BlueMateria");
-            var lifeType = DefDatabase<MateriaTypeDef>.GetNamed("GreenMateria");
+            if (!IsValidForSlotCreation(parent, comp, type))
+                return null;
 
-            var distribution = new Dictionary<MateriaTypeDef, float>();
+            return new MateriaSlot(parent, comp, type, index + 1);
+        }
 
-            if (weaponDef.IsRangedWeapon)
+        private static bool IsValidForSlotCreation(ThingWithComps parent, Comp_MateriaComp comp, MateriaTypeDef type)
+        {
+            if (type.slotLimits == null)
+                return true;
+
+            foreach (var limit in type.slotLimits)
             {
-                distribution.Add(damageType, 0.45f);
-                distribution.Add(statType, 0.35f);
-                distribution.Add(specialType, 0.10f);
-                distribution.Add(lifeType, 0.10f);
-
-                if (weaponDef.weaponTags?.Contains("SpacerGun") == true)
+                if (parent.HasThingCategory(limit.ThingCategory))
                 {
-                    distribution[specialType] = 0.30f;
-                    distribution[damageType] = 0.40f;
-                    distribution[statType] = 0.30f;
-                    distribution[lifeType]= 0.20f;
-                }
-            }
-            else
-            {
-                distribution.Add(specialType, 0.40f);
-                distribution.Add(damageType, 0.40f);
-                distribution.Add(statType, 0.10f);
-                distribution.Add(lifeType, 0.10f);
-
-                if (weaponDef.weaponTags?.Contains("UltratechMelee") == true)
-                {
-                    distribution[specialType] = 0.45f;
-                    distribution[damageType] = 0.35f;
-                    distribution[statType] = 0.10f;
-                    distribution[lifeType] = 0.10f;
-                }
-            }
-
-            for (int i = 0; i < totalSlots; i++)
-            {
-                float roll = Rand.Value;
-                float cumulative = 0f;
-
-                foreach (var kvp in distribution)
-                {
-                    cumulative += kvp.Value;
-                    if (roll <= cumulative)
+                    if (limit.maxSlots == 0)
                     {
-                        slots.Add(new MateriaSlot(parent, comp, kvp.Key, slots.Count + 1));
-                        break;
+                        return false;
                     }
                 }
+
+
+                //var currentCount = comp.GetMateriaCountOfType(type);
+                //if (currentCount >= limit.maxSlots)
+                //    return false;
             }
 
-            // Ensure at least one damage slot for higher tech weapons
-            if (totalSlots >= 2 && !slots.Any(s => s.SlotType == damageType) &&
-                weaponDef.techLevel >= TechLevel.Industrial)
-            {
-                slots[slots.Count - 1] = new MateriaSlot(parent, comp, damageType, slots.Count - 1);
-            }
+            return true;
         }
+
     }
 }

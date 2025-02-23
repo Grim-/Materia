@@ -33,7 +33,6 @@ namespace Materia
         public bool HasEquipOwner => EquippedPawn != null;
 
 
-
         public bool ParentIsMelee => this.parent.def.IsMeleeWeapon;
         public bool ParentIsRanged => this.parent.def.IsRangedWeapon;
         public override void PostPostMake()
@@ -87,11 +86,19 @@ namespace Materia
         }
         public override void PostDeSpawn(Map map)
         {
+            if (this.AllVerbs != null)
+            {
+                List<Verb> allVerbs = this.AllVerbs;
+                for (int i = 0; i < allVerbs.Count; i++)
+                {
+                    allVerbs[i].Notify_EquipmentLost();
+                }
+            }
+
             DoForAllMateria((Slot) =>
             {
                 Slot.SlottedMateria.Notify_ParentDestroyed();
-            });
-            base.PostDeSpawn(map);
+            });      
         }
         public override void PostDraw()
         {
@@ -236,6 +243,12 @@ namespace Materia
         {
             return materiaSlots.Any(slot => !slot.IsOccupied && slot.CanAccept(materia));
         }
+
+        public bool CanAcceptSlotType(MateriaTypeDef materiaType)
+        {
+            return materiaSlots.Any(slot => slot.AcceptsType(materiaType));
+        }
+
         protected virtual void DoForAllMateria(Action<MateriaSlot> actionToDo)
         {
             foreach (var item in MateriaSlots)
@@ -327,10 +340,12 @@ namespace Materia
                                       (l.OriginSlot == destination && l.DestinationSlot == origin));
         }
 
-        public void AddMateriaSlot(MateriaTypeDef SlotType, int slotLevel = 1)
+        public MateriaSlot AddMateriaSlot(MateriaTypeDef SlotType, int slotLevel = 1)
         {
             MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotType, this.materiaSlots.Count + 1, slotLevel);
             materiaSlots.Add(materiaSlot);
+
+            return materiaSlot;
         }
 
         public void AddMateriaSlot(MateriaSlotConfig SlotConfig)
@@ -350,6 +365,31 @@ namespace Materia
         public bool CanEquipMateria(MateriaDef materia)
         {
             return HasFreeValidMateriaSlotFor(materia);
+        }
+
+        public int GetSlotCount()
+        {
+            return MateriaSlots.Count;
+        }
+
+        public int GetOccupiedSlotCount()
+        {
+            return MateriaSlots.Where(x => x.IsOccupied).Count();
+        }
+
+        public int GetSlotsOfLevelCount(int Level)
+        {
+            return MateriaSlots.Where(x => x.SlotLevel == Level).Count();
+        }
+
+        public int GetMateriaCountOfType(MateriaTypeDef TypeDef)
+        {
+            if (TypeDef == null)
+            {
+                return MateriaSlots.Count;
+            }
+
+            return MateriaSlots.Where(x => x.SlotType != null && x.SlotType == TypeDef).Count();
         }
 
         #endregion
@@ -526,14 +566,39 @@ namespace Materia
                 }
             }
 
-            yield return new Command_Action()
+            if (this.MateriaSlots.Count > 0)
             {
-                defaultLabel = "Manage Materia",
-                action = () =>
+                yield return new Command_Action()
                 {
-                    OpenMateriaWindow(this.parent, this.EquippedPawn, this);
-                }
-            };
+                    defaultLabel = $"Manage Materia",
+                    icon = MateriaPatchClass.MateriaIcon,
+                    action = () =>
+                    {
+                        OpenMateriaWindow(this.parent, this.EquippedPawn, this);
+                    }
+                };
+            }
+        }
+
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            //foreach (var item in CompGetGizmosExtra())
+            //{
+            //    yield return item;
+            //}
+
+            if (this.MateriaSlots.Count > 0)
+            {
+                yield return new Command_Action()
+                {
+                    defaultLabel = $"Manage Materia",
+                    icon = MateriaPatchClass.MateriaIcon,
+                    action = () =>
+                    {
+                        OpenMateriaWindow(this.parent, this.EquippedPawn, this);
+                    }
+                };
+            }
         }
 
         private string GetEquippedMateriaInfo(bool includeDescription = false)
@@ -556,12 +621,56 @@ namespace Materia
 
         public override string CompInspectStringExtra()
         {
+            //string equippedMateriaString = GetEquippedMateriaInfo();
+
+            //if (Prefs.DevMode)
+            //{
+            //    var thing = this.parent;
+            //    var def = thing.def;
+            //    var quality = thing.TryGetComp<CompQuality>()?.Quality;
+            //    var totalScore = MateriaSlotGenerator.CalculateBaseScore(thing, def, quality);
+            //    return equippedMateriaString + $"\nDev Mode Info:\n" +
+            //           $"Base Score Components:\n" +
+            //           $"Tech({def.techLevel}): {MateriaSlotGenerator.GetTechLevelScore(def)}\n" +
+            //           $"Value: {MateriaSlotGenerator.GetValueScore(def)}\n" +
+            //           $"Stuff({thing.Stuff?.defName}): {MateriaSlotGenerator.GetStuffScore(thing)}\n" +
+            //           $"Quality({quality}): {MateriaSlotGenerator.GetQualityScore(quality)}\n" +
+            //           $"Research: {MateriaSlotGenerator.GetResearchScore(def)}\n" +
+            //           $"Armor: {MateriaSlotGenerator.GetArmorScore(def)}\n" +
+            //           $"Total: {totalScore}\n" +
+            //           $"Slot Generation:\n" +
+            //           $"Slot Cap: {MateriaSlotGenerator.GetSlotCap(def)}\n" +
+            //           $"Maximum Slots: {MateriaSlotGenerator.GetMaxSlotsForCategory(def, quality, totalScore)}\n" +
+            //           $"Slot Level Range: 1 - {MateriaSlotGenerator.GetMaximumPossibleSlotLevel(def, quality)}";
+            //}
+
             return GetEquippedMateriaInfo();
         }
 
         public override string GetDescriptionPart()
         {
-            return GetEquippedMateriaInfo(includeDescription: true);
+            string equippedMateriaString = GetEquippedMateriaInfo(true);
+            if (Prefs.DevMode)
+            {
+                var thing = this.parent;
+                var def = thing.def;
+                var quality = thing.TryGetComp<CompQuality>()?.Quality;
+                var totalScore = MateriaSlotGenerator.CalculateBaseScore(thing, def, quality);
+                return equippedMateriaString + $"\nDev Mode Info:\n" +
+                       $"Scores:\n" +
+                       $"Tech({def.techLevel}): {MateriaSlotGenerator.GetTechLevelScore(def)}\n" +
+                       $"Value: {MateriaSlotGenerator.GetMarketValueScore(def.BaseMarketValue)}\n" +
+                       $"Stuff({thing.Stuff?.defName}): {MateriaSlotGenerator.GetStuffScore(thing)}\n" +
+                       $"Quality({quality}): {MateriaSlotGenerator.GetQualityScore(quality)}\n" +
+                       $"Research: {MateriaSlotGenerator.GetResearchScore(def)}\n" +
+                       $"Armor: {MateriaSlotGenerator.GetArmorScore(def)}\n\n" +
+                       $"Score Total: {totalScore}\n" +
+                       $"\nSlot Generation:\n" +
+                       $"Slot Cap: {MateriaSlotGenerator.GetSlotCap(def)}\n" +
+                       $"Maximum Slots: {MateriaSlotGenerator.GetMaxSlotsForCategory(def, quality, totalScore)}\n" +
+                       $"Slot Level Range: 1 - {MateriaSlotGenerator.GetMaximumPossibleSlotLevel(def, quality)}";
+            }
+            return equippedMateriaString;
         }
 
         public override void PostExposeData()
@@ -595,7 +704,6 @@ namespace Materia
                     CreateMateriaSlots();
                 }
 
-                // If the pawn was equipped when saved, reapply the materia effects
                 if (_EquippedPawn != null)
                 {
                     DoForAllMateria((Slot) =>

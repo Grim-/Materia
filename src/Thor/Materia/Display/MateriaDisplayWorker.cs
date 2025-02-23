@@ -8,8 +8,8 @@ namespace Materia
         public abstract Dictionary<MateriaSlot, Rect> PositionSlots(Window_MateriaSelection MateriaWindow,
             List<MateriaSlot> slots,
             Rect availableSpace,
-            float slotSize,
-            float spacing);
+            Vector2 slotSize,
+            Vector2 spacing);
 
         public virtual void DrawToolBar(Rect toolbarRect) { }
 

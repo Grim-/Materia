@@ -27,14 +27,12 @@ namespace Materia
                 }
             }
 
-            // Add fallback if no displays are registered
             if (!availableDisplays.Any())
             {
                 availableDisplays[typeof(GridMateriaDisplay)] = new GridMateriaDisplay();
             }
         }
 
-        // Get the best display for the given slots
         public static MateriaDisplayWorker GetBestDisplayForSlots(List<MateriaSlot> slots)
         {
             if (availableDisplays.Count == 0)
@@ -58,11 +56,9 @@ namespace Materia
             MateriaDisplayWorker chosen = bestDisplay ?? new GridMateriaDisplay(); ;
 
             Log.Message($"{chosen} was chosen as display type");
-            // Fallback to grid display if nothing suitable found
             return chosen;
         }
 
-        // Get a specific display by name
         public static MateriaDisplayWorker GetDisplay(Type displayName)
         {
             if (availableDisplays.Count == 0)

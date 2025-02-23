@@ -6,10 +6,10 @@ namespace Materia
     public class Window_DisplaySettings : Window
     {
         private readonly Window_MateriaSelection parentWindow;
-        private static readonly Vector2 WinSize = new Vector2(400f, 350f);
+        private static readonly Vector2 WinSize = new Vector2(550f, 450f);
         private DisplaySettings tempSettings;
 
-        private const float LABEL_WIDTH = 150f;
+        private const float LABEL_WIDTH = 120f;
         private const float CONTROL_WIDTH = 200f;
         private const float ROW_HEIGHT = 30f;
         private const float ROW_SPACING = 10f;
@@ -18,6 +18,8 @@ namespace Materia
         private readonly Color TITLE_COLOR = new Color(0.3f, 0.3f, 0.3f, 0.3f);
 
         public override Vector2 InitialSize => WinSize;
+
+        private Vector2 scrollPosition;
 
         public Window_DisplaySettings(Window_MateriaSelection parent)
         {
@@ -46,7 +48,7 @@ namespace Materia
             Rect titleRect = new Rect(0f, 0f, inRect.width, TITLE_HEIGHT);
             GUI.DrawTexture(titleRect, SolidColorMaterials.NewSolidColorTexture(TITLE_COLOR));
 
-            Widgets.LabelFit(titleRect, "Materia UI Settings");
+            Widgets.LabelFit(titleRect, "UI Settings");
 
             Text.Anchor = TextAnchor.UpperLeft;
         }
@@ -57,15 +59,26 @@ namespace Materia
 
             float currentY = TITLE_HEIGHT + PADDING;
 
+
+            Rect minusTitleRect = new Rect(inRect.x, currentY, inRect.width - Margin, inRect.height);
+            Rect viewRect = new Rect(0, currentY, inRect.width - Margin, 1000f);
+
+            Widgets.BeginScrollView(minusTitleRect, ref scrollPosition, viewRect);
+
             // Display each setting with a label and a slider
-            DrawSettingRow(inRect, "Slot Size", ref tempSettings.slotSize, 30f, 150f, ref currentY);
+            DrawSettingRow(inRect, "Slot Size X", ref tempSettings.slotSize.x, 30f, 150f, ref currentY);
+            DrawSettingRow(inRect, "Slot Size Y", ref tempSettings.slotSize.y, 30f, 150f, ref currentY);
+            DrawSettingRow(inRect, "Slot Padding X", ref tempSettings.slotPadding.x, 0f, 30f, ref currentY);
+            DrawSettingRow(inRect, "Slot Padding Y", ref tempSettings.slotPadding.y, 0f, 30f, ref currentY);
+
             DrawSettingRow(inRect, "Margin", ref tempSettings.margin, 0f, 10f, ref currentY);
             DrawSettingRow(inRect, "Top Margin", ref tempSettings.topMargin, 0f, 50f, ref currentY);
             DrawSettingRow(inRect, "Label Height", ref tempSettings.labelHeight, 20f, 60f, ref currentY);
             DrawSettingRow(inRect, "Title Height", ref tempSettings.titleHeight, 20f, 60f, ref currentY);
-            DrawSettingRow(inRect, "Slot Padding", ref tempSettings.slotPadding, 0f, 30f, ref currentY);
 
             currentY += ROW_SPACING;
+
+            Widgets.EndScrollView();
 
             Rect buttonsRect = new Rect(PADDING, currentY, inRect.width - (PADDING * 2), ROW_HEIGHT);
 

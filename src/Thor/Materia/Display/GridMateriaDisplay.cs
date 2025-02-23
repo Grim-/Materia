@@ -5,35 +5,42 @@ namespace Materia
 {
     public class GridMateriaDisplay : MateriaDisplayWorker
     {
-        private const float HORIZONTAL_PADDING = 10f;
-        private const float VERTICAL_PADDING = 10f;
-
-        public override Dictionary<MateriaSlot, Rect> PositionSlots(Window_MateriaSelection MateriaWindow,
+        public override Dictionary<MateriaSlot, Rect> PositionSlots(
+            Window_MateriaSelection MateriaWindow,
             List<MateriaSlot> slots,
             Rect availableSpace,
-            float slotSize,
-            float spacing)
+            Vector2 slotSize,
+            Vector2 spacing)
         {
             var slotPositions = new Dictionary<MateriaSlot, Rect>();
             if (slots == null || slots.Count == 0) return slotPositions;
 
-            float startX = availableSpace.x + HORIZONTAL_PADDING;
-            float startY = availableSpace.y + VERTICAL_PADDING;
+            // Calculate grid dimensions
+            float totalSlotAndSpacingWidth = slotSize.x + spacing.x;
+            int slotsPerRow = Mathf.Max(1, Mathf.FloorToInt((availableSpace.width + spacing.x) / totalSlotAndSpacingWidth));
+            int numberOfRows = Mathf.CeilToInt((float)slots.Count / slotsPerRow);
 
-            // Calculate maximum slots per row
-            float effectiveWidth = availableSpace.width - (HORIZONTAL_PADDING * 2);
-            int slotsPerRow = Mathf.Max(1, Mathf.FloorToInt(effectiveWidth / (slotSize + spacing)));
+            // Calculate total size of all slots and spacing
+            float totalWidth = (slotsPerRow * slotSize.x) + ((slotsPerRow - 1) * spacing.x);
+            float totalHeight = (numberOfRows * slotSize.y) + ((numberOfRows - 1) * spacing.y);
 
-            // Position slots in grid layout
+            // Center horizontally
+            float startX = availableSpace.x + (availableSpace.width - totalWidth) * 0.5f;
+
+
+            float usableHeight = availableSpace.height;
+            float startY = (usableHeight - totalHeight) * 0.5f;
+
+            // Position each slot
             for (int i = 0; i < slots.Count; i++)
             {
                 int row = i / slotsPerRow;
                 int col = i % slotsPerRow;
 
-                float x = startX + (col * (slotSize + spacing));
-                float y = startY + (row * (slotSize + spacing));
+                float x = startX + (col * (slotSize.x + spacing.x));
+                float y = startY + (row * (slotSize.y + spacing.y));
 
-                slotPositions[slots[i]] = new Rect(x, y, slotSize, slotSize);
+                slotPositions[slots[i]] = new Rect(x, y, slotSize.x, slotSize.y);
             }
 
             return slotPositions;

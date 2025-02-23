@@ -121,14 +121,31 @@ namespace Materia
             if (Materia == null)
                 return false;
 
-            bool IsValidSlotType = _SlotType != null ? Materia.SlotType == _SlotType : true;
-            bool IsValidLevel = this.SlotLevel >= Materia.slotLevel;
-            bool IsValidEquipmentType = Materia.materiaCategories == null ||
-                                      (this.ParentThing.def.IsMeleeWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Melee)) ||
-                                      (this.ParentThing.def.IsRangedWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Ranged)) ||
-                                      (this.ParentThing.def.IsApparel && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Armor));
+            return AcceptsType(Materia.SlotType) && IsValidLevel(Materia) && IsValidEquipmentType(Materia, this.ParentThing) && !IsSlotLocked;
+        }
 
-            return IsValidSlotType && IsValidLevel && IsValidEquipmentType && !IsSlotLocked;
+
+        public bool AcceptsType(MateriaTypeDef materiaTypeDef)
+        {
+            if (SlotType != null)
+            {
+                return materiaTypeDef == SlotType;
+            }
+
+            return true;
+        }
+
+        public bool IsValidLevel(MateriaDef Materia)
+        {
+            return this.SlotLevel >= Materia.slotLevel;
+        }
+
+        public bool IsValidEquipmentType(MateriaDef Materia, Thing Thing)
+        {
+            return Materia.materiaCategories == null ||
+            (Thing.def.IsMeleeWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Melee)) ||
+            (Thing.def.IsRangedWeapon && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Ranged)) ||
+            (Thing.def.IsApparel && Materia.materiaCategories.Contains(MateriaDefOf.MateriaCategory_Armor));
         }
 
         public void AddLevel(int levelsToAdd)

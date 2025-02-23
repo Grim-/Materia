@@ -7,12 +7,9 @@ namespace Materia
 {
     public class HorizontalMateriaDisplay : MateriaDisplayWorker
     {
-        // Max slots per row
         private const int DEFAULT_SLOTS_PER_ROW = 4;
-        // Max number of slots that can be linked together
         private const int DEFAULT_MAX_LINK_LENGTH = 2;
 
-        // Customizable parameters (can be set by modders)
         private int slotsPerRow = DEFAULT_SLOTS_PER_ROW;
         private int maxLinkLength = DEFAULT_MAX_LINK_LENGTH;
         private float rowMargin = 150f;
@@ -45,8 +42,8 @@ namespace Materia
         public override Dictionary<MateriaSlot, Rect> PositionSlots(Window_MateriaSelection MateriaWindow,
             List<MateriaSlot> slots,
             Rect containerRect,
-            float slotSize,
-            float padding)
+            Vector2 slotSize,
+            Vector2 padding)
         {
             Dictionary<MateriaSlot, Rect> result = new Dictionary<MateriaSlot, Rect>();
             List<MateriaSlot> slotsList = slots.ToList();
@@ -54,15 +51,12 @@ namespace Materia
             if (slotsList.Count == 0)
                 return result;
 
-            // Get label height from the materia window's display settings
             float labelHeight = MateriaWindow.DisplaySettings.labelHeight;
+            float verticalUnitSize = slotSize.x + labelHeight + rowMargin;
 
-            // Space needed for each slot (including its label)
-            float verticalUnitSize = slotSize + labelHeight + rowMargin;
-
-            float startX = containerRect.x + padding;
-            float startY = containerRect.y + padding;
-            float totalWidth = slotSize * slotsPerRow + (padding + columnMargin) * (slotsPerRow - 1);
+            float startX = containerRect.x + padding.x;
+            float startY = containerRect.y + padding.y;
+            float totalWidth = slotSize.x * slotsPerRow + (padding.x + columnMargin) * (slotsPerRow - 1);
 
             // Center the grid horizontally if needed
             if (totalWidth < containerRect.width)
@@ -75,10 +69,10 @@ namespace Materia
                 int row = i / slotsPerRow;
                 int col = i % slotsPerRow;
 
-                float posX = startX + col * (slotSize + padding + columnMargin);
-                float posY = startY + row * verticalUnitSize; // Use the unit size for proper vertical spacing
+                float posX = startX + col * (slotSize.x + padding.x + columnMargin);
+                float posY = startY + row * verticalUnitSize;
 
-                Rect slotRect = new Rect(posX, posY, slotSize, slotSize);
+                Rect slotRect = new Rect(posX, posY, slotSize.x, slotSize.x);
                 result[slotsList[i]] = slotRect;
             }
 
@@ -128,8 +122,7 @@ namespace Materia
 
         public override void DrawToolBar(Rect toolbarRect)
         {
-            // If you want to add toolbar controls for the horizontal display
-            // For example, a slider to adjust the SlotsPerRow
+   
         }
     }
 }

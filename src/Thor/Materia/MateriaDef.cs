@@ -71,10 +71,6 @@ namespace Materia
                                       x.type == other.SlotType);
         }
     }
-    public class MateriaCategoryDef : Def
-    {
-      
-    }
 
     public class MateriaLinkData
     {

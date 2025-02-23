@@ -69,6 +69,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comps\ThingComps\NoMateriaExt.cs" />
+    <Compile Include="Materia\MateriaCategoryDef.cs" />
+    <Compile Include="Materia\MateriaSlot\MateriaGenerationConfigDef.cs" />
+    <Compile Include="Materia\MateriaSlot\TechLevelWeight.cs" />
+    <Compile Include="Materia\MateriaSlot\WeaponTagWeight.cs" />
+    <Compile Include="Materia\SlotLevelRarity.cs" />
+    <Compile Include="Materia\SlotLimit.cs" />
     <Compile Include="REMOVE SOON\BowModes\BowModeDef.cs" />
     <Compile Include="REMOVE SOON\BowModes\BowModeWorker.cs" />
     <Compile Include="REMOVE SOON\BowModes\BowModeWorker_Beam.cs" />
@@ -79,7 +86,7 @@
     <Compile Include="REMOVE SOON\DamageWorker_Tranquilizer.cs" />
     <Compile Include="UI\RowLayoutManager.cs" />
     <Compile Include="Interfaces\IDrawEquippedGizmos.cs" />
-    <Compile Include="Materia\Display\ChainMateriaDisplay.cs" />
+    <Compile Include="Materia\Display\unused\ChainMateriaDisplay.cs" />
     <Compile Include="Materia\Display\CircularMateriaDisplay.cs" />
     <Compile Include="Materia\Display\GridMateriaDisplay.cs" />
     <Compile Include="Materia\Display\HorizontalMateriaDisplay.cs" />
