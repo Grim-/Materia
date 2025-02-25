@@ -6,16 +6,19 @@ namespace Materia
 {
     public static class ScoringUtil
     {
-        public static int Score(this Thing thing, int min = 0, int max = 100)
+        public static float CalculateBaseScore(Thing thing)
         {
-            int techScore = thing.GetTechLevelScore();
-            int marketValueScore = thing.GetMarketValueScore();
-            int stuffScore = (int)thing.GetStuffScore();
-            int qualityScore = thing.GetQualityScore();
-            int researchScore = (int)thing.GetResearchScore();
+            if (thing == null)
+                return 1f;
 
-            int subTotal = techScore + marketValueScore + stuffScore + qualityScore + researchScore;
-            return Mathf.Clamp(subTotal, min, max);
+            float score = thing.GetTechLevelScore() +
+                         thing.GetMarketValueScore() +
+                         thing.GetStuffScore() +
+                         thing.GetQualityScore() +
+                         thing.GetResearchScore();
+
+            float finalScore = Mathf.Clamp(score, 0, 100f);
+            return finalScore;
         }
 
         public static int GetTechLevelScore(this Thing thing, int perLevel = 4, TechLevel minTechLevel = TechLevel.Industrial)
@@ -73,8 +76,8 @@ namespace Materia
 
         public static string GetScoreString(this Thing thing)
         {
-            QualityCategory quality = thing.TryGetQuality(out QualityCategory qc) ? qc : QualityCategory.Awful;
-            var totalScore = Score(thing);
+            var totalScore = CalculateBaseScore(thing);
+            Color scoreColor = Color.Lerp(Color.red, Color.green, totalScore / 100f);
             return
                 $"Scores:\n" +
                    $"Tech({thing.def.techLevel}): {GetTechLevelScore(thing)}\n" +
@@ -82,7 +85,8 @@ namespace Materia
                    $"Stuff({thing.Stuff?.defName}): {GetStuffScore(thing)}\n" +
                    $"Quality: {GetQualityScore(thing)}\n" +
                    $"Research: {GetResearchScore(thing)}\n" +
-                   $"Score Total: {totalScore}\n";
+                   $"<color=#{ColorUtility.ToHtmlStringRGB(scoreColor)}>Score Total: {totalScore}</color>\n" +
+                   $"Slot Potential Max {MateriaSlotGenerator.GetMaxSlotsAllowedFor(thing.def)}\n";
         }
     }
 }

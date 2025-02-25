@@ -9,18 +9,11 @@ namespace Materia
     public class MateriaTypeDef : Def
     {
         public Color materiaTextColor;
-
-        //slot gen stuff
         public float baseWeight = 1f;
-        public float rangedWeaponMultiplier = 1f;
-        public float meleeWeaponMultiplier = 1f;
-
-
-        public List<TechLevelWeight> techLevelWeights;
-        public List<WeaponTagWeight> weaponTagWeights;
-
         public List<SlotLimit> slotLimits;
-        public List<SlotLevelRarity> slotLevelRarities;
+
+
+        public List<MateriaTypeDef> countsAsMateria;
 
         public bool IsValidForSlotCreation(ThingWithComps parent, Comp_MateriaComp comp)
         {

@@ -17,20 +17,19 @@ namespace Materia
 
         }
 
-        public static List<MateriaSlot> GenerateSlots(ThingWithComps parent, Comp_MateriaComp comp)
+        public static void GenerateSlots(ThingWithComps parent, Comp_MateriaComp comp)
         {
             if (parent == null)
-                return null;
+                return;
             if (comp == null)
-                return null;
+                return;
 
             Log.Message($"Gen Materia Slots for {parent.Label}");
-            var baseScore = CalculateBaseScore(parent, parent.def);
+            var baseScore = ScoringUtil.CalculateBaseScore(parent);
             Log.Message($"  BaseScore: {baseScore}");
             var maxSlots = GetMaxSlotsFor(parent);
             Log.Message($"  MaximumSlots: {maxSlots}");
-            List<MateriaSlot> generatedSlots = GenerateSlotDistribution(maxSlots, parent, comp);
-            return generatedSlots;
+            GenerateSlotDistribution(maxSlots, parent, comp);
         }
 
         public static int GetMaxSlotsForScore(ThingDef thingDef, float score, int maxSlotsAllowed, float scoreMax = 100f)
@@ -115,7 +114,7 @@ namespace Materia
         public static int GetMaxSlotLevelFor(Thing thing)
         {
             if (thing == null)
-                return 0;
+                return 1;
 
             int maxSlotLevel = 4;
             if (thing.TryGetQuality(out QualityCategory qc))
@@ -125,19 +124,19 @@ namespace Materia
                     case QualityCategory.Awful:
                         return 0;
                     case QualityCategory.Poor:
-                        return Rand.Value >= 0.75f ? 1 : 0;
+                        return Rand.Value >= 0.75f ? 2 : 1;
                     case QualityCategory.Normal:
-                        return Random.Range(0, 2);
+                        return Random.Range(1, 2);
                     case QualityCategory.Good:
-                        return Random.Range(0, 3);
+                        return Random.Range(1, 3);
                     case QualityCategory.Excellent:
-                        return Random.Range(0, maxSlotLevel);
+                        return Random.Range(1, maxSlotLevel);
                     case QualityCategory.Masterwork:
                         return Random.Range(maxSlotLevel - 1, maxSlotLevel);
                     case QualityCategory.Legendary:
                         return maxSlotLevel;
                     default:
-                        return Random.Range(0, 3);
+                        return Random.Range(1, 3);
                 }
             }
             else
@@ -146,23 +145,23 @@ namespace Materia
                 switch (thing.def.techLevel)
                 {
                     case TechLevel.Undefined:
-                        return 0;
+                        return 1;
                     case TechLevel.Animal:
-                        return 0;
+                        return 1;
                     case TechLevel.Neolithic:
-                        return Rand.Value >= 0.75f ? 1 : 0;
+                        return Rand.Value >= 0.75f ? 2 : 1;
                     case TechLevel.Medieval:
-                        return Random.Range(0, 2);
+                        return Random.Range(1, 2);
                     case TechLevel.Industrial:
-                        return Random.Range(0, 3);
+                        return Random.Range(1, 3);
                     case TechLevel.Spacer:
-                        return Random.Range(0, maxSlotLevel);
+                        return Random.Range(1, maxSlotLevel);
                     case TechLevel.Ultra:
                         return Random.Range(maxSlotLevel - 1, maxSlotLevel);
                     case TechLevel.Archotech:
                         return maxSlotLevel;
                     default:
-                        return Random.Range(0, 3);
+                        return Random.Range(1, 3);
                 }
             }
         }
@@ -181,28 +180,12 @@ namespace Materia
             return 0;
         }
 
-        public static float CalculateBaseScore(Thing thing, ThingDef def)
-        {
-            if (def == null) 
-                return 1f;
 
-            float score = thing.GetTechLevelScore() +
-                         thing.GetMarketValueScore() +
-                         thing.GetStuffScore() +
-                         thing.GetQualityScore() +
-                         thing.GetResearchScore();
-
-            float finalScore = Mathf.Clamp(score, 0, 100f);
-            return finalScore;
-        }
-
-
-        private static List<MateriaSlot> GenerateSlotDistribution(int totalSlots, ThingWithComps parent, Comp_MateriaComp comp)
+        private static void GenerateSlotDistribution(int totalSlots, ThingWithComps parent, Comp_MateriaComp comp)
         {
             var slots = new List<MateriaSlot>();
             if (totalSlots <= 0)
-                return slots;
-
+                return;
             var materiaTypes = DefDatabase<MateriaTypeDef>.AllDefs.Where(x => x.IsValidForSlotCreation(parent, comp)).ToList();
             var weightedTypes = CalculateTypeWeights(materiaTypes, parent.def);
 
@@ -212,24 +195,31 @@ namespace Materia
                 if (selectedType != null)
                 {
                     int newSlotLevel = GetMaxSlotLevelFor(parent);
-
-
-                    if (selectedType.IsValidForSlotCreation(parent, comp))
+                    //small chance to take any type
+                    if (Rand.Value >= 0.8173f)
                     {
-                        var slot = new MateriaSlot(parent, comp, selectedType, newSlotLevel);
+                        var slot = comp.AddMateriaSlot(null, newSlotLevel);
                         if (slot != null)
                         {
-                            slot.SetLevel(newSlotLevel);
-                            slots.Add(slot);
-                            Log.Message($"Slot {slot.SlotType.LabelCap} {slot.SlotLevel} added to {parent.Label}");
+                            Log.Message($"Meta slot {slot.SlotLevel} added to {parent.Label}");
+                        }
+                    }
+                    else
+                    {
+                        if (selectedType.IsValidForSlotCreation(parent, comp))
+                        {
+                            var slot = comp.AddMateriaSlot(selectedType, newSlotLevel);
+                            if (slot != null)
+                            {
+                                Log.Message($"Slot {slot.SlotType.LabelCap} {slot.SlotLevel} added to {parent.Label}");
+                            }
                         }
                     }
 
 
+
                 }
             }
-
-            return slots;
         }
         private static Dictionary<MateriaTypeDef, float> CalculateTypeWeights(List<MateriaTypeDef> types, ThingDef def, List<MateriaTypeDef> disallowedTypes = null)
         {

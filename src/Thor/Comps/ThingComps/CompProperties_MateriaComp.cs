@@ -34,12 +34,15 @@ namespace Materia
 
 
 
-        public bool HasMaximumSlotsAllowed => MateriaSlots.Count >= MateriaSlotGenerator.GetMaxSlotsAllowedFor(this.parent.def);
+        public bool HasMaximumSlotsAllowed => SlotCount >= MateriaSlotGenerator.GetMaxSlotsAllowedFor(this.parent.def);
 
         public bool ParentIsMelee => this.parent.def.IsMeleeWeapon;
         public bool ParentIsRanged => this.parent.def.IsRangedWeapon;
 
+        public int OccupiedSlotsCount => this.MateriaSlots.Where(x => x.IsOccupied).Count();
+        public int EmptySlots => this.MateriaSlots.Where(x => !x.IsOccupied).Count();
 
+        public int SlotCount => this.MateriaSlots.Count;
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
@@ -621,31 +624,24 @@ namespace Materia
                 .ToList();
 
             StringBuilder output = new StringBuilder();
-            output.AppendLine("Equipped materia:");
+            output.AppendLine($"Equipped materia  ({OccupiedSlotsCount} / {MateriaSlotGenerator.GetMaxSlotsAllowedFor(this.parent.def)}):");
             output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
             return output.ToString().TrimEnd();
         }
 
         public override string CompInspectStringExtra()
         {
-            //string equippedMateriaString = GetEquippedMateriaInfo();
-            //if (Prefs.DevMode)
-            //{
-            //    var thing = this.parent;
-            //    return equippedMateriaString + "\n" + ScoringUtil.GetScoreString(thing);
-            //}
-
             return GetEquippedMateriaInfo();
         }
 
         public override string GetDescriptionPart()
         {
             string equippedMateriaString = GetEquippedMateriaInfo(true);
-            //if (Prefs.DevMode)
-            //{
-            //    var thing = this.parent;
-            //    return equippedMateriaString + "\n" +ScoringUtil.GetScoreString(thing);
-            //}
+            if (Prefs.DevMode)
+            {
+                var thing = this.parent;
+                return equippedMateriaString + "\n" + ScoringUtil.GetScoreString(thing);
+            }
             return equippedMateriaString;
         }
 
