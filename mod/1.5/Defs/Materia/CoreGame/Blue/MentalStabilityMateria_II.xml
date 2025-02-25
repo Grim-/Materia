@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>MentalStabilityMateria_II</defName>
+    <label>Mental Stability Materia II</label>
+    <description>A calming blue crystalline orb that radiates tranquility. Strengthens mental resilience.</description>
+    <texPath>Materia/Materia_blue_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_blue_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>BlueMateria</SlotType>
+         <slotLevel>2</slotLevel>
+    <effects>
+      <li>MateriaEffect_MentalStability_II</li>
+    </effects>
+    <textColor>(0, 0, 0.8)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>BlueMateriaDust</thing>
+    <amount>6~12</amount>
+  </li>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~3</amount>
+  </li>
+</breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_MentalStability_II</defName>
+    <label>Mental Stability Enhancement II</label>
+    <description>Increases resistance to mental breaks.</description>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>MentalBreakThreshold</statToAffect>
+    <statOffset>-0.25</statOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
+
+</Defs>

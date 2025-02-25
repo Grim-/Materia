@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>AccuracyMateriaMelee_III</defName>
+    <label>Accuracy Materia III (Melee)</label>
+    <description>An exceptionally rare red crystalline orb radiating overwhelming martial mastery. Dramatically improves the wielder's combat precision.</description>
+    <texPath>Materia/Materia_yellow_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_yellow_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>0.2</commonality>
+    <SlotType>BlueMateria</SlotType>
+    <slotLevel>3</slotLevel>
+    <materiaCategories>
+        <li>MateriaCategory_Melee</li>
+        <li>MateriaCategory_Armor</li>
+    </materiaCategories>
+    <effects>
+      <li>MateriaEffect_MeleeAccuracy_III</li>
+    </effects>
+    <textColor>(0.8, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>25~35</amount>
+      </li>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>8~12</amount>
+      </li>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>3~5</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_MeleeAccuracy_III</defName>
+    <label>Melee Accuracy Enhancement III</label>
+    <description>Massively increases melee hit chance.</description>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>MeleeHitChance</statToAffect>
+    <statOffset>0.35</statOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
+</Defs>

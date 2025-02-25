@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+      <defName>AncientMateria_Giantform_I</defName>
+      <label>Giantform Materia I</label>
+      <description>A massive purple crystalline orb that pulses with transformative energy. Increases the wielder's physical size dramatically.</description>
+      <texPath>Materia/Materia_purple_low</texPath>
+      <graphicData>
+          <texPath>Materia/Materia_purple_low</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+      </graphicData>
+      <statBases>
+        <MarketValue>1000</MarketValue>
+      </statBases>
+      <commonality>1.0</commonality>
+      <SlotType>PurpleMateria</SlotType>
+      <effects>
+          <li>MateriaEffect_Giantform_I</li>
+      </effects>
+      <textColor>(0.5, 0, 0.5)</textColor>
+      <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+  
+  <Materia.MateriaEffectDef_GrantGene>
+      <defName>MateriaEffect_Giantform_I</defName>
+      <label>Giant Form I</label>
+      <description>Transforms the wielder into a giant form.</description>
+      <workerClass>Materia.MateriaEffect_GrantGene</workerClass>
+      <gene>Body_Hulk</gene>
+      <isXenogene>true</isXenogene>
+  </Materia.MateriaEffectDef_GrantGene>
+</Defs>

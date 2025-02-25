@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_ChainLightning</defName>
+    <label>Ancient Materia Chain Lightning</label>
+    <description>A purple crystalline orb crackling with electrical energy. Causes lightning to arc between targets when striking enemies.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>15000</MarketValue>
+    </statBases>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <materiaCategories>
+        <li>MateriaCategory_Melee</li>
+    </materiaCategories>
+    <effects>
+      <li>ChainLightningMateria_I</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+  <li>
+    <thing>PurpleMateriaDust</thing>
+    <amount>2~4</amount>
+  </li>
+  <li>
+    <thing>RedMateriaDust</thing>
+    <amount>4~8</amount>
+  </li>
+</breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_ChainLightningOnHit>
+    <defName>ChainLightningMateria_I</defName>
+    <label>Chain Lightning Strike</label>
+    <description>Triggers lightning that chains between targets when successfully damaging an enemy.</description>
+    <workerClass>Materia.MateriaEffect_ChainLightningOnHit</workerClass>
+    <maxJumps>5</maxJumps>
+    <targetRadius>5</targetRadius>
+    <damage>15</damage>
+    <damageType>Burn</damageType>
+  </Materia.MateriaEffectDef_ChainLightningOnHit>
+</Defs>

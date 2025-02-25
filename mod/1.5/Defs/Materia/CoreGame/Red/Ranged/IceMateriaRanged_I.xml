@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>IceMateriaRanged_I</defName>
+    <label>Ice materia I (Ranged)</label>
+    <description>A red crystalline orb containing the essence of frost. Imbues ranged weapons with freezing power, dealing ice damage to targets.</description>
+    <texPath>Materia/Materia_red_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_red_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>RedMateria</SlotType>
+    <materiaCategories>
+        <li>MateriaCategory_Ranged</li>
+    </materiaCategories>
+    <effects>
+      <li>IceMateriaRanged_I</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>RedMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_OnProjectileHitDamage>
+    <defName>IceMateriaRanged_I</defName>
+    <label>damage boost</label>
+    <description>Increases ranged weapon damage.</description>
+    <workerClass>Materia.MateriaEffect_OnProjectileHitDamage</workerClass>
+    <damageType>Burn</damageType>
+    <effecter>WeaponFireEnchant</effecter>
+    <onhitEffecter>Fire_Burst</onhitEffecter>
+  </Materia.MateriaEffectDef_OnProjectileHitDamage>
+</Defs>

@@ -67,7 +67,7 @@ namespace Materia
             }
             else
             {
-                this.displayWorker = MateriaDisplayFactory.GetDisplay(typeof(GridMateriaDisplay));
+                this.displayWorker = MateriaDisplayFactory.GetDisplay(typeof(CircularMateriaDisplay));
             }
         }
 
@@ -330,11 +330,11 @@ namespace Materia
                 else
                 {
                     TooltipHandler.TipRegion(slotRect,
-                        $"Empty {slot.SlotType?.label ?? "materia"} slot\nClick to equip materia");
+                        $"Empty {slot.SlotType?.label ?? "materia"} slot\nClick to equip materia from inventory.");
 
                     if (Widgets.ButtonInvisible(slotRect))
                     {
-                        Find.WindowStack.Add(new FloatMenu(GenerateMateriaOptions(slot)));
+                        Find.WindowStack.Add(new FloatMenu(MateriaUtil.GenerateMateriaOptions(materiaComp, usingPawn, slot)));
                     }
                 }
             }
@@ -393,51 +393,6 @@ namespace Materia
             newX = Mathf.Clamp(newX, 0, UI.screenWidth - newSize.x);
             newY = Mathf.Clamp(newY, 0, UI.screenHeight - newSize.y);
             windowRect = new Rect(newX, newY, newSize.x, newSize.y);
-        }
-
-        private List<FloatMenuOption> GenerateMateriaOptions(MateriaSlot slot)
-        {
-            List<FloatMenuOption> options = new List<FloatMenuOption>();
-
-            if (Prefs.DevMode)
-            {
-                foreach (MateriaDef materiaDef in DefDatabase<MateriaDef>.AllDefs)
-                {
-                    var cacheMatdef = materiaDef;
-                    if (slot.CanAccept(cacheMatdef))
-                    {
-                        options.Add(new FloatMenuOption(cacheMatdef.label, () =>
-                        {
-                            var cacheSlot = slot;
-                            materiaComp.EquipMateria(cacheMatdef, cacheSlot);
-                        }));
-                    }
-                }
-            }
-            else
-            {
-                foreach (Thing thing in usingPawn.EquippedWornOrInventoryThings)
-                {
-                    if (thing.def is MateriaDef materiaDef && slot.CanAccept(materiaDef))
-                    {
-                        var cacheMatdef = materiaDef;
-                        options.Add(new FloatMenuOption(materiaDef.GetColouredLabel() + $" Level {materiaDef.slotLevel}", () =>
-                        {
-                            var cacheSlot = slot;
-                            materiaComp.EquipMateria(cacheMatdef, cacheSlot);
-                            usingPawn.inventory.RemoveCount(thing.def, 1);
-                        }));
-                    }
-                }
-            }
-
-            if (options.Count == 0)
-            {
-                options.Add(new FloatMenuOption("No compatible materia available", null));
-            }
-
-            options.Sort((a, b) => string.Compare(a.Label, b.Label, StringComparison.OrdinalIgnoreCase));
-            return options;
         }
     }
 }

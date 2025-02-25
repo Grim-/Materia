@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>SwiftMateria_III</defName>
+    <label>Swift Materia III</label>
+    <description>A shimmering green crystalline orb crackling with kinetic energy. Enhances the wielder's movement speed.</description>
+    <texPath>Materia/Materia_green_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_green_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>GreenMateria</SlotType>
+    <slotLevel>3</slotLevel>
+    <effects>
+      <li>MateriaEffect_Speed_III</li>
+    </effects>
+    <textColor>(0, 0.8, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_PawnStatFactor>
+    <defName>MateriaEffect_Speed_III</defName>
+    <label>Speed Enhancement III</label>
+    <statToAffect>MoveSpeed</statToAffect>
+    <statFactor>4</statFactor>
+  </Materia.MateriaEffectDef_PawnStatFactor>
+
+</Defs>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+     <defName>PainResistMateria_II</defName>
+     <label>Pain Resistance Materia II</label>
+     <description>A green crystalline orb burning with endurance. Increases resistance to pain.</description>
+     <texPath>Materia/Materia_blue_low</texPath>
+     <graphicData>
+       <texPath>Materia/Materia_green_low</texPath>
+       <graphicClass>Graphic_Single</graphicClass>
+     </graphicData>
+     <commonality>1.0</commonality>
+     <SlotType>GreenMateria</SlotType>
+          <slotLevel>2</slotLevel>
+     <effects>
+       <li>MateriaEffect_PainResist_II</li>
+     </effects>
+     <textColor>(0.8, 0, 0)</textColor>
+     <breakdownMaterials>
+  <li>
+    <thing>BlueMateriaDust</thing>
+    <amount>4~8</amount>
+  </li>
+</breakdownMaterials>
+   </Materia.MateriaDef>
+
+   <Materia.MateriaEffectDef_PawnStatOffset>
+       <defName>MateriaEffect_PainResist_II</defName>
+       <label>Pain Resistance Enhancement II</label>
+       <description>Increases pain shock threshold.</description>
+       <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
+       <statToAffect>PainShockThreshold</statToAffect>
+       <statOffset>0.5</statOffset>
+     </Materia.MateriaEffectDef_PawnStatOffset>
+</Defs>

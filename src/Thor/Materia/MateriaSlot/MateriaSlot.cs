@@ -67,7 +67,12 @@ namespace Materia
         {
             get
             {
-                return _SlotIndex;
+                if (MateriaComp == null)
+                {
+                    return -1;
+                }
+
+                return MateriaComp.MateriaSlots.IndexOf(this);
             }
         }
 
@@ -84,13 +89,12 @@ namespace Materia
         {
         }
 
-        public MateriaSlot(ThingWithComps parentThing, Comp_MateriaComp materiaComp, MateriaTypeDef type, int slotIndex, int slotLevel = 1)
+        public MateriaSlot(ThingWithComps parentThing, Comp_MateriaComp materiaComp, MateriaTypeDef type, int slotLevel = 1)
         {
             _MateriaComp = materiaComp;
             _ParentThing = parentThing;
             _SlotType = type;
             _SlotLevel = slotLevel;
-            _SlotIndex = slotIndex;
         }
 
 

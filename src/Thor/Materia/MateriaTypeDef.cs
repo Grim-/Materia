@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -21,40 +22,64 @@ namespace Materia
         public List<SlotLimit> slotLimits;
         public List<SlotLevelRarity> slotLevelRarities;
 
+        public bool IsValidForSlotCreation(ThingWithComps parent, Comp_MateriaComp comp)
+        {
+            if (slotLimits == null)
+                return true;
 
-        //red materia type
-        ///Weapon
-        //2 slots
-        //armour
-        //0 slots
-        //utility
-        //0 slots
+            foreach (var limit in slotLimits)
+            {
+                if (parent.HasThingCategory(limit.ThingCategory))
+                {
+                    if (limit.maxSlots == 0)
+                    {
+                        return false;
+                    }
+                    var currentCount = comp.GetMateriaCountOfType(this);
+                    if (currentCount >= limit.maxSlots)
+                        return false;
+                }
+            }
 
-        //green
-        ///Weapon
-        //0 slots
-        //armour
-        //2 slots
-        //utility
-        //2 slots
+            return true;
+        }
 
-        //blue materia type
-        ///Weapon
-        //1 slots
-        //armour
-        //2 slots
-        //utility
-        //2 slots
+        public static MateriaTypeDef SelectMateriaType(Dictionary<MateriaTypeDef, float> weightedTypes, List<MateriaTypeDef> disallowedTypes = null)
+        {
+            if (weightedTypes == null || weightedTypes.Count == 0)
+                return null;
 
+            var validTypes = weightedTypes.Keys.ToList();
+            if (disallowedTypes != null && disallowedTypes.Count > 0)
+                validTypes.RemoveAll(t => disallowedTypes.Contains(t));
 
-        //purple materia type
-        ///Weapon
-         //
-        //1 slots
-        //armour
-        //2 slots
-        //utility
-        //3 slots
-  
+            if (validTypes.Count == 0)
+                return null;
+
+            float totalWeight = 0f;
+            foreach (var type in validTypes)
+            {
+                totalWeight += weightedTypes[type];
+            }
+
+            Dictionary<MateriaTypeDef, float> normalizedWeights = new Dictionary<MateriaTypeDef, float>();
+            foreach (var type in validTypes)
+            {
+                normalizedWeights[type] = weightedTypes[type] / totalWeight;
+            }
+
+            float roll = Rand.Value;
+            float cumulative = 0f;
+
+            foreach (var type in validTypes)
+            {
+                cumulative += normalizedWeights[type];
+                if (roll <= cumulative)
+                {
+                    return type;
+                }
+            }
+            return validTypes.RandomElement();
+        }
     }
 }

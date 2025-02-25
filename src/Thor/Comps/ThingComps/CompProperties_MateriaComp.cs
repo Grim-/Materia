@@ -33,34 +33,41 @@ namespace Materia
         public bool HasEquipOwner => EquippedPawn != null;
 
 
+
+        public bool HasMaximumSlotsAllowed => MateriaSlots.Count >= MateriaSlotGenerator.GetMaxSlotsAllowedFor(this.parent.def);
+
         public bool ParentIsMelee => this.parent.def.IsMeleeWeapon;
         public bool ParentIsRanged => this.parent.def.IsRangedWeapon;
-        public override void PostPostMake()
+
+
+
+        public override void PostSpawnSetup(bool respawningAfterLoad)
         {
-            if (!initializedSlots)
+            base.PostSpawnSetup(respawningAfterLoad);
+
+            if (!respawningAfterLoad)
             {
-                if (Props.materiaSlots == null || Props.materiaSlots.Count == 0)
+                if (!initializedSlots)
                 {
-                    GenerateSlotsForWeapon();
+                    if (Props.materiaSlots == null || Props.materiaSlots.Count == 0)
+                    {
+                        GenerateMateriaSlots();
+                    }
+                    else
+                    {
+                        CreateMateriaSlots();
+                    }
+                    initializedSlots = true;
                 }
-                else
-                {
-                    CreateMateriaSlots();
-                } 
-                initializedSlots = true;
             }
-            base.PostPostMake();
         }
 
-        private void GenerateSlotsForWeapon()
+        private void GenerateMateriaSlots()
         {
-            QualityCategory? quality = null;
-            if (parent.TryGetComp<CompQuality>() is CompQuality qualityComp)
+            if (!HasMaximumSlotsAllowed)
             {
-                quality = qualityComp.Quality;
-            }
-
-            materiaSlots = MateriaSlotGenerator.GenerateSlots(parent, this, quality);
+                MateriaSlotGenerator.GenerateSlots(parent, this);
+            }            
         }
 
         protected void CreateMateriaSlots()
@@ -342,7 +349,7 @@ namespace Materia
 
         public MateriaSlot AddMateriaSlot(MateriaTypeDef SlotType, int slotLevel = 1)
         {
-            MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotType, this.materiaSlots.Count + 1, slotLevel);
+            MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotType, slotLevel);
             materiaSlots.Add(materiaSlot);
 
             return materiaSlot;
@@ -350,7 +357,7 @@ namespace Materia
 
         public void AddMateriaSlot(MateriaSlotConfig SlotConfig)
         {
-            MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotConfig.slotType, this.materiaSlots.Count + 1, SlotConfig.slotLevel);
+            MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotConfig.slotType, SlotConfig.slotLevel);
   
             materiaSlots.Add(materiaSlot);
 
@@ -622,26 +629,10 @@ namespace Materia
         public override string CompInspectStringExtra()
         {
             //string equippedMateriaString = GetEquippedMateriaInfo();
-
             //if (Prefs.DevMode)
             //{
             //    var thing = this.parent;
-            //    var def = thing.def;
-            //    var quality = thing.TryGetComp<CompQuality>()?.Quality;
-            //    var totalScore = MateriaSlotGenerator.CalculateBaseScore(thing, def, quality);
-            //    return equippedMateriaString + $"\nDev Mode Info:\n" +
-            //           $"Base Score Components:\n" +
-            //           $"Tech({def.techLevel}): {MateriaSlotGenerator.GetTechLevelScore(def)}\n" +
-            //           $"Value: {MateriaSlotGenerator.GetValueScore(def)}\n" +
-            //           $"Stuff({thing.Stuff?.defName}): {MateriaSlotGenerator.GetStuffScore(thing)}\n" +
-            //           $"Quality({quality}): {MateriaSlotGenerator.GetQualityScore(quality)}\n" +
-            //           $"Research: {MateriaSlotGenerator.GetResearchScore(def)}\n" +
-            //           $"Armor: {MateriaSlotGenerator.GetArmorScore(def)}\n" +
-            //           $"Total: {totalScore}\n" +
-            //           $"Slot Generation:\n" +
-            //           $"Slot Cap: {MateriaSlotGenerator.GetSlotCap(def)}\n" +
-            //           $"Maximum Slots: {MateriaSlotGenerator.GetMaxSlotsForCategory(def, quality, totalScore)}\n" +
-            //           $"Slot Level Range: 1 - {MateriaSlotGenerator.GetMaximumPossibleSlotLevel(def, quality)}";
+            //    return equippedMateriaString + "\n" + ScoringUtil.GetScoreString(thing);
             //}
 
             return GetEquippedMateriaInfo();
@@ -650,26 +641,11 @@ namespace Materia
         public override string GetDescriptionPart()
         {
             string equippedMateriaString = GetEquippedMateriaInfo(true);
-            if (Prefs.DevMode)
-            {
-                var thing = this.parent;
-                var def = thing.def;
-                var quality = thing.TryGetComp<CompQuality>()?.Quality;
-                var totalScore = MateriaSlotGenerator.CalculateBaseScore(thing, def, quality);
-                return equippedMateriaString + $"\nDev Mode Info:\n" +
-                       $"Scores:\n" +
-                       $"Tech({def.techLevel}): {MateriaSlotGenerator.GetTechLevelScore(def)}\n" +
-                       $"Value: {MateriaSlotGenerator.GetMarketValueScore(def.BaseMarketValue)}\n" +
-                       $"Stuff({thing.Stuff?.defName}): {MateriaSlotGenerator.GetStuffScore(thing)}\n" +
-                       $"Quality({quality}): {MateriaSlotGenerator.GetQualityScore(quality)}\n" +
-                       $"Research: {MateriaSlotGenerator.GetResearchScore(def)}\n" +
-                       $"Armor: {MateriaSlotGenerator.GetArmorScore(def)}\n\n" +
-                       $"Score Total: {totalScore}\n" +
-                       $"\nSlot Generation:\n" +
-                       $"Slot Cap: {MateriaSlotGenerator.GetSlotCap(def)}\n" +
-                       $"Maximum Slots: {MateriaSlotGenerator.GetMaxSlotsForCategory(def, quality, totalScore)}\n" +
-                       $"Slot Level Range: 1 - {MateriaSlotGenerator.GetMaximumPossibleSlotLevel(def, quality)}";
-            }
+            //if (Prefs.DevMode)
+            //{
+            //    var thing = this.parent;
+            //    return equippedMateriaString + "\n" +ScoringUtil.GetScoreString(thing);
+            //}
             return equippedMateriaString;
         }
 

@@ -1,0 +1,25 @@
+PlantWorkSpeed
+PlantHarvestYield
+ConstructionSpeed
+ConstructSuccessChance
+GeneralLaborSpeed
+NegotiationAbility
+PawnBeauty
+SocialImpact
+TameAnimalChance,TrainAnimalChance
+InjuryHealingFactor
+Insulation_Cold, Insulation_Heat
+
+Royalty
+PsychicEntropyGain
+
+Ideo
+SuppressionPower
+HackingSpeed
+
+biotech
+Fertility
+MechBandwidth
+MechFormingSpeed
+MechRepairSpeed
+SubcoreEncodingSpeed

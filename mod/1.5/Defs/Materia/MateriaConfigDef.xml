@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaGenerationConfigDef>
+    <defName>MateriaGenerationConfig</defName>
+    <maxArmourSlots>4</maxArmourSlots>
+    <maxUtilityArmourSlots>2</maxUtilityArmourSlots>
+    <maxWeaponSlots>3</maxWeaponSlots>
+
+
+    <!-- limits slot levels by tech -->
+    <techLevelSlotCaps>
+      <li>
+        <techLevel>Undefined</techLevel>
+        <maxSlotLevel>0</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Animal</techLevel>
+        <maxSlotLevel>0</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Neolithic</techLevel>
+        <maxSlotLevel>1</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Medieval</techLevel>
+        <maxSlotLevel>1</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Industrial</techLevel>
+        <maxSlotLevel>1</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Spacer</techLevel>
+        <maxSlotLevel>2</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Ultra</techLevel>
+        <maxSlotLevel>3</maxSlotLevel>
+      </li>
+      <li>
+        <techLevel>Archotech</techLevel>
+        <maxSlotLevel>4</maxSlotLevel>
+      </li>
+    </techLevelSlotCaps>
+  </Materia.MateriaGenerationConfigDef>
+
+</Defs>

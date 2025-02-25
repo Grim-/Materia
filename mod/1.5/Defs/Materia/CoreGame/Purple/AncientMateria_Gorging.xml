@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_Gorging_I</defName>
+    <label>Ancient Materia Gorging I</label>
+    <description>A purple crystalline orb.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>3000</MarketValue>
+    </statBases>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <effects>
+      <li>MateriaEffect_Gorging_I</li>
+    </effects>
+    <textColor>(0, 1, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>3~6</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_DamageTracker>
+    <defName>MateriaEffect_Gorging_I</defName>
+    <label>Gorging Materia I</label>
+    <description>Max Health increases for damage dealt.</description>
+    <workerClass>Materia.MateriaEffect_DamageTracker</workerClass>
+  </Materia.MateriaEffectDef_DamageTracker>
+</Defs>

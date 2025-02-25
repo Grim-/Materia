@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+     <defName>DeepDrillingSpeedMateria_II</defName>
+     <label>Deep Drilling Speed Materia II</label>
+     <description>A blue crystalline orb humming with kinetic energy. Increases mining speed.</description>
+     <texPath>Materia/Materia_blue_low</texPath>
+     <graphicData>
+       <texPath>Materia/Materia_blue_low</texPath>
+       <graphicClass>Graphic_Single</graphicClass>
+     </graphicData>
+     <commonality>1.0</commonality>
+     <SlotType>BlueMateria</SlotType>
+          <slotLevel>2</slotLevel>
+     <effects>
+       <li>MateriaEffect_DeepDrillingSpeed_II</li>
+     </effects>
+     <textColor>(0.5, 0.3, 0)</textColor>
+     <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+   </Materia.MateriaDef>
+
+   <Materia.MateriaEffectDef_PawnStatOffset>
+     <defName>MateriaEffect_DeepDrillingSpeed_II</defName>
+     <label>Deep Drilling Speed Enhancement II</label>
+     <description>Increases deep drilling speed for pawns.</description>
+     <statToAffect>DeepDrillingSpeed</statToAffect>
+    <statOffset>1.30</statOffset>
+   </Materia.MateriaEffectDef_PawnStatOffset>
+</Defs>

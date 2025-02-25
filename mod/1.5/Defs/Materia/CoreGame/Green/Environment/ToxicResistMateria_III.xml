@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>ToxicResistMateria_III</defName>
+    <label>Toxic Resistance Materia III</label>
+    <description>A blue crystalline orb that pulses with purifying energy. Protects against toxic environments.</description>
+    <texPath>Materia/Materia_blue_low</texPath>
+    <graphicData>
+      <texPath>Materia/Materia_green_low</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>GreenMateria</SlotType>
+    <slotLevel>3</slotLevel>
+    <materiaCategories>
+        <li>MateriaCategory_Armor</li>
+    </materiaCategories>
+    <effects>
+      <li>MateriaEffect_ToxicResist_II</li>
+    </effects>
+    <textColor>(0, 0.8, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>GreenMateriaDust</thing>
+        <amount>3~7</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>1~3</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaEffectDef_PawnStatOffset>
+    <defName>MateriaEffect_ToxicResist_III</defName>
+    <label>Toxic Resistance Enhancement III</label>
+    <description>Increases resistance to toxic fallout.</description>
+    <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
+    <statToAffect>ToxicResistance</statToAffect>
+    <statOffset>2</statOffset>
+  </Materia.MateriaEffectDef_PawnStatOffset>
+</Defs>

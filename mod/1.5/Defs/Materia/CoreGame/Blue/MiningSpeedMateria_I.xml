@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+     <defName>MiningSpeedMateria_I</defName>
+     <label>Mining Speed Materia I</label>
+     <description>A blue crystalline orb humming with kinetic energy. Increases mining speed.</description>
+     <texPath>Materia/Materia_blue_low</texPath>
+     <graphicData>
+       <texPath>Materia/Materia_blue_low</texPath>
+       <graphicClass>Graphic_Single</graphicClass>
+     </graphicData>
+     <commonality>1.0</commonality>
+     <SlotType>BlueMateria</SlotType>
+     <effects>
+       <li>MateriaEffect_MiningSpeed_I</li>
+     </effects>
+     <textColor>(0.5, 0.3, 0)</textColor>
+     <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+   </Materia.MateriaDef>
+
+   <Materia.MateriaEffectDef_PawnStatOffset>
+     <defName>MateriaEffect_MiningSpeed_I</defName>
+     <label>Mining Speed Enhancement I</label>
+     <description>Increases mining speed for pawns.</description>
+     <statToAffect>MiningSpeed</statToAffect>
+    <statOffset>1.15</statOffset>
+   </Materia.MateriaEffectDef_PawnStatOffset>
+</Defs>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>Burn_III</defName>
+    <label>minor burn III</label>
+    <description>A painful burning sensation spreads through the affected area.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1, 0.4, 0)</defaultLabelColor>
+    <initialSeverity>0.2</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="Materia.HediffCompProperties_DamageOverTime">
+        <damagePerInterval>6</damagePerInterval>
+        <intervalTicks>300</intervalTicks>
+        <damageType>Burn</damageType>
+        <severityPerDamage>-0.1</severityPerDamage>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

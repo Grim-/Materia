@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Verse;
 
 namespace Materia
@@ -56,6 +57,51 @@ namespace Materia
 
             // Equip the new weapon
             equipment.AddEquipment(newEquipment);
+        }
+
+        public static List<FloatMenuOption> GenerateMateriaOptions(Comp_MateriaComp materiaComp, Pawn usingPawn, MateriaSlot slot)
+        {
+            List<FloatMenuOption> options = new List<FloatMenuOption>();
+
+            if (Prefs.DevMode)
+            {
+                foreach (MateriaDef materiaDef in DefDatabase<MateriaDef>.AllDefs)
+                {
+                    var cacheMatdef = materiaDef;
+                    if (slot.CanAccept(cacheMatdef))
+                    {
+                        options.Add(new FloatMenuOption(cacheMatdef.label, () =>
+                        {
+                            var cacheSlot = slot;
+                            materiaComp.EquipMateria(cacheMatdef, cacheSlot);
+                        }));
+                    }
+                }
+            }
+            else
+            {
+                foreach (Thing thing in usingPawn.EquippedWornOrInventoryThings)
+                {
+                    if (thing.def is MateriaDef materiaDef && slot.CanAccept(materiaDef))
+                    {
+                        var cacheMatdef = materiaDef;
+                        options.Add(new FloatMenuOption(materiaDef.GetColouredLabel() + $" Level {materiaDef.slotLevel}", () =>
+                        {
+                            var cacheSlot = slot;
+                            materiaComp.EquipMateria(cacheMatdef, cacheSlot);
+                            usingPawn.inventory.RemoveCount(thing.def, 1);
+                        }));
+                    }
+                }
+            }
+
+            if (options.Count == 0)
+            {
+                options.Add(new FloatMenuOption("No compatible materia available", null));
+            }
+
+            options.Sort((a, b) => string.Compare(a.Label, b.Label, StringComparison.OrdinalIgnoreCase));
+            return options;
         }
     }
 

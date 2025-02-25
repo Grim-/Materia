@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+     <defName>AncientMateria_ResearchSpeed_I</defName>
+     <label>DeepDrillingSpeedMateria_I</label>
+     <description>A purple crystalline orb humming with kinetic energy. Increases Research speed by 40%.</description>
+     <texPath>Materia/Materia_purple_low</texPath>
+     <graphicData>
+       <texPath>Materia/Materia_purple_low</texPath>
+       <graphicClass>Graphic_Single</graphicClass>
+     </graphicData>
+     <commonality>1.0</commonality>
+     <SlotType>BlueMateria</SlotType>
+     <slotLevel>1</slotLevel>
+     <effects>
+       <li>MateriaEffect_ResearchSpeed_I</li>
+     </effects>
+     <textColor>(0.5, 0.3, 0)</textColor>
+     <breakdownMaterials>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+   </Materia.MateriaDef>
+
+   <Materia.MateriaEffectDef_PawnStatFactor>
+     <defName>MateriaEffect_ResearchSpeed_I</defName>
+     <label>Research Speed Enhancement I</label>
+     <description>Increases Research speed for pawns.</description>
+     <statToAffect>ResearchSpeed</statToAffect>
+    <statFactor>1.4</statFactor>
+   </Materia.MateriaEffectDef_PawnStatFactor>
+</Defs>

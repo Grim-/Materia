@@ -6,12 +6,17 @@ namespace Materia
     {
         public override bool Matches(Thing t)
         {
-            return t.TryGetComp<Comp_MateriaComp>() != null;
+            if (t.TryGetComp(out Comp_MateriaComp Comp_MateriaComp))
+            {                
+               return Comp_MateriaComp.MateriaSlots.Count < MateriaSlotGenerator.GetMaxSlotsAllowedFor(t.def);
+            }
+
+            return false;
         }
 
-        public override bool AlwaysMatches(ThingDef def)
-        {
-            return def.HasComp(typeof(Comp_MateriaComp));
-        }
+        //public override bool AlwaysMatches(ThingDef def)
+        //{
+        //    return def.HasComp(typeof(Comp_MateriaComp));
+        //}
     }
 }

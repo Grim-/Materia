@@ -5,7 +5,7 @@
     <label>Grid Layout</label>
     <displayClass>Materia.GridMateriaDisplay</displayClass>
   </Materia.MateriaDisplayDef>
-
+<!-- 
   <Materia.MateriaDisplayDef>
     <defName>CircularDisplay</defName>
     <label>Circular Layout</label>
@@ -17,7 +17,7 @@
     <defName>StarDisplay</defName>
     <label>Grid Layout</label>
     <displayClass>Materia.StarMateriaDisplay</displayClass>
-  </Materia.MateriaDisplayDef>
+  </Materia.MateriaDisplayDef> -->
 
   <!-- <Materia.MateriaDisplayDef>
     <defName>ChainDisplay</defName>
