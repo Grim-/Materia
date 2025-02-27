@@ -10,6 +10,8 @@ namespace Materia
         public MateriaEffectDef def;
         public Pawn EquippingPawn;
         public ThingWithComps ParentEquipment;
+        public Comp_Materia MateriaComp;
+        public MateriaSlot MateriaSlot;
 
         private int CooldownTicks = 0;
         public int CooldownDurationTicks = 0;
@@ -41,6 +43,16 @@ namespace Materia
             return CooldownTicks > 0;
         }
 
+
+        public virtual void Notify_MateriaEquipped()
+        {
+
+        }
+        public virtual void Notify_MateriaUnequipped()
+        {
+
+        }
+
         public virtual void Notify_Equipped(Pawn pawn)
         {
             EquippingPawn = pawn;
@@ -60,6 +72,11 @@ namespace Materia
         public virtual void Notify_ProjectileImpact(Pawn Attacker, Thing Target, Projectile Projectile)
         {
 
+        }
+
+        public virtual bool Notify_PostPreApplyDamage(ref DamageInfo dinfo)
+        {
+            return false;
         }
 
         public virtual DamageInfo Notify_ProjectileApplyDamageToTarget(DamageInfo Damage, Pawn Attacker, Thing Target, Projectile Projectile)
@@ -92,7 +109,7 @@ namespace Materia
 
         }
 
-        public virtual void Notify_OwnerKilled(Map prevMap, DamageInfo? dinfo = null)
+        public virtual void Notify_OwnerKilled()
         {
 
         }
@@ -142,6 +159,21 @@ namespace Materia
         {
             Scribe_Defs.Look(ref def, "def");
             Scribe_Values.Look(ref CooldownTicks, "cooldownTicks");
+        }
+
+
+        public virtual void DestroyParentMateria()
+        {
+            if (this.MateriaComp != null && this.MateriaSlot != null)
+            {
+
+                if (this.EquippingPawn != null && this.EquippingPawn.Map != null)
+                {
+                    EffecterDefOf.Shield_Break.Spawn(this.EquippingPawn.Position, this.EquippingPawn.Map);
+                }
+
+                this.MateriaComp.UnequipMateria(this.MateriaSlot, false);
+            }
         }
 
     }

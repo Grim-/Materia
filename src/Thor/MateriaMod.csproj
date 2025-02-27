@@ -70,6 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comps\ThingComps\NoMateriaExt.cs" />
+    <Compile Include="Hediff\comps\HediffCompProperties_PhoenixDown.cs" />
+    <Compile Include="Hediff\comps\IMateriaSlotParent.cs" />
+    <Compile Include="Materia\Materia Effects\OnDamageTaken\Gizmo_MateriaShieldStatus.cs" />
+    <Compile Include="Materia\Materia Effects\OnDamageTaken\MateriaEffectDef_DamageShield.cs" />
+    <Compile Include="Materia\Materia Effects\OnDamageTaken\MateriaEffectDef_OnDamageTaken.cs" />
+    <Compile Include="Materia\Materia Effects\OnDeath\MateriaEffectDef_Revival.cs" />
+    <Compile Include="Things\Meteor.cs" />
     <Compile Include="Util\ScoringUtil.cs" />
     <Compile Include="Materia\MateriaCategoryDef.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaGenerationConfigDef.cs" />
@@ -106,12 +113,12 @@
     <Compile Include="Comps\ThingComps\CompProperties_SelectiveBiocodable.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaSlotConfig.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaSlotLink.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatFactor.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStatOffset.cs" />
+    <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_PawnStatFactor.cs" />
+    <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_PawnStatOffset.cs" />
     <Compile Include="UI\Gizmo\Gizmo_DamageTrackerStatus.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_DamageTracker.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantHediff.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantTrait.cs" />
+    <Compile Include="Materia\Grant\MateriaEffectDef_GrantHediff.cs" />
+    <Compile Include="Materia\Grant\MateriaEffectDef_GrantTrait.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitNeed.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitNeed.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitHeal.cs" />
@@ -133,13 +140,13 @@
     <Compile Include="Materia\MateriaBreakdownMaterials.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_EquipmentStat.cs" />
+    <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_EquipmentStat.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitDamage.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantAbility.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_GrantGene.cs" />
+    <Compile Include="Materia\Grant\MateriaEffectDef_GrantAbility.cs" />
+    <Compile Include="Materia\Grant\MateriaEffectDef_GrantGene.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitHeal.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitApplyHediff.cs" />
-    <Compile Include="Materia\Materia Effects\MateriaEffectDef_PawnStat.cs" />
+    <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_PawnStat.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaInstance.cs" />
     <Compile Include="Util\Graphic_MoteWithAgeSecsCustom.cs" />
     <Compile Include="Util\MateriaUtil.cs" />

@@ -11,11 +11,13 @@ namespace Materia
         public virtual string EffectDescription { get; private set; } = "";
 
 
-        public MateriaWorker CreateWorker(MateriaEffectDef effectDef, ThingWithComps parentEquipment)
+        public MateriaWorker CreateWorker(ThingWithComps parentEquipment, Comp_Materia materiaComp, MateriaSlot materiaSlot)
         {
             MateriaWorker newWorker = (MateriaWorker)Activator.CreateInstance(workerClass);
             newWorker.def = this;
             newWorker.ParentEquipment = parentEquipment;
+            newWorker.MateriaComp = materiaComp;
+            newWorker.MateriaSlot = materiaSlot;
             return newWorker;
         }
     }

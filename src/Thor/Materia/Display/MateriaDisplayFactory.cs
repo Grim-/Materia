@@ -55,7 +55,7 @@ namespace Materia
 
             MateriaDisplayWorker chosen = bestDisplay ?? new GridMateriaDisplay(); ;
 
-            Log.Message($"{chosen} was chosen as display type");
+            //Log.Message($"{chosen} was chosen as display type");
             return chosen;
         }
 
@@ -71,7 +71,7 @@ namespace Materia
                 return display;
             }
 
-            Log.Warning($"Materia display '{displayName}' not found, using default");
+            //Log.Warning($"Materia display '{displayName}' not found, using default");
             return new GridMateriaDisplay();
         }
     }

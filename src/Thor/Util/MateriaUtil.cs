@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LudeonTK;
+using RimWorld;
+using System;
 using System.Collections.Generic;
 using Verse;
 
@@ -24,6 +26,28 @@ namespace Materia
                 }
             }
             return newThings;
+        }
+
+        [DebugAction("Materia", "Test Spawn Meteor", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnMeteor()
+        {
+            Find.Targeter.BeginTargeting(new TargetingParameters()
+            {
+                canTargetLocations = true
+            },
+            (LocalTargetInfo target) =>
+            {
+                if (target.Cell.IsValid && target.Cell.InBounds(Find.CurrentMap))
+                {
+                    Meteor meteor = (Meteor)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed("Materia_Meteor"));
+                    GenSpawn.Spawn(meteor, target.Cell, Find.CurrentMap);
+
+                    meteor.Launch(target.Cell);
+                }
+            }
+            );
+
+
         }
 
 
@@ -58,8 +82,40 @@ namespace Materia
             // Equip the new weapon
             equipment.AddEquipment(newEquipment);
         }
+        public static List<Comp_Materia> GetAllEquippedOrWornMateriaComps(this Pawn pawn)
+        {
+            List<Comp_Materia> materiacomps = new List<Comp_Materia>();
 
-        public static List<FloatMenuOption> GenerateMateriaOptions(Comp_MateriaComp materiaComp, Pawn usingPawn, MateriaSlot slot)
+            // Check equipment
+            foreach (Thing thing in pawn.equipment.AllEquipmentListForReading)
+            {
+                if (thing is ThingWithComps withComps)
+                {
+                    foreach (var item in withComps.AllComps)
+                    {
+                        if (item is Comp_Materia materia)
+                        {
+                            materiacomps.Add(materia);
+                        }
+                    }
+                }
+            }
+
+            // Check apparel
+            foreach (Apparel thing in pawn.apparel.WornApparel)
+            {
+                foreach (var item in thing.AllComps)
+                {
+                    if (item is Comp_Materia materia)
+                    {
+                        materiacomps.Add(materia);
+                    }
+                }
+            }
+
+            return materiacomps;
+        }
+        public static List<FloatMenuOption> GenerateMateriaOptions(Comp_Materia materiaComp, Pawn usingPawn, MateriaSlot slot)
         {
             List<FloatMenuOption> options = new List<FloatMenuOption>();
 

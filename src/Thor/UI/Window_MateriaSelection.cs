@@ -25,7 +25,7 @@ namespace Materia
     {
         private Vector2 scrollPosition = Vector2.zero;
         private readonly Thing parentThing;
-        private readonly Comp_MateriaComp materiaComp;
+        private readonly Comp_Materia materiaComp;
         private readonly Pawn usingPawn;
         private Vector2 currentWindowSize = new Vector2(600f, 400f);
         private bool windowSizeInitialized = false;
@@ -50,7 +50,7 @@ namespace Materia
 
         public DisplaySettings DisplaySettings = new DisplaySettings();
 
-        public Window_MateriaSelection(Thing thing, Pawn pawn, Comp_MateriaComp comp, Type preferredDisplayName = null)
+        public Window_MateriaSelection(Thing thing, Pawn pawn, Comp_Materia comp, Type preferredDisplayName = null)
         {
             this.parentThing = thing;
             this.materiaComp = comp;

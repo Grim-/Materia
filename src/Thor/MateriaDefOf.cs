@@ -8,12 +8,11 @@ namespace Materia
     [DefOf]
     public static class MateriaDefOf
     {
-        //public static ThingDef Thor_PawnFlyer;
-        public static ThingDef Thor_MjolnirProjectile;
+        public static ThingDef Materia_DelegateProjectile;
 
         public static EffecterDef WeaponFireEnchant;
 
-        public static HediffDef BoundWeapon;
+        public static HediffDef Materia_BoundWeapon;
 
 
         public static ThingDef RedMateriaDust;
@@ -22,17 +21,15 @@ namespace Materia
         public static ThingDef BlueMateriaDust;
 
         public static SlotLinkRuleDef PairForward;
-
-        //public static HediffDef TranquilizerEffect;
-
-        //public static JobDef Thor_FormationFollow;
-        //public static JobDef Thor_BoidFormationFollow;
-
         public static MateriaCategoryDef MateriaCategory_Universal;
         public static MateriaCategoryDef MateriaCategory_Melee;
         public static MateriaCategoryDef MateriaCategory_Ranged;
         public static MateriaCategoryDef MateriaCategory_Armor;
 
+        public static MateriaTypeDef RedMateria;
+        public static MateriaTypeDef GreenMateria;
+        public static MateriaTypeDef BlueMateria;
+        public static MateriaTypeDef PurpleMateria;
 
         public static MateriaGenerationConfigDef MateriaGenerationConfig;
     }

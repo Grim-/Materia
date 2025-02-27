@@ -35,10 +35,10 @@ namespace Materia
                 if (def.comps == null)
                     def.comps = new List<CompProperties>();
 
-                if (def.comps?.OfType<CompProperties_MateriaComp>().Any() == true || def.HasModExtension<NoMateriaExt>())
+                if (def.comps?.OfType<CompProperties_Materia>().Any() == true || def.HasModExtension<NoMateriaExt>())
                     continue;
                 
-                def.comps.Add(new CompProperties_MateriaComp());
+                def.comps.Add(new CompProperties_Materia());
             }
         }
     }
@@ -119,7 +119,7 @@ namespace Materia
         {
             foreach (var eq in __instance.AllEquipmentListForReading)
             {
-                eq.GetComp<Comp_MateriaComp>()?.EquipTick();
+                eq.GetComp<Comp_Materia>()?.EquipTick();
             }
         }
     }
@@ -166,7 +166,7 @@ namespace Materia
         {
             if (__instance.EquipmentSource != null && target.Thing is Pawn targetPawn)
             {
-                foreach (var item in __instance.EquipmentSource.GetComps<Comp_MateriaComp>())
+                foreach (var item in __instance.EquipmentSource.GetComps<Comp_Materia>())
                 {
                     if (item != null)
                     {
@@ -188,7 +188,7 @@ namespace Materia
                 var weapon = instigator.equipment?.Primary;
                 if (weapon != null)
                 {
-                    foreach (var item in weapon.GetComps<Comp_MateriaComp>())
+                    foreach (var item in weapon.GetComps<Comp_Materia>())
                     {
                         if (item != null)
                         {
@@ -201,6 +201,25 @@ namespace Materia
     }
 
 
+    [HarmonyPatch(typeof(Pawn))]
+    [HarmonyPatch("Kill")]
+    [HarmonyPatch(new Type[] { typeof(DamageInfo?), typeof(Hediff) })]
+    public static class Patch_Pawn_Kill
+    {
+        public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
+        {
+            if (__instance is Pawn pawn && pawn.RaceProps.Humanlike)
+            {
+                var materiaComps = pawn.GetAllEquippedOrWornMateriaComps();
+
+                if (materiaComps != null)
+                {
+                    materiaComps.ForEach(x => x.Notify_OwnerKilled());
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(Bullet))]
     [HarmonyPatch("Impact")]
     public class Patch_Bullet_Impact
@@ -212,7 +231,7 @@ namespace Materia
                 var weapon = attacker.equipment?.Primary;
                 if (weapon != null)
                 {
-                    var comp = weapon.GetComp<Comp_MateriaComp>();
+                    var comp = weapon.GetComp<Comp_Materia>();
                     if (comp != null)
                     {
                         return comp.Notify_ProjectileApplyDamageToTarget(dinfo, attacker, hitThing, __instance);
@@ -326,7 +345,7 @@ namespace Materia
         public static void Prefix(ref float y, float width, Thing thing, ref Rect __state)
         {
             if (thing == null) return;
-            var materiaComp = thing.TryGetComp<Comp_MateriaComp>();
+            var materiaComp = thing.TryGetComp<Comp_Materia>();
             if (materiaComp == null) return;
             __state = new Rect(0f, y, width, 28f);
         }
@@ -335,7 +354,7 @@ namespace Materia
         {
             if (__state == default) return;
 
-            var materiaComp = thing.TryGetComp<Comp_MateriaComp>();
+            var materiaComp = thing.TryGetComp<Comp_Materia>();
             if (materiaComp == null) 
                 return;
 
@@ -348,7 +367,7 @@ namespace Materia
                     var selPawnForGearProp = AccessTools.Property(typeof(ITab_Pawn_Gear), "SelPawnForGear");
                     Pawn pawn = (Pawn)selPawnForGearProp.GetValue(__instance);
 
-                    Comp_MateriaComp.OpenMateriaWindow(thing, pawn, materiaComp);
+                    Comp_Materia.OpenMateriaWindow(thing, pawn, materiaComp);
                 }
 
                 if (Mouse.IsOver(buttonRect))
@@ -372,7 +391,7 @@ namespace Materia
 
             foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
             {
-                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                Comp_Materia materiaComp = equipment.GetComp<Comp_Materia>();
                 if (materiaComp != null)
                 {
                     materiaComp.Notify_OwnerThoughtGained(newThought, otherPawn);
@@ -392,7 +411,7 @@ namespace Materia
 
             foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
             {
-                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                Comp_Materia materiaComp = equipment.GetComp<Comp_Materia>();
                 if (materiaComp != null)
                 {
                     materiaComp.Notify_OwnerThoughtLost(th);
@@ -419,7 +438,7 @@ namespace Materia
 
             foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
             {
-                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                Comp_Materia materiaComp = equipment.GetComp<Comp_Materia>();
                 if (materiaComp != null)
                 {
                     materiaComp.Notify_OwnerHediffGained(hediff, part, dinfo, result);
@@ -444,7 +463,7 @@ namespace Materia
 
             foreach (ThingWithComps equipment in pawn.equipment.AllEquipmentListForReading)
             {
-                Comp_MateriaComp materiaComp = equipment.GetComp<Comp_MateriaComp>();
+                Comp_Materia materiaComp = equipment.GetComp<Comp_Materia>();
                 if (materiaComp != null)
                 {
                     materiaComp.Notify_OwnerHediffRemoved(hediff);

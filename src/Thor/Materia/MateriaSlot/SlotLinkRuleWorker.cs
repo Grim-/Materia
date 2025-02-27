@@ -7,7 +7,7 @@ namespace Materia
     //handles verifying a valid link and creating that link in Comp_Materia
     public abstract class SlotLinkRuleWorker
     {
-        public Comp_MateriaComp MateriaComp;
+        public Comp_Materia MateriaComp;
         public MateriaSlot MateriaSlot;
         public SlotLinkRuleDef Def;
 

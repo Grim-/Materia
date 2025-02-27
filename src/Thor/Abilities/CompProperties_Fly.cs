@@ -22,7 +22,7 @@ namespace Materia
 
 
             Map map = parent.pawn.Map;
-            PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(ThingDefOf.PawnFlyer, parent.pawn, target.Cell, null, null);
+            PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(ThingDefOf.PawnFlyer, parent.pawn, target.Cell, null, null, false, null, this.parent);
             GenSpawn.Spawn(pawnFlyer, parent.pawn.Position, map);
         }
     }

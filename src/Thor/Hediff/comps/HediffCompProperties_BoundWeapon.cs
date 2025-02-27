@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -151,7 +152,7 @@ namespace Materia
 
         private void LaunchRecallProjectile()
         {
-            var projectile = (Projectile_Delegate)ThingMaker.MakeThing(MateriaDefOf.Thor_MjolnirProjectile);
+            var projectile = (Projectile_Delegate)ThingMaker.MakeThing(MateriaDefOf.Materia_DelegateProjectile);
             GenSpawn.Spawn(projectile, BoundRef.Position, Pawn.Map);
             projectile.Launch(Pawn, Pawn, Pawn, ProjectileHitFlags.IntendedTarget);
             BoundRef.DeSpawn();

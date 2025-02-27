@@ -18,6 +18,7 @@ namespace Materia
         public int slotLevel = 1;
 
         public MateriaTypeDef SlotType;
+        public List<MateriaTypeDef> slotSecondaryTypes;
 
         public List<MateriaEffectDef> effects;
 
@@ -69,6 +70,74 @@ namespace Materia
             return this.links.Any(x => x.specificMateria == null &&
                                       x.type != null &&
                                       x.type == other.SlotType);
+        }
+    }
+
+
+    public class MateriaSlotTypeDef : Def
+    {
+        public List<MateriaTypeDef> acceptableMateriaTypes;
+        public List<SlotLimit> slotLimits;
+
+
+        public bool IsValidForSlotCreation(ThingWithComps parent, Comp_Materia comp)
+        {
+            if (slotLimits == null)
+                return true;
+
+            foreach (var limit in slotLimits)
+            {
+                bool matchesCategory = HasThingCategoryOrParent(parent, limit.ThingCategory);
+                if (matchesCategory)
+                {
+                    if (limit.maxSlots == 0)
+                    {
+                        return false;
+                    }
+
+                    if (comp.OccupiedSlotsCount >= limit.maxSlots)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool HasThingCategoryOrParent(Thing thing, ThingCategoryDef categoryToCheck)
+        {
+            if (thing.HasThingCategory(categoryToCheck))
+                return true;
+
+            foreach (ThingCategoryDef parentCategory in categoryToCheck.Parents)
+            {
+                if (thing.HasThingCategory(parentCategory))
+                    return true;
+            }
+
+            foreach (ThingCategoryDef childCategory in categoryToCheck.ThisAndChildCategoryDefs)
+            {
+                if (thing.HasThingCategory(childCategory))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool IsValidForSlot(MateriaDef MateriaDef)
+        {
+            if (acceptableMateriaTypes.Any(x => x == MateriaDef.SlotType))
+            {
+                return true;
+            }
+
+            if (MateriaDef.slotSecondaryTypes != null && MateriaDef.slotSecondaryTypes.Any())
+            {
+                return MateriaDef.slotSecondaryTypes.Any(secondaryType =>
+                    acceptableMateriaTypes.Any(acceptableType => acceptableType == secondaryType));
+            }
+
+            return false;
         }
     }
 

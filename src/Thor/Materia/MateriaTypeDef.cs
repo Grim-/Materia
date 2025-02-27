@@ -15,26 +15,49 @@ namespace Materia
 
         public List<MateriaTypeDef> countsAsMateria;
 
-        public bool IsValidForSlotCreation(ThingWithComps parent, Comp_MateriaComp comp)
+        public bool IsValidForSlotCreation(ThingWithComps parent, Comp_Materia comp)
         {
             if (slotLimits == null)
                 return true;
 
             foreach (var limit in slotLimits)
             {
-                if (parent.HasThingCategory(limit.ThingCategory))
+                bool matchesCategory = HasThingCategoryOrParent(parent, limit.ThingCategory);
+                if (matchesCategory)
                 {
                     if (limit.maxSlots == 0)
                     {
                         return false;
                     }
-                    var currentCount = comp.GetMateriaCountOfType(this);
-                    if (currentCount >= limit.maxSlots)
+
+                    if (comp.OccupiedSlotsCount >= limit.maxSlots)
+                    {
                         return false;
+                    }
                 }
             }
-
             return true;
+        }
+
+        // Helper method to check if a thing has a specific ThingCategory or any of its parent categories
+        private bool HasThingCategoryOrParent(Thing thing, ThingCategoryDef categoryToCheck)
+        {
+            if (thing.HasThingCategory(categoryToCheck))
+                return true;
+
+            foreach (ThingCategoryDef parentCategory in categoryToCheck.Parents)
+            {
+                if (thing.HasThingCategory(parentCategory))
+                    return true;
+            }
+
+            foreach (ThingCategoryDef childCategory in categoryToCheck.ThisAndChildCategoryDefs)
+            {
+                if (thing.HasThingCategory(childCategory))
+                    return true;
+            }
+
+            return false;
         }
 
         public static MateriaTypeDef SelectMateriaType(Dictionary<MateriaTypeDef, float> weightedTypes, List<MateriaTypeDef> disallowedTypes = null)
@@ -49,24 +72,11 @@ namespace Materia
             if (validTypes.Count == 0)
                 return null;
 
-            float totalWeight = 0f;
-            foreach (var type in validTypes)
-            {
-                totalWeight += weightedTypes[type];
-            }
-
-            Dictionary<MateriaTypeDef, float> normalizedWeights = new Dictionary<MateriaTypeDef, float>();
-            foreach (var type in validTypes)
-            {
-                normalizedWeights[type] = weightedTypes[type] / totalWeight;
-            }
-
             float roll = Rand.Value;
             float cumulative = 0f;
 
             foreach (var type in validTypes)
             {
-                cumulative += normalizedWeights[type];
                 if (roll <= cumulative)
                 {
                     return type;

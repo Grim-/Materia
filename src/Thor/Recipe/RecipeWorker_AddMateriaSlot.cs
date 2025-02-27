@@ -15,13 +15,13 @@ namespace Materia
                 Log.Error("RecipeWorker_AddMateriaSlot: Ingredients list is null or empty");
                 return;
             }
-            Thing weapon = ingredients.FirstOrDefault(x => x.TryGetComp<Comp_MateriaComp>() != null);
+            Thing weapon = ingredients.FirstOrDefault(x => x.TryGetComp<Comp_Materia>() != null);
             if (weapon == null)
             {
                 Log.Error("RecipeWorker_AddMateriaSlot: No weapon with MateriaComp found in ingredients");
                 return;
             }
-            Comp_MateriaComp materiaComp = weapon.TryGetComp<Comp_MateriaComp>();
+            Comp_Materia materiaComp = weapon.TryGetComp<Comp_Materia>();
             if (materiaComp == null)
             {
                 Log.Error($"RecipeWorker_AddMateriaSlot: Failed to get MateriaComp from weapon {weapon.def.defName}");

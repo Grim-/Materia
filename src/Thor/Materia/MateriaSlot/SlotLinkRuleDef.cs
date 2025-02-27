@@ -7,7 +7,7 @@ namespace Materia
     {
         public Type workerClass;
 
-        public SlotLinkRuleWorker CreateWorker(Comp_MateriaComp materiaComp, MateriaSlot materiaSlot)
+        public SlotLinkRuleWorker CreateWorker(Comp_Materia materiaComp, MateriaSlot materiaSlot)
         {
             SlotLinkRuleWorker slotLinkRuleWorker = (SlotLinkRuleWorker)Activator.CreateInstance(workerClass);
             slotLinkRuleWorker.MateriaComp = materiaComp;

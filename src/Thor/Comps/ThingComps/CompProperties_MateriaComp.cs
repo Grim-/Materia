@@ -7,17 +7,17 @@ using Verse;
 
 namespace Materia
 {
-    public class CompProperties_MateriaComp : CompProperties
+    public class CompProperties_Materia : CompProperties
     {
         public List<MateriaSlotConfig> materiaSlots;
 
-        public CompProperties_MateriaComp()
+        public CompProperties_Materia()
         {
-            compClass = typeof(Comp_MateriaComp);
+            compClass = typeof(Comp_Materia);
         }
     }
 
-    public class Comp_MateriaComp : CompEquippable, IStatProvider, IDrawEquippedGizmos
+    public class Comp_Materia : ThingComp, IStatProvider, IDrawEquippedGizmos
     {
         private List<MateriaSlot> materiaSlots = new List<MateriaSlot>();
         public List<MateriaSlot> MateriaSlots => materiaSlots.ToList();
@@ -26,7 +26,7 @@ namespace Materia
         private List<MateriaSlotLink> ActiveLinks => _ActiveLinks;
 
         private bool initializedSlots = false;
-        private CompProperties_MateriaComp Props => (CompProperties_MateriaComp)props;
+        private CompProperties_Materia Props => (CompProperties_Materia)props;
 
         protected Pawn _EquippedPawn = null;
         public Pawn EquippedPawn => _EquippedPawn;
@@ -67,12 +67,11 @@ namespace Materia
 
         private void GenerateMateriaSlots()
         {
-            if (!HasMaximumSlotsAllowed)
+            if (!HasMaximumSlotsAllowed && !initializedSlots)
             {
                 MateriaSlotGenerator.GenerateSlots(parent, this);
             }            
         }
-
         protected void CreateMateriaSlots()
         {
             if (materiaSlots == null || materiaSlots.Count == 0)
@@ -96,15 +95,7 @@ namespace Materia
         }
         public override void PostDeSpawn(Map map)
         {
-            if (this.AllVerbs != null)
-            {
-                List<Verb> allVerbs = this.AllVerbs;
-                for (int i = 0; i < allVerbs.Count; i++)
-                {
-                    allVerbs[i].Notify_EquipmentLost();
-                }
-            }
-
+            base.PostDeSpawn(map);
             DoForAllMateria((Slot) =>
             {
                 Slot.SlottedMateria.Notify_ParentDestroyed();
@@ -120,11 +111,6 @@ namespace Materia
             });
         }
 
-
-        public override void CompTick()
-        {
-          //dont call base method, it only calls CompEquippable which tries to tick verbs that arent used or might not even exist (see expose data)
-        }
         public virtual void EquipTick()
         {
             if (_EquippedPawn != null)
@@ -161,16 +147,15 @@ namespace Materia
 
             _EquippedPawn = null;
         }
-        public override void Notify_Killed(Map prevMap, DamageInfo? dinfo = null)
+
+        public virtual void Notify_OwnerKilled()
         {
-            base.Notify_Killed(prevMap, dinfo);
-
-
             DoForAllMateria((Slot) =>
             {
-                Slot.SlottedMateria.Notify_OwnerKilled(prevMap, dinfo);
+                Slot.SlottedMateria.Notify_OwnerKilled();
             });
         }
+
         public override void Notify_KilledPawn(Pawn pawn)
         {
             base.Notify_KilledPawn(pawn);
@@ -180,6 +165,29 @@ namespace Materia
                 Slot.SlottedMateria.Notify_KilledPawn(pawn);
             });
         }
+
+        public override void PostPreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
+        {
+            base.PostPreApplyDamage(ref dinfo, out absorbed);
+
+            var allMateria = MateriaSlots;
+
+            bool isAbsorbed = absorbed;
+
+            foreach (var slot in allMateria)
+            {
+                if (slot.IsOccupied)
+                {
+                    if (slot.SlottedMateria.Notify_PostPreApplyDamage(ref dinfo))
+                    {
+                        isAbsorbed = true;
+                    }
+                }
+            }
+
+            absorbed = isAbsorbed;
+        }
+
         public virtual void Notify_ProjectileImpact(Pawn Attacker, Thing Target, Projectile Projectile)
         {
             DoForAllMateria((Slot) =>
@@ -286,19 +294,22 @@ namespace Materia
             EquipMateria(materiaDef, slot);
         }
 
-        public void UnequipMateria(MateriaSlot materiaslot)
+        public void UnequipMateria(MateriaSlot materiaslot, bool createMateriaItem = true)
         {
             if (materiaslot == null || !materiaslot.IsOccupied)
                 return;
 
-            Thing materia = ThingMaker.MakeThing(materiaslot.SlottedMateria.def);
-            if (EquippedPawn != null)
+            if (createMateriaItem)
             {
-                EquippedPawn.inventory.TryAddAndUnforbid(materia);
-            }
-            else
-            {
-                GenPlace.TryPlaceThing(materia, this.parent.Position, this.parent.Map, ThingPlaceMode.Near);
+                Thing materia = ThingMaker.MakeThing(materiaslot.SlottedMateria.def);
+                if (EquippedPawn != null)
+                {
+                    EquippedPawn.inventory.TryAddAndUnforbid(materia);
+                }
+                else
+                {
+                    GenPlace.TryPlaceThing(materia, this.parent.Position, this.parent.Map, ThingPlaceMode.Near);
+                }
             }
             materiaslot.UnequipMateria();
             ValidateAndUpdateSlotLinks();
@@ -324,7 +335,6 @@ namespace Materia
                 }
             }
         }
-
         private void CheckForBrokenMateriaLinks()
         {
             foreach (var link in ActiveLinks.ToList())
@@ -335,14 +345,12 @@ namespace Materia
                 }
             }
         }
-
         public void CreateMateriaLink(MateriaSlot origin, MateriaSlot destination)
         {
 
             Log.Message($"Linking {origin.SlottedMateria.def.LabelCap} to {destination.SlottedMateria.def.LabelCap}");
             ActiveLinks.Add(new MateriaSlotLink { OriginSlot = origin, DestinationSlot = destination });
         }
-
         public void BreakMateriaLink(MateriaSlot origin, MateriaSlot destination)
         {
             Log.Message($"Breaking Linking {origin.SlottedMateria.def.LabelCap} from {destination.SlottedMateria.def.LabelCap}");
@@ -357,7 +365,6 @@ namespace Materia
 
             return materiaSlot;
         }
-
         public void AddMateriaSlot(MateriaSlotConfig SlotConfig)
         {
             MateriaSlot materiaSlot = new MateriaSlot(this.parent, this, SlotConfig.slotType, SlotConfig.slotLevel);
@@ -371,27 +378,22 @@ namespace Materia
 
             materiaSlot.SetLockStatus(SlotConfig.slotIsLocked);
         }
-
         public bool CanEquipMateria(MateriaDef materia)
         {
             return HasFreeValidMateriaSlotFor(materia);
         }
-
         public int GetSlotCount()
         {
             return MateriaSlots.Count;
         }
-
         public int GetOccupiedSlotCount()
         {
             return MateriaSlots.Where(x => x.IsOccupied).Count();
         }
-
         public int GetSlotsOfLevelCount(int Level)
         {
             return MateriaSlots.Where(x => x.SlotLevel == Level).Count();
         }
-
         public int GetMateriaCountOfType(MateriaTypeDef TypeDef)
         {
             if (TypeDef == null)
@@ -589,7 +591,6 @@ namespace Materia
                 };
             }
         }
-
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             //foreach (var item in CompGetGizmosExtra())
@@ -628,12 +629,10 @@ namespace Materia
             output.AppendLine(string.Join(Environment.NewLine, equippedMateria));
             return output.ToString().TrimEnd();
         }
-
         public override string CompInspectStringExtra()
         {
             return GetEquippedMateriaInfo();
         }
-
         public override string GetDescriptionPart()
         {
             string equippedMateriaString = GetEquippedMateriaInfo(true);
@@ -644,30 +643,12 @@ namespace Materia
             }
             return equippedMateriaString;
         }
-
         public override void PostExposeData()
         {
             Scribe_Values.Look(ref initializedSlots, "initializedSlots", false);
             Scribe_References.Look(ref _EquippedPawn, "equippedPawn");
-
-            //stupid hack work around because it saves the same verbs twice with the key and load ids
-            if (Scribe.mode == LoadSaveMode.Saving)
-            {
-                this.verbTracker = null;
-            }
-
-            Scribe_Deep.Look<VerbTracker>(ref this.verbTracker, "eefefefefe", new object[]
-            {
-                this
-            });
-
             Scribe_Collections.Look(ref materiaSlots, "materiaSlots", LookMode.Deep);
 
-            //stupid hack work around because it saves the same verbs twice with the key and load ids
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                this.verbTracker = new VerbTracker(this);
-            }
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
@@ -685,9 +666,7 @@ namespace Materia
                 }
             }
         }
-
-
-        public static void OpenMateriaWindow(Thing Thing, Pawn EquippedPawn, Comp_MateriaComp MateriaComp, Type displayType = null)
+        public static void OpenMateriaWindow(Thing Thing, Pawn EquippedPawn, Comp_Materia MateriaComp, Type displayType = null)
         {
             Find.WindowStack.Add(new Window_MateriaSelection(Thing, EquippedPawn, MateriaComp, displayType));
         }

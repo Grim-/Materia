@@ -6,7 +6,7 @@ namespace Materia
     {
         public override bool Matches(Thing t)
         {
-            if (t.TryGetComp(out Comp_MateriaComp Comp_MateriaComp))
+            if (t.TryGetComp(out Comp_Materia Comp_MateriaComp))
             {                
                return Comp_MateriaComp.MateriaSlots.Count < MateriaSlotGenerator.GetMaxSlotsAllowedFor(t.def);
             }

@@ -18,7 +18,7 @@ namespace Materia
 
         public static bool BindWeaponTo(this Pawn pawn, Thing thingToBind)
         {
-            Hediff boundHediff = pawn.health.GetOrAddHediff(MateriaDefOf.BoundWeapon);         
+            Hediff boundHediff = pawn.health.GetOrAddHediff(MateriaDefOf.Materia_BoundWeapon);         
             HediffComp_BoundWeapon boundWeapon = boundHediff.TryGetComp<HediffComp_BoundWeapon>();
 
             if (boundWeapon != null)

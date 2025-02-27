@@ -29,9 +29,22 @@ namespace Materia
         public override void Notify_Equipped(Pawn pawn)
         {
             base.Notify_Equipped(pawn);
-            if (!pawn.health.hediffSet.HasHediff(Def.hediff))
+            if (Def.hediff != null && !pawn.health.hediffSet.HasHediff(Def.hediff))
             {
                 hediffRef = pawn.health.AddHediff(Def.hediff);
+
+                if (hediffRef != null && hediffRef is HediffWithComps withComps)
+                {
+                    foreach (var item in withComps.comps)
+                    {
+
+                        if (item is IMateriaSlotParent slotParent)
+                        {
+                            slotParent.SetMateriaSlot(this.MateriaSlot);
+                        }
+
+                    }
+                }
             }
         }
 

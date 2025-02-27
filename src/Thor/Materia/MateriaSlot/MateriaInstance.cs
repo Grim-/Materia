@@ -15,19 +15,22 @@ namespace Materia
 
         protected MateriaSlot ParentSlot;
         protected ThingWithComps ParentThing;
+        protected Comp_Materia ParentMateriaComp;
 
         public MateriaInstance()
         {
 
         }
 
-        public MateriaInstance(MateriaDef def, MateriaSlot parentSlot)
+        public MateriaInstance(MateriaDef def, Comp_Materia materiaComp, MateriaSlot parentSlot)
         {
             this.def = def;
+            this.ParentMateriaComp = materiaComp;
             this.ParentSlot = parentSlot;
             this.ParentThing = this.ParentSlot.ParentThing;
             InitializeEffects();
         }
+
 
         private void InitializeEffects()
         {
@@ -35,8 +38,9 @@ namespace Materia
             {
                 foreach (var effectDef in def.effects)
                 {
-                    var worker = effectDef.CreateWorker(effectDef, ParentThing);
+                    var worker = effectDef.CreateWorker(ParentThing, ParentMateriaComp, ParentSlot);
                     activeEffects.Add(worker);
+                    worker.Notify_MateriaEquipped();
                 }
             }
         }
@@ -80,7 +84,21 @@ namespace Materia
                 }
             }
         }
+        public virtual void Notify_MateriaEquipped()
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_MateriaEquipped();
+            }
+        }
 
+        public virtual void Notify_MateriaUnequipped()
+        {
+            foreach (var effect in activeEffects)
+            {
+                effect.Notify_MateriaUnequipped();
+            }
+        }
 
         public void TickMateria(Pawn pawn)
         {
@@ -104,6 +122,19 @@ namespace Materia
             }
         }
 
+        public virtual bool Notify_PostPreApplyDamage(ref DamageInfo dinfo)
+        {
+            bool wasAbsorbed = false;
+            foreach (var effect in activeEffects)
+            {
+                if (effect.Notify_PostPreApplyDamage(ref dinfo))
+                {
+                    wasAbsorbed = true;
+                }       
+            }
+            return wasAbsorbed;
+        }
+
         public virtual DamageInfo Notify_ProjectileApplyDamageToTarget(DamageInfo Damage, Pawn Attacker, Thing Target, Projectile Projectile)
         {
             DamageInfo damageInfo = new DamageInfo(Damage);
@@ -114,11 +145,11 @@ namespace Materia
             return damageInfo;
         }
 
-        public virtual void Notify_OwnerKilled(Map prevMap, DamageInfo? dinfo = null)
+        public virtual void Notify_OwnerKilled()
         {
             foreach (var effect in activeEffects)
             {
-                effect.Notify_OwnerKilled(prevMap, dinfo);
+                effect.Notify_OwnerKilled();
             }
         }
 

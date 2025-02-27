@@ -27,8 +27,8 @@ namespace Materia
             }
         }
 
-        protected Comp_MateriaComp _MateriaComp;
-        public Comp_MateriaComp MateriaComp => _MateriaComp;
+        protected Comp_Materia _MateriaComp;
+        public Comp_Materia MateriaComp => _MateriaComp;
         public bool IsOccupied => _SlottedMateria != null;
 
         protected List<SlotLinkRuleWorker> _linkRules = new List<SlotLinkRuleWorker>();
@@ -89,7 +89,7 @@ namespace Materia
         {
         }
 
-        public MateriaSlot(ThingWithComps parentThing, Comp_MateriaComp materiaComp, MateriaTypeDef type, int slotLevel = 1)
+        public MateriaSlot(ThingWithComps parentThing, Comp_Materia materiaComp, MateriaTypeDef type, int slotLevel = 1)
         {
             _MateriaComp = materiaComp;
             _ParentThing = parentThing;
@@ -104,7 +104,8 @@ namespace Materia
             if (!CanEquipMateria(materiaDef) && !force)
                 return;
 
-            _SlottedMateria = new MateriaInstance(materiaDef, this);
+            _SlottedMateria = new MateriaInstance(materiaDef, MateriaComp, this);
+            _SlottedMateria.Notify_MateriaEquipped();
 
             if (MateriaComp.HasEquipOwner)
             {
@@ -117,6 +118,7 @@ namespace Materia
             if (_SlottedMateria == null)
                 return;
 
+            _SlottedMateria.Notify_MateriaUnequipped();
             _SlottedMateria = null;
         }
 
