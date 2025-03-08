@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>AncientMateria_LifeStealing_I</defName>
     <label>Ancient Materia Life Stealing I</label>
     <description>A purple crystalline orb it allows you to steal the life force of those you damage with melee attacks.</description>
@@ -14,7 +14,7 @@
     </graphicData>
     <commonality>1.0</commonality>
     <SlotType>PurpleMateria</SlotType>
-    <slotLevel>2</slotLevel>
+    <slotLevel>1</slotLevel>
     <effects>
       <li>MateriaEffect_VampiricMateria_I</li>
     </effects>
@@ -29,6 +29,9 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>PurpleMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_OnHitHeal>

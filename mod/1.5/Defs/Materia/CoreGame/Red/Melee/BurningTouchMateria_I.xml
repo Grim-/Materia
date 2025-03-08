@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>BurningTouchMateria_I</defName>
     <label>Burning Touch Materia I</label>
     <description>A deep red crystalline orb crackling with flames. Chance to inflict burning damage on hit.</description>
@@ -24,6 +24,9 @@
       <amount>4~8</amount>
     </li>
   </breakdownMaterials>
+  <thingCategories>
+    <li>RedMateria</li>
+  </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_OnMeleeHitApplyHediff>

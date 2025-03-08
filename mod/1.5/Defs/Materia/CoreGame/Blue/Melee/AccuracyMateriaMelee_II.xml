@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>AccuracyMateriaMelee_II</defName>
     <label>Accuracy Materia II (Melee)</label>
     <description>A vibrant red crystalline orb emanating concentrated martial prowess. Significantly improves the wielder's combat precision.</description>
-    <texPath>Materia/Materia_yellow_low</texPath>
+    <texPath>Materia/Materia_blue_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_yellow_low</texPath>
+      <texPath>Materia/Materia_blue_low</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>0.6</commonality>
     <SlotType>BlueMateria</SlotType>
     <slotLevel>2</slotLevel>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <materiaCategories>
         <li>MateriaCategory_Melee</li>
         <li>MateriaCategory_Armor</li>

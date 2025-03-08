@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef>
+      <defName>Materia_Meteor</defName>
+      <label>meteor</label>
+      <description>A large meteor falling from the sky. Will cause destruction where it lands.</description>
+      <category>Item</category>
+      <tickerType>Normal</tickerType>
+      <altitudeLayer>Skyfaller</altitudeLayer>
+      <useHitPoints>false</useHitPoints>
+      <graphicData>
+          <texPath>Meteor</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+          <drawSize>2.5</drawSize>
+      </graphicData>
+      <thingClass>Materia.Meteor</thingClass>
+      <drawOffscreen>true</drawOffscreen>
+  </ThingDef>
+</Defs>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>InjuryHealingFactorMateria_II</defName>
     <label>Injury Healing Materia II</label>
     <description>A green crystalline orb pulsing with vitality. Strengthens the immune system.</description>
@@ -16,6 +16,9 @@
       <li>MateriaEffect_InjuryHealingFactor_II</li>
     </effects>
     <textColor>(0, 0.8, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>GreenMateriaDust</thing>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
      <defName>AncientMateria_ResearchSpeed_I</defName>
-     <label>DeepDrillingSpeedMateria_I</label>
+     <label>Ancient Materia Research Speed I</label>
      <description>A purple crystalline orb humming with kinetic energy. Increases Research speed by 40%.</description>
      <texPath>Materia/Materia_purple_low</texPath>
      <graphicData>
@@ -10,7 +10,7 @@
        <graphicClass>Graphic_Single</graphicClass>
      </graphicData>
      <commonality>1.0</commonality>
-     <SlotType>BlueMateria</SlotType>
+     <SlotType>PurpleMateria</SlotType>
      <slotLevel>1</slotLevel>
      <effects>
        <li>MateriaEffect_ResearchSpeed_I</li>
@@ -18,10 +18,13 @@
      <textColor>(0.5, 0.3, 0)</textColor>
      <breakdownMaterials>
       <li>
-        <thing>BlueMateriaDust</thing>
+        <thing>PurpleMateriaDust</thing>
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>PurpleMateria</li>
+    </thingCategories>
    </Materia.MateriaDef>
 
    <Materia.MateriaEffectDef_PawnStatFactor>

@@ -49,7 +49,25 @@ namespace Materia
 
 
         }
+        public static bool HasThingCategoryOrParent(this Thing thing, ThingCategoryDef categoryToCheck)
+        {
+            if (thing.HasThingCategory(categoryToCheck))
+                return true;
 
+            foreach (ThingCategoryDef parentCategory in categoryToCheck.Parents)
+            {
+                if (thing.HasThingCategory(parentCategory))
+                    return true;
+            }
+
+            foreach (ThingCategoryDef childCategory in categoryToCheck.ThisAndChildCategoryDefs)
+            {
+                if (thing.HasThingCategory(childCategory))
+                    return true;
+            }
+
+            return false;
+        }
 
         public static void QuickHeal(this Pawn pawn, float healAmount)
         {
@@ -86,12 +104,29 @@ namespace Materia
         {
             List<Comp_Materia> materiacomps = new List<Comp_Materia>();
 
-            // Check equipment
-            foreach (Thing thing in pawn.equipment.AllEquipmentListForReading)
+
+            if (pawn.equipment != null)
             {
-                if (thing is ThingWithComps withComps)
+                foreach (Thing thing in pawn.equipment.AllEquipmentListForReading)
                 {
-                    foreach (var item in withComps.AllComps)
+                    if (thing is ThingWithComps withComps)
+                    {
+                        foreach (var item in withComps.AllComps)
+                        {
+                            if (item is Comp_Materia materia)
+                            {
+                                materiacomps.Add(materia);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (pawn.apparel != null)
+            {
+                foreach (Apparel thing in pawn.apparel.WornApparel)
+                {
+                    foreach (var item in thing.AllComps)
                     {
                         if (item is Comp_Materia materia)
                         {
@@ -99,18 +134,7 @@ namespace Materia
                         }
                     }
                 }
-            }
 
-            // Check apparel
-            foreach (Apparel thing in pawn.apparel.WornApparel)
-            {
-                foreach (var item in thing.AllComps)
-                {
-                    if (item is Comp_Materia materia)
-                    {
-                        materiacomps.Add(materia);
-                    }
-                }
             }
 
             return materiacomps;

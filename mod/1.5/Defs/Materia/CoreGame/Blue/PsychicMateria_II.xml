@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>PsychicMateria_II</defName>
     <label>Psychic Materia II</label>
     <description>A blue crystalline orb resonating with psychic energies. Enhances psychic sensitivity.</description>
@@ -16,6 +16,9 @@
       <li>MateriaEffect_PsychicSense_I</li>
     </effects>
     <textColor>(0.5, 0, 0.5)</textColor>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>BlueMateriaDust</thing>

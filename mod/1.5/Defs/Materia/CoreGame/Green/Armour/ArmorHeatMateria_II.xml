@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>ArmorHeatMateria_II</defName>
     <label>Heat Armor Materia II</label>
     <description>A vibrant green crystalline orb emanating concentrated thermal-resistant force. Significantly enhances defense against heat damage.</description>
@@ -19,6 +19,9 @@
       <li>MateriaEffect_ArmorHeat_II</li>
     </effects>
     <textColor>(0.8, 0, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>RedMateriaDust</thing>

@@ -2,13 +2,13 @@
 <Defs>
   <Materia.MateriaDustDef ParentName="BaseMateriaDust">
     <defName>RedMateriaDust</defName>
-    <label>RedMateriaDust</label>
+    <label>Red Materia Dust</label>
     <description>A fine powder of red materia ready to be reconstructed.</description>
     <graphicData>
       <texPath>MateriaDust/Materia_dust_yellow</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <createsSlotType>RedMateria</createsSlotType>
+    <createsSlotType>RedMateriaSlot</createsSlotType>
   </Materia.MateriaDustDef>
 
 </Defs>

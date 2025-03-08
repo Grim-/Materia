@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaSlotTypeDef>
+    <defName>MetaMateriaSlot</defName>
+    <label>Meta Materia</label>
+    <description>A slot that accepts any materia.</description>
+    <materiaTextColor>(255, 255, 255)</materiaTextColor>
+    <baseWeight>0.3</baseWeight>
+    <slotLimits>
+      <li>
+        <ThingCategory>Weapons</ThingCategory>
+        <maxSlots>1</maxSlots>
+      </li>
+      <li>
+        <ThingCategory>ApparelArmor</ThingCategory>
+        <maxSlots>1</maxSlots>
+      </li>
+      <li>
+        <ThingCategory>ApparelUtility</ThingCategory>
+        <maxSlots>1</maxSlots>
+      </li>
+    </slotLimits>
+  </Materia.MateriaSlotTypeDef>
+</Defs>

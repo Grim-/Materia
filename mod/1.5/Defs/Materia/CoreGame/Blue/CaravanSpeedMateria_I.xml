@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
      <defName>CaravanSpeedMateria_I</defName>
      <label>Caravan Speed Materia I</label>
      <description>A blue crystalline orb humming with kinetic energy. Increases mount riding speed.</description>
@@ -11,6 +11,9 @@
      </graphicData>
      <commonality>1.0</commonality>
      <SlotType>BlueMateria</SlotType>
+     <thingCategories>
+       <li>BlueMateria</li>
+     </thingCategories>
      <effects>
        <li>MateriaEffect_CaravanSpeed_I</li>
      </effects>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>WorkSpeedMateria_I</defName>
     <label>Work Speed Materia I</label>
     <description>A blue crystalline orb humming with productive energy. Increases general work speed.</description>
@@ -14,6 +14,9 @@
     <effects>
       <li>MateriaEffect_WorkSpeed_I</li>
     </effects>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <textColor>(0, 0, 0.8)</textColor>
     <breakdownMaterials>
       <li>

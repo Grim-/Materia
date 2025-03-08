@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="BaseMateria">
+    <defName>AncientMateria_SOMETHING_I</defName>
+    <label>ASOMETHING</label>
+    <description>A purple crystalline orb it allows you to steal the life force of those you damage with melee attacks.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>5000</MarketValue>
+    </statBases>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <effects>
+      <li>MateriaEffect_OnDamageTaken_I</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+  </Materia.MateriaDef>
+
+
+  <Materia.MateriaEffectDef_DamageShield>
+    <defName>MateriaEffect_OnDamageTaken_I</defName>
+    <label>wwwwwwww I</label>
+    <description>wwwwwwww</description>
+  </Materia.MateriaEffectDef_DamageShield>
+
+</Defs>

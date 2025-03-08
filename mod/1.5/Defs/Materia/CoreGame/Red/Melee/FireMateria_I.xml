@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>FireMateria_I</defName>
     <label>Fire materia I</label>
     <description>A red orb containing the essence of fire. Enhances weapon damage with burning power.</description>
@@ -23,6 +23,9 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>RedMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_OnMeleeHitDamage>
@@ -33,5 +36,14 @@
     <damageType>Burn</damageType>
     <effecter>WeaponFireEnchant</effecter>
     <onhitEffecter>Fire_Burst</onhitEffecter>
+    <graphics>
+      <li>
+        <graphic>
+          <graphicClass>Graphic_Mote</graphicClass>
+          <texPath>Things/Mote/FireGlow</texPath>
+          <shaderType>MoteGlow</shaderType>
+        </graphic>
+      </li>
+    </graphics>
   </Materia.MateriaEffectDef_OnMeleeHitDamage>
 </Defs>

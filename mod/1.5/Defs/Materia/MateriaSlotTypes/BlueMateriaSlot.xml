@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaSlotTypeDef>
+    <defName>BlueMateriaSlot</defName>
+    <label>Blue Materia</label>
+    <description>A slot that accepts materia that enhances base attributes and stats.
+      Blue materia provides passive improvements to speed, accuracy, and other core attributes.</description>
+    <materiaTextColor>(3, 198, 252)</materiaTextColor>
+    <baseWeight>0.3</baseWeight>
+    <acceptableMateriaTypes>
+      <li>BlueMateria</li>
+    </acceptableMateriaTypes>
+    <slotLimits>
+      <li>
+        <ThingCategory>Weapons</ThingCategory>
+        <maxSlots>0</maxSlots>
+      </li>
+      <li>
+        <ThingCategory>ApparelArmor</ThingCategory>
+        <maxSlots>3</maxSlots>
+      </li>
+      <li>
+        <ThingCategory>ApparelUtility</ThingCategory>
+        <maxSlots>3</maxSlots>
+      </li>
+    </slotLimits>
+  </Materia.MateriaSlotTypeDef>
+</Defs>

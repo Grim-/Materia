@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>ColdResistMateria_III</defName>
     <label>Cold Resistance Materia III</label>
     <description>An exceptionally rare blue crystalline orb radiating overwhelming thermal force. Dramatically protects against cold temperatures.</description>
-    <texPath>Materia/Materia_blue_low</texPath>
+    <texPath>Materia/Materia_green_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_blue_low</texPath>
+      <texPath>Materia/Materia_green_low</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>0.2</commonality>
@@ -26,6 +26,9 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_PawnStatOffset>

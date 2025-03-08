@@ -22,7 +22,7 @@ namespace Materia
 
         public override string GetExplanationString()
         {
-            return $"+{statOffset}";
+            return statOffset >= 0 ? $"+{statOffset}" : $"-{statOffset}";
         }
     }
 

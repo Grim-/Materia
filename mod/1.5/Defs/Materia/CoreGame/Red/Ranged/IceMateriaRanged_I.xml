@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>IceMateriaRanged_I</defName>
     <label>Ice materia I (Ranged)</label>
     <description>A red crystalline orb containing the essence of frost. Imbues ranged weapons with freezing power, dealing ice damage to targets.</description>
@@ -28,6 +28,9 @@
         <amount>2~4</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>RedMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_OnProjectileHitDamage>

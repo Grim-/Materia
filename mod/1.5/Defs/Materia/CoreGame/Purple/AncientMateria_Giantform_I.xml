@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
       <defName>AncientMateria_Giantform_I</defName>
       <label>Giantform Materia I</label>
       <description>A massive purple crystalline orb that pulses with transformative energy. Increases the wielder's physical size dramatically.</description>
@@ -28,8 +28,11 @@
         <amount>4~8</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>PurpleMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
-  
+
   <Materia.MateriaEffectDef_GrantGene>
       <defName>MateriaEffect_Giantform_I</defName>
       <label>Giant Form I</label>

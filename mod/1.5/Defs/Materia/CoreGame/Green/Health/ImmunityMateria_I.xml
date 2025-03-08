@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>ImmunityMateria_I</defName>
     <label>Immunity Materia I</label>
     <description>A green crystalline orb pulsing with vitality. Strengthens the immune system.</description>
@@ -15,6 +15,9 @@
       <li>MateriaEffect_Immunity_I</li>
     </effects>
     <textColor>(0, 0.8, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>GreenMateriaDust</thing>
@@ -29,6 +32,6 @@
     <description>Increases immunity gain speed.</description>
     <workerClass>Materia.MateriaEffect_PawnStatOffset</workerClass>
     <statToAffect>ImmunityGainSpeed</statToAffect>
-    <statOffset>1.5</statOffset>
+    <statOffset>0.2</statOffset>
   </Materia.MateriaEffectDef_PawnStatOffset>
 </Defs>

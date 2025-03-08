@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<Materia.MateriaSlotTypeDef>
+  <defName>PurpleMateriaSlot</defName>
+  <label>Purple Materia</label>
+  <description>A slot that accepts materia granting special abilities and powers.
+    Purple materia provides active skills that can be used in combat or for utility purposes.</description>
+  <materiaTextColor>(136, 3, 252)</materiaTextColor>
+  <baseWeight>0.4</baseWeight>
+  <acceptableMateriaTypes>
+    <li>PurpleMateria</li>
+  </acceptableMateriaTypes>
+  <slotLimits>
+    <li>
+      <ThingCategory>Weapons</ThingCategory>
+      <maxSlots>2</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelArmor</ThingCategory>
+      <maxSlots>1</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelUtility</ThingCategory>
+      <maxSlots>2</maxSlots>
+    </li>
+  </slotLimits>
+</Materia.MateriaSlotTypeDef>
+</Defs>

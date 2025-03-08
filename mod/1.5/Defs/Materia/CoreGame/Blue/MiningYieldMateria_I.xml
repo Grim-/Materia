@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
      <defName>MiningYieldMateria_I</defName>
      <label>Mining Yield Materia I</label>
      <description>A blue crystalline orb humming with kinetic energy. Increases mining yield.</description>
@@ -12,9 +12,12 @@
      <commonality>1.0</commonality>
      <SlotType>BlueMateria</SlotType>
      <effects>
-       <li>MateriaEffect_DeepDrillingSpeed_I</li>
+       <li>MateriaEffect_MiningYield_I</li>
      </effects>
      <textColor>(0.5, 0.3, 0)</textColor>
+     <thingCategories>
+       <li>BlueMateria</li>
+     </thingCategories>
      <breakdownMaterials>
       <li>
         <thing>BlueMateriaDust</thing>

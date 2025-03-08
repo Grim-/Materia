@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThingCategoryDef>
+      <defName>Materia</defName>
+      <label>Materia</label>
+      <parent>ResourcesRaw</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>TierIMateria</defName>
+      <label>Materia I</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>TierIIMateria</defName>
+      <label>Materia II</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>TierIIIMateria</defName>
+      <label>Materia III</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>TierIIIIMateria</defName>
+      <label>Materia IIII</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>RedMateria</defName>
+      <label>Red Materia</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>GreenMateria</defName>
+      <label>Green Materia</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>BlueMateria</defName>
+      <label>Blue Materia</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>PurpleMateria</defName>
+      <label>Purple Materia</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+    <ThingCategoryDef>
+      <defName>YellowMateria</defName>
+      <label>Yellow Materia</label>
+      <parent>Materia</parent>
+    </ThingCategoryDef>
+
+</Defs>

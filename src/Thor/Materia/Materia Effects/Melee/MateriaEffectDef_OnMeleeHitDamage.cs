@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using RimWorld;
 using Verse;
 
 namespace Materia
@@ -54,5 +54,4 @@ namespace Materia
             return damageResult;
         }
     }
-
 }

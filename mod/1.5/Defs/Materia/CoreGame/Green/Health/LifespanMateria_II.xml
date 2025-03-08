@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>LifespanMateria_II</defName>
     <label>Lifespan Materia II</label>
     <description>A vibrant green crystalline orb pulsing with concentrated vital energy. Significantly extends natural lifespan.</description>
@@ -16,6 +16,9 @@
       <li>MateriaEffect_Lifespan_II</li>
     </effects>
     <textColor>(0.8, 0.8, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>GreenMateriaDust</thing>
@@ -32,6 +35,6 @@
     <label>Lifespan Enhancement II</label>
     <description>Greatly increases natural lifespan.</description>
     <statToAffect>LifespanFactor</statToAffect>
-    <statFactor>3.5</statFactor>
+    <statFactor>2.5</statFactor>
   </Materia.MateriaEffectDef_PawnStatFactor>
 </Defs>

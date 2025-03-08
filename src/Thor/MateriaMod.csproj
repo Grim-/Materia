@@ -69,13 +69,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comps\ThingComps\NoMateriaExt.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_DrawFireOverlay.cs" />
+    <Compile Include="Def Extensions\NoMateriaExt.cs" />
     <Compile Include="Hediff\comps\HediffCompProperties_PhoenixDown.cs" />
     <Compile Include="Hediff\comps\IMateriaSlotParent.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_MateriaSetBonus.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_DrawAdditionalGraphics.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\AdditionalGraphicData.cs" />
+    <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_WeaponEnchant.cs" />
+    <Compile Include="Materia\Set Bonus\MateriaManager.cs" />
+    <Compile Include="Materia\Set Bonus\MateriaSetBonus.cs" />
     <Compile Include="Materia\Materia Effects\OnDamageTaken\Gizmo_MateriaShieldStatus.cs" />
     <Compile Include="Materia\Materia Effects\OnDamageTaken\MateriaEffectDef_DamageShield.cs" />
     <Compile Include="Materia\Materia Effects\OnDamageTaken\MateriaEffectDef_OnDamageTaken.cs" />
     <Compile Include="Materia\Materia Effects\OnDeath\MateriaEffectDef_Revival.cs" />
+    <Compile Include="Materia\MateriaSlotTypeDef.cs" />
     <Compile Include="Things\Meteor.cs" />
     <Compile Include="Util\ScoringUtil.cs" />
     <Compile Include="Materia\MateriaCategoryDef.cs" />
@@ -109,7 +117,7 @@
     <Compile Include="Util\BoundWeaponUtil.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_BiocodableBinding.cs" />
     <Compile Include="REMOVE SOON\CompProperties_MagicalTome.cs" />
-    <Compile Include="Comps\ThingComps\CompProperties_MateriaComp.cs" />
+    <Compile Include="Comps\ThingComps\CompProperties_Materia.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_SelectiveBiocodable.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaSlotConfig.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaSlotLink.cs" />
@@ -117,8 +125,8 @@
     <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_PawnStatOffset.cs" />
     <Compile Include="UI\Gizmo\Gizmo_DamageTrackerStatus.cs" />
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_DamageTracker.cs" />
-    <Compile Include="Materia\Grant\MateriaEffectDef_GrantHediff.cs" />
-    <Compile Include="Materia\Grant\MateriaEffectDef_GrantTrait.cs" />
+    <Compile Include="Materia\Materia Effects\Grant\MateriaEffectDef_GrantHediff.cs" />
+    <Compile Include="Materia\Materia Effects\Grant\MateriaEffectDef_GrantTrait.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitNeed.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitNeed.cs" />
     <Compile Include="Materia\Materia Effects\Projectile\MateriaEffectDef_OnProjectileHitHeal.cs" />
@@ -142,13 +150,13 @@
     <Compile Include="Materia\Materia Effects\MateriaEffectDef_ChainLightningOnHit.cs" />
     <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_EquipmentStat.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitDamage.cs" />
-    <Compile Include="Materia\Grant\MateriaEffectDef_GrantAbility.cs" />
-    <Compile Include="Materia\Grant\MateriaEffectDef_GrantGene.cs" />
+    <Compile Include="Materia\Materia Effects\Grant\MateriaEffectDef_GrantAbility.cs" />
+    <Compile Include="Materia\Materia Effects\Grant\MateriaEffectDef_GrantGene.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitHeal.cs" />
     <Compile Include="Materia\Materia Effects\Melee\MateriaEffectDef_OnMeleeHitApplyHediff.cs" />
     <Compile Include="Materia\Materia Effects\Stat\MateriaEffectDef_PawnStat.cs" />
     <Compile Include="Materia\MateriaSlot\MateriaInstance.cs" />
-    <Compile Include="Util\Graphic_MoteWithAgeSecsCustom.cs" />
+    <Compile Include="Graphics\Graphic_MoteWithAgeSecsCustom.cs" />
     <Compile Include="Util\MateriaUtil.cs" />
     <Compile Include="Materia\MateriaDustDef.cs" />
     <Compile Include="RenderNodes\PawnOverlayNodeWorker.cs" />
@@ -173,7 +181,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MateriaDefOf.cs" />
     <Compile Include="Ticker.cs" />
-    <Compile Include="Util\StaggeredChainLightning.cs" />
+    <Compile Include="Things\StaggeredChainLightning.cs" />
     <Compile Include="Util\TrackedMote.cs" />
   </ItemGroup>
   <ItemGroup>

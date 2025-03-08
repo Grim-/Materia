@@ -18,11 +18,16 @@ namespace Materia
         public int slotLevel = 1;
 
         public MateriaTypeDef SlotType;
-        public List<MateriaTypeDef> slotSecondaryTypes;
+
+
+        ///might have red, yellow, meta 
+        public List<MateriaTypeDef> materiaTypes;
 
         public List<MateriaEffectDef> effects;
 
         public List<MateriaLinkData> links;
+
+        public List<MateriaMinableData> mineableData;
 
 
         public List<MateriaCategoryDef> materiaCategories;
@@ -73,72 +78,11 @@ namespace Materia
         }
     }
 
-
-    public class MateriaSlotTypeDef : Def
+    public class MateriaMinableData
     {
-        public List<MateriaTypeDef> acceptableMateriaTypes;
-        public List<SlotLimit> slotLimits;
-
-
-        public bool IsValidForSlotCreation(ThingWithComps parent, Comp_Materia comp)
-        {
-            if (slotLimits == null)
-                return true;
-
-            foreach (var limit in slotLimits)
-            {
-                bool matchesCategory = HasThingCategoryOrParent(parent, limit.ThingCategory);
-                if (matchesCategory)
-                {
-                    if (limit.maxSlots == 0)
-                    {
-                        return false;
-                    }
-
-                    if (comp.OccupiedSlotsCount >= limit.maxSlots)
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        private bool HasThingCategoryOrParent(Thing thing, ThingCategoryDef categoryToCheck)
-        {
-            if (thing.HasThingCategory(categoryToCheck))
-                return true;
-
-            foreach (ThingCategoryDef parentCategory in categoryToCheck.Parents)
-            {
-                if (thing.HasThingCategory(parentCategory))
-                    return true;
-            }
-
-            foreach (ThingCategoryDef childCategory in categoryToCheck.ThisAndChildCategoryDefs)
-            {
-                if (thing.HasThingCategory(childCategory))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public bool IsValidForSlot(MateriaDef MateriaDef)
-        {
-            if (acceptableMateriaTypes.Any(x => x == MateriaDef.SlotType))
-            {
-                return true;
-            }
-
-            if (MateriaDef.slotSecondaryTypes != null && MateriaDef.slotSecondaryTypes.Any())
-            {
-                return MateriaDef.slotSecondaryTypes.Any(secondaryType =>
-                    acceptableMateriaTypes.Any(acceptableType => acceptableType == secondaryType));
-            }
-
-            return false;
-        }
+        public ThingDef mineable;
+        public FloatRange dropChance = new FloatRange(0f, 0.2f);
+        public IntRange dropAmount = new IntRange(0, 1);
     }
 
     public class MateriaLinkData

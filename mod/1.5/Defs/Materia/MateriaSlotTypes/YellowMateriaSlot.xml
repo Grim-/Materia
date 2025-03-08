@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<Materia.MateriaSlotTypeDef>
+  <defName>YellowMateriaSlot</defName>
+  <label>Yellow Materia</label>
+  <description>A slot that accepts red or green materia.</description>
+  <materiaTextColor>(222, 235, 52)</materiaTextColor>
+  <baseWeight>0.1</baseWeight>
+  <acceptableMateriaTypes>
+    <li>RedMateria</li>
+    <li>GreenMateria</li>
+  </acceptableMateriaTypes>
+  <slotLimits>
+    <li>
+      <ThingCategory>Weapons</ThingCategory>
+      <maxSlots>1</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelArmor</ThingCategory>
+      <maxSlots>0</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelUtility</ThingCategory>
+      <maxSlots>0</maxSlots>
+    </li>
+  </slotLimits>
+</Materia.MateriaSlotTypeDef>
+</Defs>

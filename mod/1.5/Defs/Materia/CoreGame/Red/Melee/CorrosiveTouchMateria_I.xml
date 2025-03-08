@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>CorrosiveTouchMateria_I</defName>
     <label>Corrosive Touch Materia I</label>
     <description>A red crystalline orb dripping with acid. Chance to corrode enemies on hit.</description>
@@ -28,6 +28,9 @@
         <amount>2~4</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>RedMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_OnMeleeHitApplyHediff>

@@ -42,9 +42,10 @@ namespace Materia
 
         public string EffectDescription => _SlottedMateria != null ? string.Join("\n", _SlottedMateria.ActiveEffects.Select(x => x.def.EffectDescription)) : null;
 
-        //public MateriaTypeDef SlotType;
-        protected MateriaTypeDef _SlotType;
-        public MateriaTypeDef SlotType
+
+
+        protected MateriaSlotTypeDef _SlotType;
+        public MateriaSlotTypeDef SlotType
         {
             get
             {
@@ -89,7 +90,7 @@ namespace Materia
         {
         }
 
-        public MateriaSlot(ThingWithComps parentThing, Comp_Materia materiaComp, MateriaTypeDef type, int slotLevel = 1)
+        public MateriaSlot(ThingWithComps parentThing, Comp_Materia materiaComp, MateriaSlotTypeDef type, int slotLevel = 1)
         {
             _MateriaComp = materiaComp;
             _ParentThing = parentThing;
@@ -105,20 +106,26 @@ namespace Materia
                 return;
 
             _SlottedMateria = new MateriaInstance(materiaDef, MateriaComp, this);
-            _SlottedMateria.Notify_MateriaEquipped();
 
             if (MateriaComp.HasEquipOwner)
             {
                 _SlottedMateria.Notify_Equipped(MateriaComp.EquippedPawn);
             }
+
+            _SlottedMateria.Notify_MateriaEquipped();
         }
 
         public void UnequipMateria()
         {
             if (_SlottedMateria == null)
                 return;
-
             _SlottedMateria.Notify_MateriaUnequipped();
+
+            if (MateriaComp.HasEquipOwner)
+            {
+                _SlottedMateria.Notify_Unequipped(MateriaComp.EquippedPawn);
+            }
+
             _SlottedMateria = null;
         }
 
@@ -135,7 +142,7 @@ namespace Materia
         {
             if (SlotType != null)
             {
-                return materiaTypeDef == SlotType;
+                return SlotType.IsAcceptableMateriaType(materiaTypeDef);
             }
 
             return true;

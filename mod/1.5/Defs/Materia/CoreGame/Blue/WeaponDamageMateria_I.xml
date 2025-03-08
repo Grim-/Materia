@@ -14,6 +14,9 @@
     <effects>
       <li>WeaponDamageMateria_I</li>
     </effects>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <textColor>(0.3, 0.3, 0.3)</textColor>
     <breakdownMaterials>
       <li>
@@ -26,7 +29,7 @@
       </li>
     </breakdownMaterials>
   </Materia.MateriaDef>
-  
+
   <Materia.MateriaEffectDef_EquipmentStat>
     <defName>WeaponDamageMateria_I</defName>
     <label>Weapon Damage Materia I</label>

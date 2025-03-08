@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
     <defName>ToxicResistMateria_I</defName>
     <label>Toxic Resistance Materia I</label>
     <description>A blue crystalline orb that pulses with purifying energy. Protects against toxic environments.</description>
@@ -18,6 +18,9 @@
       <li>MateriaEffect_ToxicResist_I</li>
     </effects>
     <textColor>(0, 0.8, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>GreenMateriaDust</thing>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="TierIIMateria">
+    <defName>AncientMateria_Fly_II</defName>
+    <label>Ancient Materia Fly II</label>
+    <description>A purple crystalline orb crackling with electrical energy. Grants you the ability to fly at will..</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>5000</MarketValue>
+    </statBases>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <effects>
+      <li>MateriaEffect_GrantFlight_I</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+    <thingCategories>
+      <li>PurpleMateria</li>
+    </thingCategories>
+  </Materia.MateriaDef>
+
+  <AbilityDef>
+    <defName>Materia_Fly</defName>
+    <label>Fly</label>
+    <description>Fly to the target location</description>
+    <hostile>true</hostile>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25</range>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="Materia.CompProperties_Fly">
+      </li>
+    </comps>
+  </AbilityDef>
+
+  <Materia.MateriaEffectDef_GrantAbility>
+    <defName>MateriaEffect_GrantFlight_I</defName>
+    <label>Fly Materia I</label>
+    <description>Grants the ability to fly</description>
+    <workerClass>Materia.MateriaEffect_GrantAbility</workerClass>
+    <ability>Materia_Fly</ability>
+  </Materia.MateriaEffectDef_GrantAbility>
+</Defs>

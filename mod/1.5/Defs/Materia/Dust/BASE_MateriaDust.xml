@@ -12,10 +12,4 @@
       <li>MateriaDust</li>
     </thingCategories>
   </Materia.MateriaDustDef>
-
-  <ThingCategoryDef>
-    <defName>MateriaDust</defName>
-    <label>Materia Dust</label>
-    <parent>ResourcesRaw</parent>
-  </ThingCategoryDef>
 </Defs>

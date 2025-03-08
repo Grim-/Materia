@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<Materia.MateriaSlotTypeDef>
+  <defName>GreenMateriaSlot</defName>
+  <label>Green Materia</label>
+  <materiaTextColor>(3, 252, 98)</materiaTextColor>
+  <description>A slot that accepts materia focused on healing and support.
+    Green materia provides healing effects, protective buffs, and various beneficial enhancements.</description>
+      <baseWeight>0.3</baseWeight>
+  <acceptableMateriaTypes>
+    <li>GreenMateria</li>
+  </acceptableMateriaTypes>
+  <slotLimits>
+    <li>
+      <ThingCategory>Weapons</ThingCategory>
+      <maxSlots>0</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelArmor</ThingCategory>
+      <maxSlots>3</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelUtility</ThingCategory>
+      <maxSlots>3</maxSlots>
+    </li>
+  </slotLimits>
+</Materia.MateriaSlotTypeDef>
+</Defs>

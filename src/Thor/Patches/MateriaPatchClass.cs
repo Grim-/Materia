@@ -43,6 +43,198 @@ namespace Materia
         }
     }
 
+    [HarmonyPatch(typeof(Mineable))]
+    [HarmonyPatch("TrySpawnYield")]
+    [HarmonyPatch(new Type[] { typeof(Map), typeof(bool), typeof(Pawn) })]
+    public static class Mineable_TrySpawnYield_Patch
+    {
+        private static Dictionary<ThingDef, float> rockRarityCache = new Dictionary<ThingDef, float>();
+
+        [HarmonyPostfix]
+        public static void Postfix(Mineable __instance, Map map, bool moteOnWaste, Pawn pawn)
+        {
+            if (map == null || __instance == null) return;
+
+            ThingDef rock = __instance.def;
+            IntVec3 position = __instance.Position;
+
+            float rockRarity = GetRockRarityValue(rock);
+
+            int miningSkill = pawn?.skills?.GetSkill(SkillDefOf.Mining)?.Level ?? 0;
+            float skillBonus = 1f + (miningSkill * 0.05f);
+
+            float baseChance = 0.05f * rockRarity * skillBonus;
+            baseChance = Math.Min(baseChance, 0.3f);
+
+            if (!Rand.Chance(baseChance)) return;
+
+            List<MateriaDef> allMateria = DefDatabase<MateriaDef>.AllDefs
+                .Where(m => m.SlotType != null)
+                .ToList();
+
+            if (allMateria.Count == 0) return;
+
+            Dictionary<MateriaDef, float> materiaWeights = new Dictionary<MateriaDef, float>();
+
+            foreach (MateriaDef materiaDef in allMateria)
+            {
+                float weight = materiaDef.commonality;
+
+                weight /= (float)Math.Pow(4.0, materiaDef.slotLevel - 1);
+
+                if (materiaDef.slotLevel > 1)
+                {
+                    weight *= rockRarity * (materiaDef.slotLevel - 1);
+                }
+
+                if (materiaDef.commonality < 0.5f || materiaDef.slotLevel > 1)
+                {
+                    weight *= skillBonus;
+                }
+
+                materiaWeights[materiaDef] = Math.Max(weight, 0.001f);
+            }
+
+            MateriaDef selectedMateria = null;
+            float totalWeight = materiaWeights.Values.Sum();
+            float roll = Rand.Value * totalWeight;
+            float currentWeight = 0f;
+
+            foreach (KeyValuePair<MateriaDef, float> pair in materiaWeights)
+            {
+                currentWeight += pair.Value;
+                if (roll <= currentWeight)
+                {
+                    selectedMateria = pair.Key;
+                    break;
+                }
+            }
+
+            if (selectedMateria == null) return;
+
+            Thing materia = ThingMaker.MakeThing(selectedMateria);
+            materia.stackCount = 1;
+            GenPlace.TryPlaceThing(materia, position, map, ThingPlaceMode.Near);
+        }
+
+        private static float GetRockRarityValue(ThingDef rockDef)
+        {
+            if (rockRarityCache.TryGetValue(rockDef, out float cachedValue))
+            {
+                return cachedValue;
+            }
+
+            float rarityValue = 1.0f;
+
+            rarityValue *= (1.0f + (rockDef.BaseMarketValue / 10f));
+
+            if (rockDef.building?.mineableThing != null)
+            {
+                rarityValue *= (1.0f + (rockDef.building.mineableThing.BaseMarketValue / 20f));
+            }
+
+            rockRarityCache[rockDef] = rarityValue;
+            return rarityValue;
+        }
+    }
+    //[HarmonyPatch(typeof(Mineable))]
+    //[HarmonyPatch("TrySpawnYield")]
+    //[HarmonyPatch(new Type[]
+    //{
+    //typeof(Map),
+    //typeof(bool),
+    //typeof(Pawn)
+    //})]
+    //public static class Mineable_TrySpawnYield_Patch
+    //{
+    //    [HarmonyPostfix]
+    //    public static void Postfix(Mineable __instance, Map map, bool moteOnWaste, Pawn pawn)
+    //    {
+    //        if (map == null || __instance == null)
+    //            return;
+
+    //        ThingDef rock = __instance.def;
+    //        IntVec3 position = __instance.Position;
+
+    //        // Get all potential materia defs that can spawn from this rock
+    //        List<MaterialChanceData> validMateria = new List<MaterialChanceData>();
+    //        float totalWeight = 0f;
+
+    //        foreach (MateriaDef materiaDef in DefDatabase<MateriaDef>.AllDefs)
+    //        {
+    //            if (materiaDef.mineableData == null || materiaDef.mineableData.Count == 0)
+    //                continue;
+
+    //            foreach (MateriaMinableData mineableData in materiaDef.mineableData)
+    //            {
+    //                if (mineableData.mineable == rock)
+    //                {
+    //                    float weight = materiaDef.commonality;
+
+    //                    if (pawn != null)
+    //                    {
+    //                        int miningSkill = pawn.skills?.GetSkill(SkillDefOf.Mining)?.Level ?? 0;
+    //                        if (materiaDef.commonality < 0.5f)
+    //                        {
+    //                            weight *= (1f + (miningSkill * 0.05f));
+    //                        }
+    //                    }
+
+    //                    validMateria.Add(new MaterialChanceData
+    //                    {
+    //                        MateriaDef = materiaDef,
+    //                        MineableData = mineableData,
+    //                        Weight = weight
+    //                    });
+
+    //                    totalWeight += weight;
+    //                }
+    //            }
+    //        }
+
+    //        if (validMateria.Count == 0 || totalWeight <= 0f)
+    //            return;
+
+    //        float randomValue = Rand.Value * totalWeight;
+    //        float currentWeight = 0f;
+
+    //        foreach (MaterialChanceData data in validMateria)
+    //        {
+    //            currentWeight += data.Weight;
+
+    //            if (randomValue <= currentWeight)
+    //            {
+    //                float baseChance = data.MineableData.dropChance.RandomInRangeSeeded(Find.World.ConstantRandSeed);
+
+    //                float finalChance = baseChance;
+
+    //                if (Rand.Chance(finalChance))
+    //                {
+    //                    int count = data.MineableData.dropAmount.RandomInRange;
+    //                    if (count > 0)
+    //                    {
+    //                        Thing materia = ThingMaker.MakeThing(data.MateriaDef);
+    //                        materia.stackCount = count;
+
+    //                        GenPlace.TryPlaceThing(materia, position, map, ThingPlaceMode.Near);
+    //                        return;
+    //                    }
+    //                }
+
+
+    //                return;
+    //            }
+    //        }
+    //    }
+
+    //    private class MaterialChanceData
+    //    {
+    //        public MateriaDef MateriaDef;
+    //        public MateriaMinableData MineableData;
+    //        public float Weight;
+    //    }
+    //}
+
     [HarmonyPatch(typeof(BodyPartDef), "GetMaxHealth")]
     public class GetMaxHealth_Patch
     {
@@ -123,6 +315,27 @@ namespace Materia
             }
         }
     }
+
+    [HarmonyPatch(typeof(PawnRenderUtility))]
+    [HarmonyPatch("DrawEquipmentAndApparelExtras")]
+    [HarmonyPatch(new Type[] { typeof(Pawn), typeof(Vector3), typeof(Rot4), typeof(PawnRenderFlags) })]
+    public static class Patch_PawnRenderUtility_DrawEquipmentAndApparelExtras
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn pawn, Vector3 drawPos, Rot4 facing, PawnRenderFlags flags)
+        {
+            if (pawn != null)
+            {
+                List<Comp_Materia> materiaComps = pawn.GetAllEquippedOrWornMateriaComps();
+
+                foreach (var item in materiaComps)
+                {
+                    item.PostDraw();
+                }
+            }
+        }
+    }
+
 
     [HarmonyPatch(typeof(Pawn_EquipmentTracker), "GetGizmos")]
     public class EquipmentTracker_GetGizmos_Patch
@@ -259,13 +472,14 @@ namespace Materia
         }
     }
 
+
     [HarmonyPatch(typeof(StatWorker))]
     [HarmonyPatch("FinalizeValue")]
     public class Patch_StatWorker_FinalizeValue
     {
         public static void Prefix(StatWorker __instance, StatRequest req, StatDef ___stat, ref float val)
         {
-            if (!req.HasThing) 
+            if (!req.HasThing)
                 return;
 
             // Get equipped items from pawn
@@ -273,6 +487,29 @@ namespace Materia
             if (pawn?.equipment?.AllEquipmentListForReading != null)
             {
                 foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
+                {
+                    foreach (var comp in equipment.GetComps<ThingComp>())
+                    {
+                        if (comp is IStatProvider provider)
+                        {
+                            // Apply offsets first
+                            foreach (var offset in provider.GetStatOffsets(___stat))
+                            {
+                                val += offset.value;
+                            }
+                            // Then factors
+                            foreach (var factor in provider.GetStatFactors(___stat))
+                            {
+                                val *= factor.value;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (pawn?.apparel?.WornApparel != null)
+            {
+                foreach (var equipment in pawn.apparel.WornApparel)
                 {
                     foreach (var comp in equipment.GetComps<ThingComp>())
                     {
@@ -308,23 +545,51 @@ namespace Materia
             bool addedHeader = false;
 
             Pawn pawn = req.Thing as Pawn;
-            if (pawn?.equipment?.AllEquipmentListForReading != null)
+            if (pawn != null)
             {
-                foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
+                // Check equipment
+                if (pawn.equipment?.AllEquipmentListForReading != null)
                 {
-                    foreach (var comp in equipment.GetComps<ThingComp>())
+                    foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
                     {
-                        if (comp is IStatProvider provider)
+                        foreach (var comp in equipment.GetComps<ThingComp>())
                         {
-                            string statExplanation = provider.GetExplanation(___stat);
-                            if (!statExplanation.NullOrEmpty())
+                            if (comp is IStatProvider provider)
                             {
-                                if (!addedHeader)
+                                string statExplanation = provider.GetExplanation(___stat);
+                                if (!statExplanation.NullOrEmpty())
                                 {
-                                    explanation.AppendLine($"\nMateria effects:");
-                                    addedHeader = true;
+                                    if (!addedHeader)
+                                    {
+                                        explanation.AppendLine($"\nMateria effects:");
+                                        addedHeader = true;
+                                    }
+                                    explanation.AppendLine(statExplanation);
                                 }
-                                explanation.AppendLine(statExplanation);
+                            }
+                        }
+                    }
+                }
+
+                // Check apparel too
+                if (pawn.apparel?.WornApparel != null)
+                {
+                    foreach (var apparel in pawn.apparel.WornApparel)
+                    {
+                        foreach (var comp in apparel.GetComps<ThingComp>())
+                        {
+                            if (comp is IStatProvider provider)
+                            {
+                                string statExplanation = provider.GetExplanation(___stat);
+                                if (!statExplanation.NullOrEmpty())
+                                {
+                                    if (!addedHeader)
+                                    {
+                                        explanation.AppendLine($"\nMateria effects:");
+                                        addedHeader = true;
+                                    }
+                                    explanation.AppendLine(statExplanation);
+                                }
                             }
                         }
                     }
@@ -334,6 +599,47 @@ namespace Materia
             __result = explanation.ToString();
         }
     }
+
+
+
+    //[HarmonyPatch(typeof(StatWorker))]
+    //[HarmonyPatch("GetExplanationUnfinalized")]
+    //public class Patch_StatWorker_GetExplanationUnfinalized
+    //{
+    //    public static void Postfix(StatRequest req, ref string __result, StatDef ___stat)
+    //    {
+    //        if (!req.HasThing) return;
+
+    //        StringBuilder explanation = new StringBuilder(__result);
+    //        bool addedHeader = false;
+
+    //        Pawn pawn = req.Thing as Pawn;
+    //        if (pawn?.equipment?.AllEquipmentListForReading != null)
+    //        {
+    //            foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
+    //            {
+    //                foreach (var comp in equipment.GetComps<ThingComp>())
+    //                {
+    //                    if (comp is IStatProvider provider)
+    //                    {
+    //                        string statExplanation = provider.GetExplanation(___stat);
+    //                        if (!statExplanation.NullOrEmpty())
+    //                        {
+    //                            if (!addedHeader)
+    //                            {
+    //                                explanation.AppendLine($"\nMateria effects:");
+    //                                addedHeader = true;
+    //                            }
+    //                            explanation.AppendLine(statExplanation);
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+
+    //        __result = explanation.ToString();
+    //    }
+    //}
 
 
 
@@ -471,6 +777,165 @@ namespace Materia
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //[HarmonyPatch(typeof(StatWorker), "RelevantGear")]
+    //public class Patch_StatWorker_RelevantGear
+    //{
+    //    public static void Postfix(Pawn pawn, StatDef stat, ref IEnumerable<Thing> __result)
+    //    {
+    //        List<Thing> newResult = __result.ToList();
+
+    //        // Check apparel
+    //        if (pawn?.apparel?.WornApparel != null)
+    //        {
+    //            foreach (var apparel in pawn.apparel.WornApparel)
+    //            {
+    //                if (!newResult.Contains(apparel) &&
+    //                    apparel.TryGetComp<Comp_Materia>(out var comp) &&
+    //                    (comp.HasStatOffsetFor(stat) || comp.HasStatFactorFor(stat)))
+    //                {
+    //                    newResult.Add(apparel);
+    //                }
+    //            }
+    //        }
+
+    //        // Check equipment
+    //        if (pawn?.equipment?.AllEquipmentListForReading != null)
+    //        {
+    //            foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
+    //            {
+    //                if (!newResult.Contains(equipment) &&
+    //                    equipment.TryGetComp<Comp_Materia>(out var comp) &&
+    //                    (comp.HasStatOffsetFor(stat) || comp.HasStatFactorFor(stat)))
+    //                {
+    //                    newResult.Add(equipment);
+    //                }
+    //            }
+    //        }
+
+    //        __result = newResult;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(StatWorker))]
+    //[HarmonyPatch("InfoTextLineFromGear")]
+    //public class Patch_StatWorker_InfoTextLineFromGear
+    //{
+    //    public static bool Prefix(Thing gear, StatDef stat, ref string __result)
+    //    {
+    //        if (gear.TryGetComp<Comp_Materia>(out Comp_Materia materia) &&
+    //            (materia.HasStatOffsetFor(stat) || materia.HasStatFactorFor(stat)))
+    //        {
+    //            StringBuilder explanation = new StringBuilder();
+    //            explanation.Append("    " + gear.LabelCap + ": ");
+
+    //            float totalOffset = 0f;
+    //            foreach (var offset in materia.GetStatOffsets(stat))
+    //            {
+    //                totalOffset += offset.value;
+    //            }
+
+    //            if (totalOffset != 0f)
+    //            {
+    //                explanation.Append(totalOffset.ToStringByStyle(stat.toStringStyle, ToStringNumberSense.Offset));
+    //            }
+
+
+    //            float totalFactor = 1f;
+    //            foreach (var offset in materia.GetStatFactors(stat))
+    //            {
+    //                totalFactor += offset.value;
+    //            }
+
+    //            if (totalFactor != 1f)
+    //            {
+    //                explanation.Append(totalFactor.ToStringByStyle(stat.toStringStyle, ToStringNumberSense.Offset));
+    //            }
+
+    //            // Get additional explanation text
+    //            string additionalExplanation = materia.GetExplanation(stat);
+    //            if (!additionalExplanation.NullOrEmpty())
+    //            {
+    //                explanation.AppendLine();
+    //                explanation.Append(additionalExplanation);
+    //            }
+
+    //            __result = explanation.ToString();
+    //            return false;
+    //        }
+
+    //        return true;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(StatWorker))]
+    //[HarmonyPatch("GearHasCompsThatAffectStat")]
+    //public class Patch_StatWorker_GearHasCompsThatAffectStat
+    //{
+    //    public static bool Prefix(StatWorker __instance, Thing gear, StatDef stat, ref bool __result)
+    //    {
+    //        if (gear.TryGetComp(out Comp_Materia materia))
+    //        {
+    //            __result = true;
+    //            return false;
+    //        }
+    //        return true;
+    //    }
+    //}
+
+
+
+    //[HarmonyPatch(typeof(StatWorker))]
+    //[HarmonyPatch("StatOffsetFromGear")]
+    //public class Patch_StatWorker_StatOffsetFromGear
+    //{
+    //    public static void Postfix(Thing gear, StatDef stat, ref float __result)
+    //    {
+    //        if (gear.TryGetComp<Comp_Materia>(out Comp_Materia materia))
+    //        {
+    //            foreach (var slot in materia.MateriaSlots)
+    //            {
+    //                if (slot.IsOccupied && slot.SlottedMateria != null)
+    //                {
+    //                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_PawnStatOffset>())
+    //                    {
+    //                        var def = (MateriaEffectDef_PawnStatOffset)effect.def;
+    //                        if (def.statToAffect == stat)
+    //                        {
+    //                            __result += def.statOffset;
+    //                        }
+    //                    }
+
+    //                    foreach (var effect in slot.SlottedMateria.GetEffectsOfType<MateriaEffect_PawnStatFactor>())
+    //                    {
+    //                        var def = (MateriaEffectDef_PawnStatFactor)effect.def;
+    //                        if (def.statToAffect == stat)
+    //                        {
+    //                            __result *= def.statFactor;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     //[StaticConstructorOnStartup]
     //public static class GraphicsPatches

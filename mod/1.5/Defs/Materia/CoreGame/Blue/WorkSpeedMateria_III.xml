@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>WorkSpeedMateria_III</defName>
     <label>Work Speed Materia III</label>
     <description>An exceptionally rare blue crystalline orb pulsing with overwhelming productive power. Dramatically increases general work speed.</description>
     <texPath>Materia/Materia_blue_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_blue_low</texPath>
+      <texPath>Materia/Materia_blue_high</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>0.2</commonality>
@@ -15,6 +15,9 @@
     <effects>
       <li>MateriaEffect_WorkSpeed_III</li>
     </effects>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <textColor>(0, 0, 0.8)</textColor>
     <breakdownMaterials>
       <li>

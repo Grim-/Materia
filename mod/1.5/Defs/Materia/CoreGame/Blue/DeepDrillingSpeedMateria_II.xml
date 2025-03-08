@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
      <defName>DeepDrillingSpeedMateria_II</defName>
      <label>Deep Drilling Speed Materia II</label>
      <description>A blue crystalline orb humming with kinetic energy. Increases mining speed.</description>
@@ -16,6 +16,9 @@
        <li>MateriaEffect_DeepDrillingSpeed_II</li>
      </effects>
      <textColor>(0.5, 0.3, 0)</textColor>
+     <thingCategories>
+       <li>BlueMateria</li>
+     </thingCategories>
      <breakdownMaterials>
       <li>
         <thing>BlueMateriaDust</thing>

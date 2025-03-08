@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
      <defName>PainResistMateria_III</defName>
      <label>Pain Resistance Materia III</label>
      <description>A green crystalline orb burning with endurance. Increases resistance to pain.</description>
@@ -22,6 +22,9 @@
     <amount>4~8</amount>
   </li>
 </breakdownMaterials>
+<thingCategories>
+  <li>GreenMateria</li>
+</thingCategories>
    </Materia.MateriaDef>
 
    <Materia.MateriaEffectDef_PawnStatOffset>

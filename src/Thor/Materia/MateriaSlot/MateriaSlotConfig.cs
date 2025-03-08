@@ -2,7 +2,7 @@
 {
     public class MateriaSlotConfig
     {
-        public MateriaTypeDef slotType;
+        public MateriaSlotTypeDef slotType;
         public int slotLevel = 1;
         public bool slotIsLocked = false;
         public MateriaDef materiaToAutoSlot;

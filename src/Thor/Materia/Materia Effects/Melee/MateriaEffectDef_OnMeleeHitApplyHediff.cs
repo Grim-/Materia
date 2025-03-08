@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -45,6 +44,7 @@ namespace Materia
             workerClass = typeof(MateriaEffect_OnMeleeHitApplyHediff);
         }
     }
+
 
     public class MateriaEffect_OnMeleeHitApplyHediff : MateriaWorker
     {

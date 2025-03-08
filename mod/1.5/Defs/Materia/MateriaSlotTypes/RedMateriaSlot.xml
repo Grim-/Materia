@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<Materia.MateriaSlotTypeDef>
+  <defName>RedMateriaSlot</defName>
+  <label>Red Materia</label>
+  <description>A slot that accepts materia focused on damage and combat effects.
+    Red materia typically enhances weapon damage, adds elemental effects, or modifies how the weapon deals damage.</description>
+  <materiaTextColor>(252, 11, 3)</materiaTextColor>
+  <baseWeight>0.3</baseWeight>
+  <acceptableMateriaTypes>
+    <li>RedMateria</li>
+  </acceptableMateriaTypes>
+  <slotLimits>
+    <li>
+      <ThingCategory>Weapons</ThingCategory>
+      <maxSlots>4</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelArmor</ThingCategory>
+      <maxSlots>0</maxSlots>
+    </li>
+    <li>
+      <ThingCategory>ApparelUtility</ThingCategory>
+      <maxSlots>0</maxSlots>
+    </li>
+  </slotLimits>
+  <weaponMateriaWeights>
+    <li>
+      <materiaType>RedMateria</materiaType>
+      <weight>5</weight>
+    </li>
+  </weaponMateriaWeights>
+</Materia.MateriaSlotTypeDef>
+</Defs>

@@ -27,7 +27,7 @@ namespace Materia
         private readonly Thing parentThing;
         private readonly Comp_Materia materiaComp;
         private readonly Pawn usingPawn;
-        private Vector2 currentWindowSize = new Vector2(600f, 400f);
+        private Vector2 currentWindowSize = new Vector2(600f, 360f);
         private bool windowSizeInitialized = false;
         private const float DEV_BUTTON_HEIGHT = 30f;
         private const float DEV_BUTTON_WIDTH = 30f;
@@ -76,7 +76,7 @@ namespace Materia
             windowSizeInitialized = false;
         }
 
-        private void AddMateriaSlot(MateriaTypeDef slotType)
+        private void AddMateriaSlot(MateriaSlotTypeDef slotType)
         {
             if (materiaComp != null)
             {
@@ -157,7 +157,7 @@ namespace Materia
                 if (Widgets.ButtonImage(buttonRect, TexButton.Add))
                 {
                     List<FloatMenuOption> menuOptions = new List<FloatMenuOption>();
-                    foreach (var item in DefDatabase<MateriaTypeDef>.AllDefsListForReading)
+                    foreach (var item in DefDatabase<MateriaSlotTypeDef>.AllDefsListForReading)
                     {
                         menuOptions.Add(new FloatMenuOption($"Add {item.defName} slot", () =>
                         {
@@ -198,7 +198,7 @@ namespace Materia
         {
             Color slotTypeColor = Color.white;
             if (slot.IsSlotLocked)
-                slotTypeColor = Color.grey;
+                slotTypeColor = slot.SlotType?.materiaTextColor ?? Color.white * 0.3f;
             else
                 slotTypeColor = slot.SlotType?.materiaTextColor ?? Color.white;
 
@@ -286,20 +286,20 @@ namespace Materia
             }
             else
             {
-                if (slot.IsSlotLocked)
-                {
-                    GUI.DrawTexture(lockRect, LockedTex);
-                }
-                else
-                {
-                    GUI.DrawTexture(lockRect, UnlockedTex);
-                }
+                //if (slot.IsSlotLocked)
+                //{
+                //    GUI.DrawTexture(lockRect, LockedTex);
+                //}
+                //else
+                //{
+                //    GUI.DrawTexture(lockRect, UnlockedTex);
+                //}
 
-                if (Mouse.IsOver(lockRect))
-                {
-                    TooltipHandler.TipRegion(lockRect,
-                        slot.IsSlotLocked ? "Locked" : "Unlocked");
-                }
+                //if (Mouse.IsOver(lockRect))
+                //{
+                //    TooltipHandler.TipRegion(lockRect,
+                //        slot.IsSlotLocked ? "Locked" : "Unlocked");
+                //}
             }
         }
         private void HandleSlotClick(MateriaSlot slot, Rect slotRect, Color slotTypeColor)
@@ -330,7 +330,7 @@ namespace Materia
                 else
                 {
                     TooltipHandler.TipRegion(slotRect,
-                        $"Empty {slot.SlotType?.label ?? "materia"} slot\nClick to equip materia from inventory.");
+                        $"Empty {slot.SlotType?.label ?? "materia"} slot\n{slot.SlotType.description}\nClick to equip materia from inventory.");
 
                     if (Widgets.ButtonInvisible(slotRect))
                     {

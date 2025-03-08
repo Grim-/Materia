@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>ArmorBluntMateria_III</defName>
     <label>Blunt Armor Materia III</label>
     <description>An exceptionally rare green crystalline orb radiating overwhelming protective power. Dramatically enhances defense against blunt damage.</description>
@@ -19,6 +19,9 @@
       <li>MateriaEffect_ArmorBlunt_III</li>
     </effects>
     <textColor>(0.8, 0, 0)</textColor>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>RedMateriaDust</thing>

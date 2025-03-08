@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIMateria">
     <defName>AccuracyMateriaRanged_II</defName>
     <label>Accuracy Materia II (Ranged)</label>
     <description>A vibrant red crystalline orb emanating concentrated marksman's prowess. Significantly improves the wielder's shooting precision.</description>
-    <texPath>Materia/Materia_yellow_low</texPath>
+    <texPath>Materia/Materia_blue_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_yellow_low</texPath>
+      <texPath>Materia/Materia_blue_low</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>0.6</commonality>
@@ -16,6 +16,9 @@
         <li>MateriaCategory_Ranged</li>
         <li>MateriaCategory_Armor</li>
     </materiaCategories>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <effects>
       <li>MateriaEffect_RangedAccuracy_II</li>
     </effects>

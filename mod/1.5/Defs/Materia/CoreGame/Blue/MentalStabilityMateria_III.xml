@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>MentalStabilityMateria_III</defName>
     <label>Mental Stability Materia III</label>
     <description>A calming blue crystalline orb that radiates tranquility. Strengthens mental resilience.</description>
     <texPath>Materia/Materia_blue_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_blue_low</texPath>
+      <texPath>Materia/Materia_blue_high</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>1.0</commonality>
@@ -16,6 +16,9 @@
       <li>MateriaEffect_MentalStability_III</li>
     </effects>
     <textColor>(0, 0, 0.8)</textColor>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <breakdownMaterials>
   <li>
     <thing>BlueMateriaDust</thing>

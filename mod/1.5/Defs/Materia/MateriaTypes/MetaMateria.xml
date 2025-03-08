@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaTypeDef>
+    <defName>MetaMateria</defName>
+    <label>Meta Materia</label>
+    <description>A slot that accepts any materia.</description>
+    <materiaTextColor>(3, 198, 252)</materiaTextColor>
+    <baseWeight>0.12345</baseWeight>
+  </Materia.MateriaTypeDef>
+</Defs>

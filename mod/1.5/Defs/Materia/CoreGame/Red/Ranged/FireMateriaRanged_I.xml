@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <Materia.MateriaDef ParentName="BaseMateria">
+    <Materia.MateriaDef ParentName="TierIMateria">
       <defName>FireMateriaRanged_I</defName>
       <label>Fire materia I (Ranged)</label>
       <description>A red orb containing the essence of fire. Enhances ranged weapon damage with burning power.</description>
@@ -24,6 +24,9 @@
           <amount>4~8</amount>
         </li>
       </breakdownMaterials>
+      <thingCategories>
+        <li>RedMateria</li>
+      </thingCategories>
     </Materia.MateriaDef>
 
     <Materia.MateriaEffectDef_OnProjectileHitDamage>

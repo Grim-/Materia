@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>CarryCapacityMateria_III</defName>
-    <label>CarryCapacity materia III</label>
+    <label>Carry Capacity Materia III</label>
     <description>A blue crystalline orb radiating protective energy. Enhances the wielder's natural resilience.</description>
     <texPath>Materia/Materia_cyan_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_cyan_low</texPath>
+      <texPath>Materia/Materia_blue_low</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>1.0</commonality>
@@ -16,6 +16,9 @@
       <li>CarryingCapacityEffect_III</li>
     </effects>
     <textColor>(0.2, 0.2, 0.2)</textColor>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <breakdownMaterials>
       <li>
         <thing>BlueMateriaDust</thing>

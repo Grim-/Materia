@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIMateria">
      <defName>MiningSpeedMateria_I</defName>
      <label>Mining Speed Materia I</label>
      <description>A blue crystalline orb humming with kinetic energy. Increases mining speed.</description>
@@ -15,6 +15,9 @@
        <li>MateriaEffect_MiningSpeed_I</li>
      </effects>
      <textColor>(0.5, 0.3, 0)</textColor>
+     <thingCategories>
+       <li>BlueMateria</li>
+     </thingCategories>
      <breakdownMaterials>
       <li>
         <thing>BlueMateriaDust</thing>

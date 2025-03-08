@@ -1,31 +1,81 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <ThingDef ParentName="ResourceBase" Abstract="True" Name="BaseMateria">
+  <Materia.MateriaDef ParentName="ResourceBase" Abstract="True" Name="BaseMateria">
     <graphicData>
       <texPath>Things/Item/Resource/ArchiteCapsule</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <stackLimit>1</stackLimit>
+    <stackLimit>5</stackLimit>
     <statBases>
       <MaxHitPoints>50</MaxHitPoints>
       <Mass>0.5</Mass>
       <DeteriorationRate>1</DeteriorationRate>
-      <MarketValue>500</MarketValue>
+      <MarketValue>100</MarketValue>
     </statBases>
     <orderedTakeGroup>Medicine</orderedTakeGroup>
     <thingCategories>
-      <li>ResourcesRaw</li>
-      <li>Medicine</li>
       <li>Materia</li>
     </thingCategories>
     <tradeTags>
       <li>ExoticMisc</li>
     </tradeTags>
-  </ThingDef>
+    <mineableData>
+      <li>
+        <mineable>Granite</mineable>
+        <dropAmount>1~2</dropAmount>
+      </li>
+      <li>
+        <mineable>Limestone</mineable>
+        <dropAmount>1~2</dropAmount>
+      </li>
+      <li>
+        <mineable>Marble</mineable>
+        <dropAmount>1~2</dropAmount>
+      </li>
+      <li>
+        <mineable>Slate</mineable>
+        <dropAmount>1~2</dropAmount>
+      </li>
+      <li>
+        <mineable>Sandstone</mineable>
+        <dropAmount>1~2</dropAmount>
+      </li>
+    </mineableData>
+  </Materia.MateriaDef>
 
-  <ThingCategoryDef>
-    <defName>Materia</defName>
-    <label>Materia</label>
-    <parent>ResourcesRaw</parent>
-  </ThingCategoryDef>
+  <Materia.MateriaDef ParentName="BaseMateria" Abstract="True" Name="TierIMateria">
+    <thingCategories Inherit="false">
+      <li>TierIMateria</li>
+    </thingCategories>
+    <statBases>
+      <MarketValue>100</MarketValue>
+    </statBases>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaDef ParentName="BaseMateria" Abstract="True" Name="TierIIMateria">
+    <thingCategories Inherit="false">
+      <li>TierIIMateria</li>
+    </thingCategories>
+    <statBases>
+      <MarketValue>300</MarketValue>
+    </statBases>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaDef ParentName="BaseMateria" Abstract="True" Name="TierIIIMateria">
+    <thingCategories Inherit="false">
+      <li>TierIIIMateria</li>
+    </thingCategories>
+    <statBases>
+      <MarketValue>600</MarketValue>
+    </statBases>
+  </Materia.MateriaDef>
+
+  <Materia.MateriaDef ParentName="BaseMateria" Abstract="True" Name="TierIIIIMateria">
+    <thingCategories Inherit="false">
+      <li>TierIIIIMateria</li>
+    </thingCategories>
+    <statBases>
+      <MarketValue>900</MarketValue>
+    </statBases>
+  </Materia.MateriaDef>
 </Defs>

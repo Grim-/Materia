@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Materia.MateriaDef ParentName="TierIIMateria">
+    <defName>AncientMateria_PheonixDown_II</defName>
+    <label>Ancient Materia Phoenix down II</label>
+    <description>A purple crystalline orb with the downy feathers of a phoenix encased inside.</description>
+    <texPath>Materia/Materia_purple_mid</texPath>
+    <statBases>
+      <MarketValue>5000</MarketValue>
+    </statBases>
+    <graphicData>
+      <texPath>Materia/Materia_purple_mid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <commonality>1.0</commonality>
+    <SlotType>PurpleMateria</SlotType>
+    <slotLevel>2</slotLevel>
+    <effects>
+      <li>MateriaEffect_PhoenixDown</li>
+    </effects>
+    <textColor>(1, 0, 0)</textColor>
+    <breakdownMaterials>
+      <li>
+        <thing>PurpleMateriaDust</thing>
+        <amount>2~4</amount>
+      </li>
+      <li>
+        <thing>BlueMateriaDust</thing>
+        <amount>4~8</amount>
+      </li>
+    </breakdownMaterials>
+    <thingCategories>
+      <li>PurpleMateria</li>
+    </thingCategories>
+  </Materia.MateriaDef>
+
+  <HediffDef>
+    <defName>Materia_PhoenixDown</defName>
+    <label>Phoenix Down</label>
+    <description>This pawn is will be revived on death.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <duplicationAllowed>false</duplicationAllowed>
+    <comps>
+      <li Class="Materia.HediffCompProperties_PhoenixDown">
+      </li>
+    </comps>
+  </HediffDef>
+
+
+  <Materia.MateriaEffectDef_Revival>
+    <defName>MateriaEffect_PhoenixDown</defName>
+    <label>Phoenix Down I</label>
+    <description>Phoenix Down</description>
+
+  </Materia.MateriaEffectDef_Revival>
+
+</Defs>

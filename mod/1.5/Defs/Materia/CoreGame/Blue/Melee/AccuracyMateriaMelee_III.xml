@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>AccuracyMateriaMelee_III</defName>
     <label>Accuracy Materia III (Melee)</label>
     <description>An exceptionally rare red crystalline orb radiating overwhelming martial mastery. Dramatically improves the wielder's combat precision.</description>
-    <texPath>Materia/Materia_yellow_low</texPath>
+    <texPath>Materia/Materia_blue_low</texPath>
     <graphicData>
-      <texPath>Materia/Materia_yellow_low</texPath>
+      <texPath>Materia/Materia_blue_low</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <commonality>0.2</commonality>
@@ -16,6 +16,9 @@
         <li>MateriaCategory_Melee</li>
         <li>MateriaCategory_Armor</li>
     </materiaCategories>
+    <thingCategories>
+      <li>BlueMateria</li>
+    </thingCategories>
     <effects>
       <li>MateriaEffect_MeleeAccuracy_III</li>
     </effects>

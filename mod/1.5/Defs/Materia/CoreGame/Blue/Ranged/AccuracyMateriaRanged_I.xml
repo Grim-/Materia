@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-    <Materia.MateriaDef ParentName="BaseMateria">
+    <Materia.MateriaDef ParentName="TierIMateria">
       <defName>AccuracyMateriaRanged_I</defName>
       <label>Accuracy Materia I (Ranged)</label>
       <description>A red crystalline orb pulsing with focused energy. Improves the wielder's combat precision.</description>
-      <texPath>Materia/Materia_yellow_low</texPath>
+      <texPath>Materia/Materia_blue_low</texPath>
       <graphicData>
-        <texPath>Materia/Materia_yellow_low</texPath>
+        <texPath>Materia/Materia_blue_low</texPath>
         <graphicClass>Graphic_Single</graphicClass>
       </graphicData>
       <commonality>1.0</commonality>
@@ -15,6 +15,9 @@
           <li>MateriaCategory_Ranged</li>
           <li>MateriaCategory_Armor</li>
       </materiaCategories>
+      <thingCategories>
+        <li>BlueMateria</li>
+      </thingCategories>
       <effects>
         <li>MateriaEffect_RangedAccuracy_I</li>
       </effects>

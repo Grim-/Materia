@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <Materia.MateriaDef ParentName="BaseMateria">
+  <Materia.MateriaDef ParentName="TierIIIMateria">
     <defName>HeatResistMateria_III</defName>
     <label>Heat Resistance Materia III</label>
     <description>An exceptionally rare green crystalline orb radiating overwhelming cooling power. Dramatically protects against hot temperatures.</description>
@@ -26,6 +26,9 @@
         <amount>3~5</amount>
       </li>
     </breakdownMaterials>
+    <thingCategories>
+      <li>GreenMateria</li>
+    </thingCategories>
   </Materia.MateriaDef>
 
   <Materia.MateriaEffectDef_PawnStatOffset>
