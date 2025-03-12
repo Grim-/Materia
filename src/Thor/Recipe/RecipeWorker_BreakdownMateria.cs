@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace Materia
@@ -14,18 +15,38 @@ namespace Materia
 
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
-            Thing materia = ingredients.FirstOrDefault();
-            if (materia?.def is MateriaDef materiaDef)
+            foreach (var item in ingredients)
             {
-                foreach (MateriaBreakdownMaterials breakdown in materiaDef.breakdownMaterials)
+                Thing materia = item;
+                if (materia?.def is MateriaDef materiaDef)
                 {
-                    if (breakdown.thing != null)
+
+                    //if (materiaDef.SlotType != null)
+                    //{
+
+                    //    MateriaTypeDef materiaTypeDef = materiaDef.SlotType;
+
+                    //    int amountToMake = materiaDef.slotLevel * 2;
+
+                    //    Thing product = ThingMaker.MakeThing(breakdown.thing);
+                    //    product.stackCount = materiaDef.slotLevel * 2;
+
+                    //    if (!GenPlace.TryPlaceThing(product, billDoer.Position, billDoer.Map, ThingPlaceMode.Near))
+                    //    {
+                    //        product.Destroy();
+                    //    }
+
+
+
+
+                    //}
+
+                    foreach (MateriaBreakdownMaterials breakdown in materiaDef.breakdownMaterials)
                     {
-                        int amount = breakdown.amount.RandomInRange;
-                        if (amount > 0)
+                        if (breakdown.thing != null)
                         {
                             Thing product = ThingMaker.MakeThing(breakdown.thing);
-                            product.stackCount = amount;
+                            product.stackCount = breakdown.amount.RandomInRange;
 
                             if (!GenPlace.TryPlaceThing(product, billDoer.Position, billDoer.Map, ThingPlaceMode.Near))
                             {
@@ -33,10 +54,11 @@ namespace Materia
                             }
                         }
                     }
-                }
 
-                FleckMaker.ThrowLightningGlow(billDoer.Position.ToVector3(), billDoer.Map, 1f);      
+                    FleckMaker.ThrowLightningGlow(billDoer.Position.ToVector3(), billDoer.Map, 1f);
+                }
             }
+
         }
     }
 }

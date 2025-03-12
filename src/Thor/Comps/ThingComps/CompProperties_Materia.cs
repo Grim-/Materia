@@ -626,18 +626,18 @@ namespace Materia
                 }
             }
 
-            if (this.MateriaSlots.Count > 0)
-            {
-                yield return new Command_Action()
-                {
-                    defaultLabel = $"Manage Materia",
-                    icon = MateriaPatchClass.MateriaIcon,
-                    action = () =>
-                    {
-                        OpenMateriaWindow(this.parent, this.EquippedPawn, this);
-                    }
-                };
-            }
+            //if (this.MateriaSlots.Count > 0)
+            //{
+            //    yield return new Command_Action()
+            //    {
+            //        defaultLabel = $"Manage Materia",
+            //        icon = MateriaPatchClass.MateriaIcon,
+            //        action = () =>
+            //        {
+            //            OpenMateriaWindow(this.parent, this.EquippedPawn, this);
+            //        }
+            //    };
+            //}
         }
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {

@@ -17,7 +17,7 @@ namespace Materia
 
         public override float GetWidth(float maxWidth)
         {
-            return maxWidth;
+            return 140f;
         }
 
 

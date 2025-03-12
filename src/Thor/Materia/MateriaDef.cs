@@ -49,6 +49,19 @@ namespace Materia
             }
         }
 
+
+        public string GetFullDescription()
+        {
+            string fullDescription = description + "\n\n";
+
+            foreach (var item in effects)
+            {
+                fullDescription += item.EffectDescription + "\n\n";
+            }
+
+            return fullDescription;
+        }
+
         public string GetColouredLabel()
         {
             return $"<color=#{ColorUtility.ToHtmlStringRGB(SlotType.materiaTextColor)}>{label}</color>";
@@ -82,7 +95,7 @@ namespace Materia
     {
         public ThingDef mineable;
         public FloatRange dropChance = new FloatRange(0f, 0.2f);
-        public IntRange dropAmount = new IntRange(0, 1);
+        public IntRange dropAmount = new IntRange(1, 1);
     }
 
     public class MateriaLinkData

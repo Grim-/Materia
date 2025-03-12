@@ -16,6 +16,8 @@ namespace Materia
         public bool showShieldBar = true;
         public bool playAbsorbSound = true;
         public SoundDef absorbSound;
+        public bool canRecharge = false;
+        public bool destroyOnDepletion = true;
 
         public MateriaEffectDef_DamageShield()
         {
@@ -40,13 +42,6 @@ namespace Materia
         public override void Notify_MateriaUnequipped()
         {
             base.Notify_MateriaUnequipped();
-        }
-
-        public override void ExposeData()
-        {
-            base.ExposeData();
-            Scribe_Values.Look(ref currentShieldHP, "shieldHP", Def.shieldMaxCapacity);
-            Scribe_Values.Look(ref lastDamageAbsorbedTick, "lastDamageTick", -9999);
         }
 
         public override bool Notify_PostPreApplyDamage(ref DamageInfo dinfo)
@@ -103,23 +98,29 @@ namespace Materia
         {
             base.OnTick(pawn);
 
-            //if (Def.shieldRechargeRate > 0f && currentShieldHP < Def.shieldMaxCapacity)
-            //{
-            //    if (Find.TickManager.TicksGame >= lastDamageAbsorbedTick + Def.rechargeCooldownTime)
-            //    {
-            //        currentShieldHP = Mathf.Min(
-            //            currentShieldHP + Def.shieldRechargeRate,
-            //            Def.shieldMaxCapacity
-            //        );
-            //    }
-            //}
+            if (Def.canRecharge)
+            {
+                if (Def.shieldRechargeRate > 0f && currentShieldHP < Def.shieldMaxCapacity)
+                {
+                    if (Find.TickManager.TicksGame >= lastDamageAbsorbedTick + Def.rechargeCooldownTime)
+                    {
+                        currentShieldHP = Mathf.Min(
+                            currentShieldHP + Def.shieldRechargeRate,
+                            Def.shieldMaxCapacity
+                        );
+                    }
+                }
+            }
         }
 
 
         private void OnShieldDelepted()
         {
-            Messages.Message($"{this.MateriaSlot.SlottedMateria.def.GetColouredLabel()} has shattered after expending its energy!", MessageTypeDefOf.NegativeEvent);
-            DestroyParentMateria();
+            if (Def.destroyOnDepletion)
+            {
+                Messages.Message($"{this.MateriaSlot.SlottedMateria.def.GetColouredLabel()} has shattered after expending its energy!", MessageTypeDefOf.NegativeEvent);
+                DestroyParentMateria();
+            }
         }
 
         public string GetShieldStatus()
@@ -143,5 +144,14 @@ namespace Materia
                 };
             }
         }
+
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref currentShieldHP, "shieldHP", Def.shieldMaxCapacity);
+            Scribe_Values.Look(ref lastDamageAbsorbedTick, "lastDamageTick", -9999);
+        }
+
     }
 }

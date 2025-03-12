@@ -12,7 +12,7 @@ namespace Materia
         {
             workerClass = typeof(MateriaEffect_GrantGene);
         }
-        public override string EffectDescription => $"Grants the {gene.LabelCap} gene while equipped";
+        public override string EffectDescription => $"Grants the {gene.LabelCap} gene while equipped. \n\n {gene.DescriptionFull}";
     }
 
     public class MateriaEffect_GrantGene : MateriaWorker

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -284,24 +285,8 @@ namespace Materia
                         slot.IsSlotLocked ? "Click to unlock (Dev)" : "Click to lock (Dev)");
                 }
             }
-            else
-            {
-                //if (slot.IsSlotLocked)
-                //{
-                //    GUI.DrawTexture(lockRect, LockedTex);
-                //}
-                //else
-                //{
-                //    GUI.DrawTexture(lockRect, UnlockedTex);
-                //}
-
-                //if (Mouse.IsOver(lockRect))
-                //{
-                //    TooltipHandler.TipRegion(lockRect,
-                //        slot.IsSlotLocked ? "Locked" : "Unlocked");
-                //}
-            }
         }
+
         private void HandleSlotClick(MateriaSlot slot, Rect slotRect, Color slotTypeColor)
         {
             if (Mouse.IsOver(slotRect))
@@ -312,18 +297,19 @@ namespace Materia
                     slotTypeColor.b,
                     0.4f
                 );
+
                 Widgets.DrawBoxSolidWithOutline(slotRect, Color.clear, highlightColor);
 
                 if (slot.IsOccupied)
                 {
                     string lockedStatus = slot.IsSlotLocked ? "Locked" : "";
-                    string desc = slot.SlottedMateria.def.description;
+                    string desc = slot.SlottedMateria.def.GetFullDescription();
                     TooltipHandler.TipRegion(slotRect,
                         $"{slot.SlottedMateria.def.GetColouredLabel()}\n\n{desc}\n\nRight-click to remove\n\n{lockedStatus}");
 
                     if (Event.current.type == EventType.MouseDown && Event.current.button == 1 && !slot.IsSlotLocked)
                     {
-                        materiaComp.UnequipMateria(slot);
+                        materiaComp.UnequipMateria(slot, false);
                         Event.current.Use();
                     }
                 }

@@ -5,12 +5,12 @@ using Verse;
 
 namespace Materia
 {
-    public class MateriaEffectDef_OnHitHeal : MateriaEffectDef
+    public class MateriaEffectDef_OnHitHeal : MateriaEffectDef_OnHitBase
     {
         public float healAmount = 3f;
         public bool isPercentage = false;
         public float minimumDamageToHeal = 5f;
-        public OnHitHealMode healMode = OnHitHealMode.ON_MELEE;
+
 
         public MateriaEffectDef_OnHitHeal()
         {
@@ -31,30 +31,29 @@ namespace Materia
 
     }
 
-    public enum OnHitHealMode
-    {
-        ON_MELEE,
-        ON_RANGE,
-        BOTH
-    }
-
     public class MateriaEffect_OnHitHeal : MateriaWorker
     {
         MateriaEffectDef_OnHitHeal Def => (MateriaEffectDef_OnHitHeal)def;
 
         public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, Pawn Attacker, DamageWorker.DamageResult damageResult)
         {
-            if (damageResult?.totalDamageDealt > 0 && Attacker != null && Def.healMode == OnHitHealMode.ON_MELEE || Def.healMode == OnHitHealMode.BOTH)
+
+            if (Def.hitMode == OnHitMode.Melee)
             {
-                float healAmount = Def.isPercentage
-                    ? damageResult.totalDamageDealt * (Def.healAmount / 100f)
-                    : Def.healAmount;
 
-                healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
+                if (damageResult?.totalDamageDealt > 0 && Attacker != null && Def.hitMode == OnHitMode.Melee || Def.hitMode == OnHitMode.Both)
+                {
+                    float healAmount = Def.isPercentage
+                        ? damageResult.totalDamageDealt * (Def.healAmount / 100f)
+                        : Def.healAmount;
 
-                Attacker.QuickHeal(healAmount);
-                MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
+                    healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
+
+                    Attacker.QuickHeal(healAmount);
+                    MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
+                }
             }
+
             return damageResult;
         }
 
@@ -64,17 +63,22 @@ namespace Materia
             DamageInfo damage = base.Notify_ProjectileApplyDamageToTarget(Damage, Attacker, Target, Projectile);
 
 
-            if (damage.Amount > 0 && Attacker != null && Def.healMode == OnHitHealMode.ON_RANGE || Def.healMode == OnHitHealMode.BOTH)
+            if (Def.hitMode == OnHitMode.Range)
             {
-                float healAmount = Def.isPercentage
-                ? damage.Amount * (Def.healAmount / 100f)
-                : Def.healAmount;
 
-                healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
+                if (damage.Amount > 0 && Attacker != null && Def.hitMode == OnHitMode.Range || Def.hitMode == OnHitMode.Both)
+                {
+                    float healAmount = Def.isPercentage
+                    ? damage.Amount * (Def.healAmount / 100f)
+                    : Def.healAmount;
 
-                Attacker.QuickHeal(healAmount);
-                MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
+                    healAmount = Mathf.Clamp(healAmount, Def.minimumDamageToHeal, 1000f);
+
+                    Attacker.QuickHeal(healAmount);
+                    MoteMaker.ThrowText(Attacker.DrawPos, Attacker.Map, "+" + healAmount.ToString("F1"), Color.green);
+                }
             }
+
 
             return damage;
         }

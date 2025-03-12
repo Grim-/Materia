@@ -11,7 +11,7 @@ namespace Materia
         public Color materiaTextColor;
         public float baseWeight = 1f;
 
-        
+        public List<ThingDef> breakdownMaterials;
         public List<MateriaSlotTypeDef> disallowedSlotTypes;
     }
 }

@@ -14,7 +14,7 @@ namespace Materia
             get
             {
                 string statChangeString = statFactor != 1 ? $"x{statFactor}" : "";
-                return $"(Pawn)Increases {statToAffect.LabelCap} by {statChangeString}";
+                return $"Increases a Pawns {statToAffect.LabelCap} stat by {statChangeString}";
             }
         }
 
